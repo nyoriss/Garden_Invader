@@ -10,5 +10,15 @@ package garden_invader.partieBuilder;
  * @author louis
  */
 public class Director {
+    private PartieBuilder partie;
     
+    public Director(PartieBuilder partie) {
+        this.partie = partie;
+    }
+    
+    public void ConstructorPartie() {
+        this.partie.buildNombrePie();
+        this.partie.buildNombreVieJoueur();
+        this.partie.buildVitesseDeplacementEnnemi();
+    }
 }
