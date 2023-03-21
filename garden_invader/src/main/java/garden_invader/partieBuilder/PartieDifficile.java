@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package garden_invader.partie;
+package garden_invader.partieBuilder;
 
 /**
  *
  * @author louis
  */
-public class PartieFacile extends PartieFacileBuilder {
+public class PartieDifficile extends PartieIntermediaireBuilder {
     
 }

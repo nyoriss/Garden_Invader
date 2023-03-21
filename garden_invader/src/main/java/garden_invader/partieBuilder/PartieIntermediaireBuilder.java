@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package garden_invader.partie;
+package garden_invader.partieBuilder;
 
 /**
  *
  * @author louis
  */
-public class PartieFacileBuilder implements PartieBuilder {
+public class PartieIntermediaireBuilder implements PartieBuilder {
 
     @Override
     public void reset() {
@@ -30,4 +30,5 @@ public class PartieFacileBuilder implements PartieBuilder {
     public void buildNombrePie() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }
