@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package garden_invader;
+package garden_invader.partie;
 
 /**
  *
  * @author louis
  */
-public class PartieFacile extends PartieFacileBuilder {
+public interface PartieBuilder {
+    void reset(); 
     
+    void buildNombreVieJoueur(); 
+    
+    void buildVitesseDeplacementEnnemi();
+    
+    void buildNombrePie();
 }
