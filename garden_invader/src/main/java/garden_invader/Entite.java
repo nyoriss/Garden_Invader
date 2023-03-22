@@ -2,6 +2,8 @@ package garden_invader;
 
 import garden_invader.entiteStrategy.IEntiteStrategy;
 import garden_invader.projectileObserver.EntiteObserver;
+import garden_invader.projectileObserver.Projectile;
+import garden_invader.projectileObserver.ProjectileCarotte;
 
 import java.util.ArrayList;
 
@@ -17,10 +19,12 @@ public class Entite implements EntiteObserver {
         this.entite = entite;
     }
 
-    @Override
-    public void actualiser(ArrayList<Integer> hitBox) {
 
+    @Override
+    public boolean actualiser(int posX, int posY, int largeur, int hauteur) {
+        return entite.collision(posX, posY, largeur, hauteur);
     }
+
 
     public void setPositionX(int posX) {
         entite.setPositionX(posX);
@@ -44,6 +48,10 @@ public class Entite implements EntiteObserver {
 
     public int getHauteur() {
         return entite.getHauteur();
+    }
+
+    public void blesse(Projectile projectile) {
+        entite.blesse(projectile);
     }
 
     public ArrayList<Integer> getHitBox() {

@@ -62,4 +62,14 @@ public  abstract class Oiseau implements IEntiteStrategy {
         return hitBox;
     }
 
+    public boolean collision(int posX, int posY, int largeur, int hauteur) {
+        if (positionX + largeur < posX || positionX > posX + largeur) {
+            return false; // pas de collision horizontale
+        }
+        if (positionY + hauteur < posY || positionY > posY + hauteur) {
+            return false; // pas de collision verticale
+        }
+        return true; // il y a une collision
+    }
+
 }

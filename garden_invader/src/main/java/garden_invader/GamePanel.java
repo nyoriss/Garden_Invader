@@ -91,14 +91,25 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        if(keyHandler.spacePressed && tick-lastAttackTick >=25) {
-            projectilesAllies.add(new ProjectileCarotte(joueur, joueur.getPositionX(), joueur.getPositionY() - joueur.getHauteur()));
+        if(keyHandler.spacePressed && tick-lastAttackTick >=35) {
+            Projectile projectile = new ProjectileCarotte(joueur, joueur.getPositionX(), joueur.getPositionY() - joueur.getHauteur());
+            projectilesAllies.add(projectile);
+            for (Entite entite: ennemis) {
+                projectile.enregistrerObs(entite);
+            }
             lastAttackTick = tick;
         }
 
-        for (Projectile projectile: projectilesAllies) {
+        for (int i = 0; i < projectilesAllies.size(); i++) {
+            Projectile projectile = projectilesAllies.get(i);
             projectile.setPositionY(projectile.getPositionY() - projectile.getSpeed());
+            if (projectile.notifierObs()) {
+                projectilesAllies.remove(i);
+                System.out.println("projectile supprimé");
+                i--; // Décrémenter l'index pour compenser la suppression
+            }
         }
+
     }
 
     public void paintComponent(Graphics g) {
@@ -106,16 +117,14 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.white);
         g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
-        int nbProjectilesAllies = projectilesAllies.size();
-        for(int i = 0; i < nbProjectilesAllies; i++) {
+        for(int i = 0; i < projectilesAllies.size(); i++) {
             //Déplacement des projectiles
             g2.fillRect(projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3);
 
-            System.out.println(nbProjectilesAllies);
-            //suppression des projectiles hors de l'écran
+            //suppression des projectiles hors de l'écran //TODO déplacer ?
             if(projectilesAllies.get(i).getPositionY()+ projectilesAllies.get(i).getHauteur()<=0) {
                 projectilesAllies.remove(i);
-                nbProjectilesAllies --;
+                i --;
             }
         }
 
@@ -124,8 +133,8 @@ public class GamePanel extends JPanel implements Runnable {
             g2.fillRect(entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur());
             g2.setColor(Color.white);
         }
-        System.out.println("position du joueur X : "+joueur.getHitBox().get(0)+" Y :"+ joueur.getHitBox().get(1));
-        System.out.println(ennemis.size());
+        //System.out.println("position du joueur X : "+joueur.getHitBox().get(0)+" Y :"+ joueur.getHitBox().get(1));
+        //System.out.println(ennemis.size());
         g2.dispose();
     }
 }

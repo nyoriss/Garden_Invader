@@ -15,4 +15,9 @@ public class Corbeau extends Oiseau{
         this.pvActuels = pvMax;
         this.sprite = "../../assets/Corbeau";
     }
+
+    @Override
+    public void blesse(Projectile projectile) {
+
+    }
 }

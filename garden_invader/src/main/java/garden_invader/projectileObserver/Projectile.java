@@ -6,7 +6,7 @@ public interface Projectile {
 
     void supprimerObs(EntiteObserver observer);
 
-    void notifierObs();
+    boolean notifierObs();
 
     void setPositionY(int posY);
 

@@ -15,4 +15,9 @@ public class Martin_Pecheur extends Oiseau{
         this.pvActuels = pvMax;
         this.sprite = "../../assets/Martin_Pecheur";
     }
+
+    @Override
+    public void blesse(Projectile projectile) {
+
+    }
 }

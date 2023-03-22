@@ -1,5 +1,7 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.projectileObserver.Projectile;
+
 import java.util.ArrayList;
 
 public interface IEntiteStrategy {
@@ -16,6 +18,9 @@ public interface IEntiteStrategy {
 
     int getHauteur();
 
+    boolean collision(int posX, int posY, int largeur, int hauteur);
 
     ArrayList<Integer> getHitBox();
+
+    void blesse(Projectile projectile);
 }

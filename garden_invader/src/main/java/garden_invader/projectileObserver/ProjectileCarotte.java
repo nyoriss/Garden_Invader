@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ProjectileCarotte implements Projectile{
 
-    private EntiteObserver entiteObs;
+    private ArrayList<EntiteObserver> entiteObs;
 
     private int positionX;
     private int positionY;
@@ -20,13 +20,13 @@ public class ProjectileCarotte implements Projectile{
         this.hauteur = 10;
         this.speed = 4;
         this.positionX = positionX + proprietaire.getLargeur()/2 - this.largeur/2;
-        System.out.println(proprietaire.getLargeur());
         this.positionY = positionY;
+        this.entiteObs = new ArrayList<>();
     }
 
     @Override
     public void enregistrerObs(EntiteObserver observer) {
-
+        entiteObs.add(observer);
     }
 
     @Override
@@ -35,8 +35,18 @@ public class ProjectileCarotte implements Projectile{
     }
 
     @Override
-    public void notifierObs() {
-
+    public boolean notifierObs() {
+        if (!(entiteObs.size()<=0)) {
+            for (int i = 0; i < entiteObs.size(); i++) {
+                System.out.println("touche : "+entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur));
+                if (entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur)) {
+                    entiteObs.get(i).blesse(this);
+                    System.out.println("blesse");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
