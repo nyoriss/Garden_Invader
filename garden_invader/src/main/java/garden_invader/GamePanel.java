@@ -1,6 +1,7 @@
 package garden_invader;
 
 import garden_invader.entiteStrategy.Lapin;
+import garden_invader.entiteStrategy.Pie;
 import garden_invader.projectileObserver.Projectile;
 import garden_invader.projectileObserver.ProjectileCarotte;
 
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Entite joueur;
     ArrayList<Projectile> projectilesAllies;
+
+    ArrayList<Entite> ennemis;
     ArrayList<Projectile> projectilesEnnemis;
     int playerSpeed = 4;
     int tick;
@@ -43,7 +46,10 @@ public class GamePanel extends JPanel implements Runnable {
         //Projectiles
         projectilesAllies = new ArrayList<>();
         projectilesEnnemis = new ArrayList<>();
-
+        ennemis = new ArrayList<>();
+        for(int i = 20; i<=(screenWidth-20-tileSize);i += tileSize+20) {
+            ennemis.add(new Entite(new Pie(i, 10, tileSize, tileSize))); //TODO les créer dans une liste
+        }
         //autres mises en place
         tick = 0;
         lastAttackTick = -100;
@@ -112,7 +118,14 @@ public class GamePanel extends JPanel implements Runnable {
                 nbProjectilesAllies --;
             }
         }
+
+        for (Entite entite: ennemis) {
+            g2.setColor(Color.red);
+            g2.fillRect(entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur());
+            g2.setColor(Color.white);
+        }
         System.out.println("position du joueur X : "+joueur.getHitBox().get(0)+" Y :"+ joueur.getHitBox().get(1));
+        System.out.println(ennemis.size());
         g2.dispose();
     }
 }
