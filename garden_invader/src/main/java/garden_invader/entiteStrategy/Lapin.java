@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Lapin implements IEntiteStrategy{
 
     private int positionX;
-
-
     private int positionY;
     private int largeur;
     private int hauteur;
