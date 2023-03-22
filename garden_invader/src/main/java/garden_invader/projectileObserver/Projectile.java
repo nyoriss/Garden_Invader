@@ -8,4 +8,16 @@ public interface Projectile {
 
     void notifierObs();
 
+    void setPositionY(int posY);
+
+    int getPositionX();
+
+    int getPositionY();
+
+    int getLargeur();
+
+    int getHauteur();
+
+    int getSpeed();
+
 }
