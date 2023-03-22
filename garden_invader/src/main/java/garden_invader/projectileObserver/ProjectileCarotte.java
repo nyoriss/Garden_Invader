@@ -17,8 +17,8 @@ public class ProjectileCarotte implements Projectile{
 
     public ProjectileCarotte(Entite proprietaire, int positionX, int positionY) {
         this.largeur = 4;
-        this.hauteur = 8;
-        this.speed = 8;
+        this.hauteur = 10;
+        this.speed = 4;
         this.positionX = positionX + proprietaire.getLargeur()/2 - this.largeur/2;
         System.out.println(proprietaire.getLargeur());
         this.positionY = positionY;
