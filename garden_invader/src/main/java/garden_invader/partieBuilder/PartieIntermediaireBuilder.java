@@ -30,5 +30,10 @@ public class PartieIntermediaireBuilder implements PartieBuilder {
     public void buildNombrePie() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public PartieBuilder getResult() {
+        return this;
+    }
+
 }

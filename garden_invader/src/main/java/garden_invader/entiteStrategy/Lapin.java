@@ -2,6 +2,7 @@ package garden_invader.entiteStrategy;
 
 import garden_invader.projectileObserver.Projectile;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Lapin implements IEntiteStrategy{
@@ -73,6 +74,11 @@ public class Lapin implements IEntiteStrategy{
     public boolean blesse(Projectile projectile) {
         //TODO
         return false;
+    }
+
+    @Override
+    public Color getCouleur() {
+        return null;
     }
 
 }

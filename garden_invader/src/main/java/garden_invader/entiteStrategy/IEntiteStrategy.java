@@ -2,6 +2,7 @@ package garden_invader.entiteStrategy;
 
 import garden_invader.projectileObserver.Projectile;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IEntiteStrategy {
@@ -23,4 +24,6 @@ public interface IEntiteStrategy {
     ArrayList<Integer> getHitBox();
 
     boolean blesse(Projectile projectile);
+
+    Color getCouleur();
 }

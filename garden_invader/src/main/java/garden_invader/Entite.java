@@ -4,6 +4,7 @@ import garden_invader.entiteStrategy.IEntiteStrategy;
 import garden_invader.projectileObserver.EntiteObserver;
 import garden_invader.projectileObserver.Projectile;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Entite implements EntiteObserver {
@@ -48,6 +49,11 @@ public class Entite implements EntiteObserver {
     public int getHauteur() {
         return entite.getHauteur();
     }
+
+    public Color getCouleur() {
+        return entite.getCouleur();
+    }
+
 
     public boolean blesse(Projectile projectile) {
         return entite.blesse(projectile);

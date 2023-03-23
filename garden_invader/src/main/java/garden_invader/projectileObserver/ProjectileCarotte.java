@@ -40,7 +40,6 @@ public class ProjectileCarotte implements Projectile{
             for (int i = 0; i < entiteObs.size(); i++) {
                 if (entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur)) {
                     System.out.println("blesse dans carotte");
-                    entiteObs.get(i).blesse(this);
                     return (Entite) entiteObs.get(i);
                 }
             }

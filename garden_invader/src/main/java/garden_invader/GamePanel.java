@@ -1,7 +1,13 @@
 package garden_invader;
 
+import garden_invader.entiteStrategy.Corbeau;
 import garden_invader.entiteStrategy.Lapin;
+import garden_invader.entiteStrategy.Martin_Pecheur;
 import garden_invader.entiteStrategy.Pie;
+import garden_invader.partieBuilder.PartieBuilder;
+import garden_invader.partieBuilder.PartieDifficileBuilder;
+import garden_invader.partieBuilder.PartieFacileBuilder;
+import garden_invader.partieBuilder.PartieIntermediaireBuilder;
 import garden_invader.projectileObserver.Projectile;
 import garden_invader.projectileObserver.ProjectileCarotte;
 
@@ -29,6 +35,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     ArrayList<Entite> ennemis;
     ArrayList<Projectile> projectilesEnnemis;
+
+    PartieBuilder difficultePartie;
+
     int playerSpeed = 4;
     int tick;
     int lastAttackTick;
@@ -46,12 +55,17 @@ public class GamePanel extends JPanel implements Runnable {
         //Projectiles
         projectilesAllies = new ArrayList<>();
         projectilesEnnemis = new ArrayList<>();
+
+        //Difficulté de la partie
+        difficultePartie = new PartieDifficileBuilder();
+
         //Créer les ennemis
         ennemis = createOiseaux();
 
         //autres mises en place
         tick = 0;
         lastAttackTick = -100;
+
     }
 
     public void startGameThread() {
@@ -104,10 +118,8 @@ public class GamePanel extends JPanel implements Runnable {
             projectile.setPositionY(projectile.getPositionY() - projectile.getSpeed());
             Entite entite = projectile.notifierObs();
             if (entite!=null) {
-                System.out.println("blesse");
-                if(entite.blesse(projectile)) {
+                if(entite.blesse(projectile)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
                     ennemis.remove(entite);
-                    System.out.printf("ennemi supprimé");
                 }
                 projectilesAllies.remove(i);
                 System.out.println("projectile supprimé par hitBox");
@@ -135,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         for (Entite entite: ennemis) {
-            g2.setColor(Color.red);
+            g2.setColor(entite.getCouleur());
             g2.fillRect(entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur());
             g2.setColor(Color.white);
         }
@@ -149,7 +161,41 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Entite> createOiseaux() {
         ArrayList<Entite> oiseaux = new ArrayList<>();
         for(int i = 20; i<=(screenWidth-20-tileSize);i += tileSize+20) {
-            oiseaux.add(new Entite(new Pie(i, 10, tileSize, tileSize)));
+            for( int j = 1; j <= 3; j++) {
+                switch(j) {
+                    case 1:
+                        if(difficultePartie.getResult() instanceof PartieDifficileBuilder) {
+                            System.out.println("martin pecheur");
+                            oiseaux.add(new Entite(new Martin_Pecheur(i, 10*j + (j-1)*tileSize, tileSize, tileSize)));
+                        } else if(difficultePartie.getResult() instanceof PartieIntermediaireBuilder) {
+                            System.out.println("corbeau");
+                            oiseaux.add(new Entite(new Corbeau(i, 10*j + (j-1)*tileSize, tileSize, tileSize)));
+                        } else {
+                            System.out.println("Pie");
+                            oiseaux.add(new Entite(new Pie(i, 10 * j + (j - 1) * tileSize, tileSize, tileSize)));
+                        }
+                        break;
+                    case 2:
+                        if(difficultePartie.getResult() instanceof PartieDifficileBuilder) {
+                            System.out.println("corbeau");
+                            oiseaux.add(new Entite(new Corbeau(i, 10*j + (j-1)*tileSize, tileSize, tileSize)));
+                        } else {
+                            System.out.println("Pie");
+                            oiseaux.add(new Entite(new Pie(i, 10 * j + (j - 1) * tileSize, tileSize, tileSize)));
+                        }
+                        break;
+                    case 3:
+                        System.out.println("Pie");
+                        oiseaux.add(new Entite(new Pie(i, 10 * j + (j - 1) * tileSize, tileSize, tileSize)));
+                        break;
+                    default:
+                        System.out.println("problème");
+                }
+
+                System.out.println(difficultePartie.getResult() instanceof PartieDifficileBuilder);
+
+
+            }
         }
         return oiseaux;
     }

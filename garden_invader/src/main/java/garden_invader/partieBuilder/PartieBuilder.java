@@ -17,4 +17,7 @@ public interface PartieBuilder {
     void buildVitesseDeplacementEnnemi();
     
     void buildNombrePie();
+
+    PartieBuilder getResult();
+
 }
