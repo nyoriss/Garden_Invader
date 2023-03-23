@@ -1,12 +1,14 @@
 package garden_invader.projectileObserver;
 
+import garden_invader.Entite;
+
 public interface Projectile {
 
     void enregistrerObs(EntiteObserver observer);
 
     void supprimerObs(EntiteObserver observer);
 
-    boolean notifierObs();
+    Entite notifierObs();
 
     void setPositionY(int posY);
 

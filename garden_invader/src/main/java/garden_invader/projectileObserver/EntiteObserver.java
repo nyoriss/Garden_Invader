@@ -4,5 +4,5 @@ public interface EntiteObserver {
 
     boolean actualiser(int posX, int posY, int largeur, int hauteur);
 
-    void blesse(Projectile projectile);
+    boolean blesse(Projectile projectile);
 }

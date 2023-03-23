@@ -1,7 +1,6 @@
 package garden_invader.entiteStrategy;
 
 import garden_invader.projectileObserver.Projectile;
-import garden_invader.projectileObserver.ProjectileCarotte;
 
 public class Pie extends Oiseau{
 
@@ -18,24 +17,24 @@ public class Pie extends Oiseau{
     }
 
     @Override
-    public void blesse(Projectile projectile) {
+    public boolean blesse(Projectile projectile) {
         pvActuels--;
         if (pvActuels<=0) {
             System.out.println("oiseau mort");
         }
+        return pvActuels<=0;
     }
 
     @Override
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
-        if (super.getPositionX() + largeur < posX || super.getPositionX() > posX + largeur) {
-            System.out.println("pas collision");
-            return false; // pas de collision horizontale
+        if (super.getPositionX() < posX + largeur &&
+            super.getPositionX() + super.getLargeur() > posX &&
+            super.getPositionY() < posY + hauteur &&
+            super.getPositionY() + super.getHauteur() > posY) {
+
+            System.out.println("collision");
+            return true; // il y a une collision
         }
-        if (super.getPositionY() + hauteur < posY || super.getPositionY() > posY + hauteur) {
-            System.out.println("pas collision");
-            return false; // pas de collision verticale
-        }
-        System.out.println("collision");
-        return true; // il y a une collision
+        return false; // il n'y a pas de collision
     }
 }

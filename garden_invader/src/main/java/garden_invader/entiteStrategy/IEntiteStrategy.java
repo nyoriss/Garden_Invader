@@ -22,5 +22,5 @@ public interface IEntiteStrategy {
 
     ArrayList<Integer> getHitBox();
 
-    void blesse(Projectile projectile);
+    boolean blesse(Projectile projectile);
 }

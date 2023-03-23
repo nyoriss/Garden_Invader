@@ -3,7 +3,6 @@ package garden_invader;
 import garden_invader.entiteStrategy.IEntiteStrategy;
 import garden_invader.projectileObserver.EntiteObserver;
 import garden_invader.projectileObserver.Projectile;
-import garden_invader.projectileObserver.ProjectileCarotte;
 
 import java.util.ArrayList;
 
@@ -50,8 +49,8 @@ public class Entite implements EntiteObserver {
         return entite.getHauteur();
     }
 
-    public void blesse(Projectile projectile) {
-        entite.blesse(projectile);
+    public boolean blesse(Projectile projectile) {
+        return entite.blesse(projectile);
     }
 
     public ArrayList<Integer> getHitBox() {

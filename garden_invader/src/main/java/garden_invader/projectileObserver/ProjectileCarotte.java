@@ -35,18 +35,17 @@ public class ProjectileCarotte implements Projectile{
     }
 
     @Override
-    public boolean notifierObs() {
+    public Entite notifierObs() { //Entite
         if (!(entiteObs.size()<=0)) {
             for (int i = 0; i < entiteObs.size(); i++) {
-                System.out.println("touche : "+entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur));
                 if (entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur)) {
+                    System.out.println("blesse dans carotte");
                     entiteObs.get(i).blesse(this);
-                    System.out.println("blesse");
-                    return true;
+                    return (Entite) entiteObs.get(i);
                 }
             }
         }
-        return false;
+        return null;
     }
 
     @Override

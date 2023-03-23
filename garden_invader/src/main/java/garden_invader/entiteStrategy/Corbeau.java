@@ -17,7 +17,8 @@ public class Corbeau extends Oiseau{
     }
 
     @Override
-    public void blesse(Projectile projectile) {
+    public boolean blesse(Projectile projectile) {
 
+        return false;
     }
 }

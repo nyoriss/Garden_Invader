@@ -46,10 +46,9 @@ public class GamePanel extends JPanel implements Runnable {
         //Projectiles
         projectilesAllies = new ArrayList<>();
         projectilesEnnemis = new ArrayList<>();
-        ennemis = new ArrayList<>();
-        for(int i = 20; i<=(screenWidth-20-tileSize);i += tileSize+20) {
-            ennemis.add(new Entite(new Pie(i, 10, tileSize, tileSize))); //TODO les créer dans une liste
-        }
+        //Créer les ennemis
+        ennemis = createOiseaux();
+
         //autres mises en place
         tick = 0;
         lastAttackTick = -100;
@@ -103,9 +102,15 @@ public class GamePanel extends JPanel implements Runnable {
         for (int i = 0; i < projectilesAllies.size(); i++) {
             Projectile projectile = projectilesAllies.get(i);
             projectile.setPositionY(projectile.getPositionY() - projectile.getSpeed());
-            if (projectile.notifierObs()) {
+            Entite entite = projectile.notifierObs();
+            if (entite!=null) {
+                System.out.println("blesse");
+                if(entite.blesse(projectile)) {
+                    ennemis.remove(entite);
+                    System.out.printf("ennemi supprimé");
+                }
                 projectilesAllies.remove(i);
-                System.out.println("projectile supprimé");
+                System.out.println("projectile supprimé par hitBox");
                 i--; // Décrémenter l'index pour compenser la suppression
             }
         }
@@ -124,6 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
             //suppression des projectiles hors de l'écran //TODO déplacer ?
             if(projectilesAllies.get(i).getPositionY()+ projectilesAllies.get(i).getHauteur()<=0) {
                 projectilesAllies.remove(i);
+                System.out.println("projectile supprimé par sortie d'écran");
                 i --;
             }
         }
@@ -136,5 +142,15 @@ public class GamePanel extends JPanel implements Runnable {
         //System.out.println("position du joueur X : "+joueur.getHitBox().get(0)+" Y :"+ joueur.getHitBox().get(1));
         //System.out.println(ennemis.size());
         g2.dispose();
+    }
+
+
+    //TODO à placer
+    public ArrayList<Entite> createOiseaux() {
+        ArrayList<Entite> oiseaux = new ArrayList<>();
+        for(int i = 20; i<=(screenWidth-20-tileSize);i += tileSize+20) {
+            oiseaux.add(new Entite(new Pie(i, 10, tileSize, tileSize)));
+        }
+        return oiseaux;
     }
 }
