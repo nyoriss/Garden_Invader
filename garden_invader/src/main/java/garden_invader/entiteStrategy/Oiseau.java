@@ -9,6 +9,14 @@ public  abstract class Oiseau implements IEntiteStrategy {
     private int largeur;
     private int hauteur;
 
+    /**
+    * Constructeur de la classe Oiseau.
+    *
+    * @param posX      La position horizontale de l'objet.
+    * @param posY      La position verticale de l'objet.
+    * @param largeur   La largeur de l'objet.
+    * @param hauteur   La hauteur de l'objet.
+    */
     public Oiseau(int posX, int posY, int largeur, int hauteur) {
         this.positionX = posX;
         this.positionY = posY;
@@ -62,6 +70,17 @@ public  abstract class Oiseau implements IEntiteStrategy {
         return hitBox;
     }
 
+    /**
+    * Vérifie si l'objet actuel entre en collision avec un autre objet
+    * spécifié par les paramètres posX, posY, largeur et hauteur.
+    *
+    * @param posX      La position horizontale de l'autre objet.
+    * @param posY      La position verticale de l'autre objet.
+    * @param largeur   La largeur de l'autre objet.
+    * @param hauteur   La hauteur de l'autre objet.
+    *
+    * @return          "true" si une collision est détectée, "false" sinon.
+    */
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (positionX < posX + largeur &&
             positionX + this.largeur > posX &&
