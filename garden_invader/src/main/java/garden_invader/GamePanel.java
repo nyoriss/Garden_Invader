@@ -40,6 +40,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     int playerSpeed = 4;
     int tick;
+    int deplacementOiseauxTick;
+    int vitesseDeplacementOiseaux;
+    int vitesseDescenteOiseaux;
     int lastAttackTick;
 
     public GamePanel() {
@@ -57,13 +60,16 @@ public class GamePanel extends JPanel implements Runnable {
         projectilesEnnemis = new ArrayList<>();
 
         //Difficulté de la partie
-        difficultePartie = new PartieDifficileBuilder();
+        difficultePartie = new PartieIntermediaireBuilder();
 
         //Créer les ennemis
         ennemis = createOiseaux();
 
         //autres mises en place
         tick = 0;
+        deplacementOiseauxTick = 0;
+        vitesseDeplacementOiseaux = 50;
+        vitesseDescenteOiseaux = 10;
         lastAttackTick = -100;
 
     }
@@ -127,6 +133,21 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        //déplacement des oiseaux
+        if (tick - deplacementOiseauxTick >= vitesseDeplacementOiseaux || tick/vitesseDeplacementOiseaux >= 10 * vitesseDeplacementOiseaux) {
+            for (int i = 0; i < ennemis.size(); i++) {
+                if (tick/vitesseDeplacementOiseaux% 2 == 0) {
+                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() - 5);
+                } else {
+                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + 5);
+                }
+                if(tick/vitesseDeplacementOiseaux % vitesseDescenteOiseaux == 0) {
+                    System.out.println("on descend");
+                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + tileSize);
+                }
+                deplacementOiseauxTick = tick;
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -191,9 +212,6 @@ public class GamePanel extends JPanel implements Runnable {
                     default:
                         System.out.println("problème");
                 }
-
-                System.out.println(difficultePartie.getResult() instanceof PartieDifficileBuilder);
-
 
             }
         }
