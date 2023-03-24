@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
         projectilesEnnemis = new ArrayList<>();
 
         //Difficulté de la partie
-        difficultePartie = new PartieIntermediaireBuilder();
+        difficultePartie = new PartieDifficileBuilder();
 
         //Créer les ennemis
         ennemis = createOiseaux();
@@ -137,13 +137,12 @@ public class GamePanel extends JPanel implements Runnable {
         if (tick - deplacementOiseauxTick >= vitesseDeplacementOiseaux || tick/vitesseDeplacementOiseaux >= 10 * vitesseDeplacementOiseaux) {
             for (int i = 0; i < ennemis.size(); i++) {
                 if (tick/vitesseDeplacementOiseaux% 2 == 0) {
-                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() - 5);
-                } else {
                     ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + 5);
+                } else {
+                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() - 5);
                 }
                 if(tick/vitesseDeplacementOiseaux % vitesseDescenteOiseaux == 0) {
-                    System.out.println("on descend");
-                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + tileSize);
+                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + tileSize/2);
                 }
                 deplacementOiseauxTick = tick;
             }
