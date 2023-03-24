@@ -1,6 +1,8 @@
 package garden_invader.projectileObserver;
 
 import garden_invader.Entite;
+import garden_invader.GamePanel;
+import garden_invader.entiteStrategy.IEntiteStrategy;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class ProjectileCarotte implements Projectile{
 
     private int speed;
 
-    public ProjectileCarotte(Entite proprietaire, int positionX, int positionY) {
+    public ProjectileCarotte(IEntiteStrategy proprietaire, int positionX, int positionY) {
         this.largeur = 4;
         this.hauteur = 10;
         this.speed = 4;
@@ -39,7 +41,6 @@ public class ProjectileCarotte implements Projectile{
         if (!(entiteObs.size()<=0)) {
             for (int i = 0; i < entiteObs.size(); i++) {
                 if (entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur)) {
-                    System.out.println("blesse dans carotte");
                     return (Entite) entiteObs.get(i);
                 }
             }
@@ -75,6 +76,22 @@ public class ProjectileCarotte implements Projectile{
     @Override
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public boolean update(GamePanel gp) {
+        positionY -= speed;
+        Entite entite = notifierObs();
+        if (entite!=null) {
+            //Blesse l'entité et vérifie si l'entité est supprimée
+            if(entite.blesse(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
+                gp.SupprimeEntiteDesEnnemis(entite);
+            }
+            gp.SupprimeDesProjectilesAllies(this);
+            System.out.println("projectile supprimé par hitBox");
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<Integer> getHitBox() {

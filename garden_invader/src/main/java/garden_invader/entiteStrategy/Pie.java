@@ -1,5 +1,7 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.GamePanel;
+import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
@@ -35,13 +37,17 @@ public class Pie extends Oiseau{
             super.getPositionX() + super.getLargeur() > posX &&
             super.getPositionY() < posY + hauteur &&
             super.getPositionY() + super.getHauteur() > posY) {
-
-            System.out.println("collision");
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
     }
 
+    @Override
+    public void upDate(GamePanel gp, KeyHandler keyHandler) {
+
+    }
+
+    //TODO supprimer
     public Color getCouleur() {
         return couleur;
     }

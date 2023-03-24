@@ -62,4 +62,8 @@ public class Entite implements EntiteObserver {
     public ArrayList<Integer> getHitBox() {
         return entite.getHitBox();
     }
+
+    public void update(GamePanel gp, KeyHandler keyHandler) {
+        entite.upDate(gp, keyHandler);
+    }
 }

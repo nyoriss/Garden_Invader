@@ -1,5 +1,7 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.GamePanel;
+import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
@@ -24,6 +26,8 @@ public interface IEntiteStrategy {
     ArrayList<Integer> getHitBox();
 
     boolean blesse(Projectile projectile);
+
+    void upDate(GamePanel gp, KeyHandler keyHandler);
 
     Color getCouleur();
 }

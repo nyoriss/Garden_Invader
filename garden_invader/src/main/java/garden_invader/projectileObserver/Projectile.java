@@ -1,6 +1,7 @@
 package garden_invader.projectileObserver;
 
 import garden_invader.Entite;
+import garden_invader.GamePanel;
 
 public interface Projectile {
 
@@ -21,5 +22,7 @@ public interface Projectile {
     int getHauteur();
 
     int getSpeed();
+
+    boolean update(GamePanel gp);
 
 }

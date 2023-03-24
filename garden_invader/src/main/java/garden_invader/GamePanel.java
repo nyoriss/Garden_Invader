@@ -22,11 +22,11 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
 
-    final int tileSize = originalTileSize * scale; // 48x48 tile final int maxScreenCol = 16;
+    public final int tileSize = originalTileSize * scale; // 48x48 tile final int maxScreenCol = 16;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
@@ -38,8 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     PartieBuilder difficultePartie;
 
-    int playerSpeed = 4;
-    int tick;
+    public int tick;
     int deplacementOiseauxTick;
     int vitesseDeplacementOiseaux;
     int vitesseDescenteOiseaux;
@@ -100,35 +99,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(keyHandler.leftPressed) {
-            if(joueur.getPositionX() - 8 * playerSpeed >= 0)
-                joueur.setPositionX(joueur.getPositionX() - playerSpeed);
-        } else {
-            if (keyHandler.rightPressed) {
-                if(joueur.getPositionX()+joueur.getLargeur() + 8 * playerSpeed<screenWidth)
-                    joueur.setPositionX(joueur.getPositionX() + playerSpeed);
-            }
-        }
 
-        if(keyHandler.spacePressed && tick-lastAttackTick >=35) {
-            Projectile projectile = new ProjectileCarotte(joueur, joueur.getPositionX(), joueur.getPositionY() - joueur.getHauteur());
-            projectilesAllies.add(projectile);
-            for (Entite entite: ennemis) {
-                projectile.enregistrerObs(entite);
-            }
-            lastAttackTick = tick;
-        }
+        joueur.update(this, keyHandler);
+
 
         for (int i = 0; i < projectilesAllies.size(); i++) {
             Projectile projectile = projectilesAllies.get(i);
-            projectile.setPositionY(projectile.getPositionY() - projectile.getSpeed());
-            Entite entite = projectile.notifierObs();
-            if (entite!=null) {
-                if(entite.blesse(projectile)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
-                    ennemis.remove(entite);
-                }
-                projectilesAllies.remove(i);
-                System.out.println("projectile supprimé par hitBox");
+            //si le projectile touche
+            if (projectile.update(this)) {
                 i--; // Décrémenter l'index pour compenser la suppression
             }
         }
@@ -215,5 +193,22 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         return oiseaux;
+    }
+
+    public void addProjectile(Projectile projectile) {
+        projectilesAllies.add(projectile);
+        for (Entite entite: ennemis) {
+            projectile.enregistrerObs(entite);
+        }
+    }
+
+    public void SupprimeDesProjectilesAllies(Projectile projectile) {
+        if(projectilesAllies.contains(projectile))
+            projectilesAllies.remove(projectile);
+    }
+
+    public void SupprimeEntiteDesEnnemis(Entite entite) {
+        if(ennemis.contains(entite))
+            ennemis.remove(entite);
     }
 }

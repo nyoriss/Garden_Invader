@@ -1,5 +1,7 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.GamePanel;
+import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
@@ -28,6 +30,11 @@ public class Martin_Pecheur extends Oiseau{
             System.out.println(nom+" mort");
         }
         return pvActuels<=0;
+    }
+
+    @Override
+    public void upDate(GamePanel gp, KeyHandler keyHandler) {
+
     }
 
     @Override
