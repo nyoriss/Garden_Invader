@@ -4,7 +4,11 @@ import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Corbeau extends Oiseau{
 
@@ -12,7 +16,14 @@ public class Corbeau extends Oiseau{
     private int pvActuels;
     private String sprite;
     private Projectile typeProjectile; //TODO nécessaire ?
-    private Color couleur;
+    private BufferedImage dessin;
+    {
+        try {
+            dessin = ImageIO.read(new File("asset/sprite/corbo_1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Initialise une nouvelle instance de la classe Corbeau avec la position,
@@ -29,7 +40,7 @@ public class Corbeau extends Oiseau{
         this.pvMax = 2;
         this.pvActuels = pvMax;
         this.sprite = "../../assets/Corbeau";
-        couleur = Color.gray;
+        this.dessin = dessin;
     }
 
     /**
@@ -79,7 +90,7 @@ public class Corbeau extends Oiseau{
         return false; // il n'y a pas de collision
     }
 
-    public Color getCouleur() {
-        return couleur;
+    public BufferedImage getDessin() {
+        return dessin;
     }
 }

@@ -5,6 +5,7 @@ import garden_invader.projectileObserver.EntiteObserver;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Entite implements EntiteObserver {
@@ -50,8 +51,8 @@ public class Entite implements EntiteObserver {
         return entite.getHauteur();
     }
 
-    public Color getCouleur() {
-        return entite.getCouleur();
+    public BufferedImage getDessin() {
+        return entite.getDessin();
     }
 
 

@@ -4,7 +4,11 @@ import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Pie extends Oiseau{
 
@@ -13,6 +17,14 @@ public class Pie extends Oiseau{
     private String sprite;
     private Projectile typeProjectile; //TODO nécessaire ?
     private Color couleur;
+    private BufferedImage dessin;
+    {
+        try {
+            dessin = ImageIO.read(new File("asset/sprite/pie_1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
     * Construit une nouvelle instance de la classe "Pie" avec la position et la
@@ -30,7 +42,7 @@ public class Pie extends Oiseau{
         this.pvMax = 1;
         this.pvActuels = pvMax;
         this.sprite = "../../assets/Pie";
-        couleur = Color.red;
+        this.dessin = dessin;
     }
 
     /**
@@ -79,7 +91,7 @@ public class Pie extends Oiseau{
     }
 
     //TODO supprimer
-    public Color getCouleur() {
-        return couleur;
+    public BufferedImage getDessin() {
+        return dessin;
     }
 }

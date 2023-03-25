@@ -5,6 +5,7 @@ import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public interface IEntiteStrategy {
@@ -29,5 +30,5 @@ public interface IEntiteStrategy {
 
     void upDate(GamePanel gp, KeyHandler keyHandler);
 
-    Color getCouleur();
+    BufferedImage getDessin();
 }

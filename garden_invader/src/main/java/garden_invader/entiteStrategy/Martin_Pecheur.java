@@ -4,7 +4,11 @@ import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Martin_Pecheur extends Oiseau{
 
@@ -12,7 +16,14 @@ public class Martin_Pecheur extends Oiseau{
     private int pvActuels;
     private String nom;
     private Projectile typeProjectile; //TODO nécessaire ?
-    private Color couleur;
+    private BufferedImage dessin;
+    {
+        try {
+            dessin = ImageIO.read(new File("asset/sprite/martin_pecheur_1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
     * Constructeur de la classe Martin_Pecheur.
@@ -26,7 +37,7 @@ public class Martin_Pecheur extends Oiseau{
         this.pvMax = 3;
         this.pvActuels = pvMax;
         this.nom = "Martin_Pecheur";
-        couleur = Color.blue;
+        this.dessin = dessin;
     }
 
     /**
@@ -77,7 +88,7 @@ public class Martin_Pecheur extends Oiseau{
         return false; // il n'y a pas de collision
     }
 
-    public Color getCouleur() {
-        return couleur;
+    public BufferedImage getDessin() {
+        return dessin;
     }
 }
