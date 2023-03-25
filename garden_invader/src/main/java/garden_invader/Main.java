@@ -5,9 +5,6 @@
  */
 package garden_invader;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
  *
  * @author louis
@@ -19,34 +16,18 @@ public class Main {
      */
     public static void main(String[] args) {
         JFrame windowMenu = new JFrame();
-        JButton startButton = new JButton("Lancer partie");
         windowMenu.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         windowMenu.setResizable (false);
         windowMenu.setTitle("Garden Invader");
-        GamePanel gamePanel = new GamePanel();
+        PartiePanel partiePanel = new PartiePanel();
 
         //Ajouter le bouton
-        windowMenu.add(startButton);
+        windowMenu.add(partiePanel);
 
         windowMenu.pack();
 
         windowMenu.setLocationRelativeTo(null);
         windowMenu.setVisible(true);
-
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
-                windowGame.setTitle("Garden Invader");
-                windowGame.add(gamePanel);
-                windowGame.pack();
-                windowGame.setLocationRelativeTo(null);
-                windowGame.setVisible(true);
-                gamePanel.startGameThread();
-            }
-        });
     }
     
 }

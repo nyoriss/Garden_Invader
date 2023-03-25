@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     int vitesseDescenteOiseaux;
     int lastAttackTick;
 
-    public GamePanel() {
+    public GamePanel(PartieBuilder partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
         projectilesEnnemis = new ArrayList<>();
 
         //Difficulté de la partie
-        difficultePartie = new PartieDifficileBuilder();
+        difficultePartie = partie;
 
         //Créer les ennemis
         ennemis = createOiseaux();
