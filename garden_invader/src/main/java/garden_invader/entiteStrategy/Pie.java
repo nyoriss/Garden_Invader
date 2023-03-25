@@ -14,6 +14,17 @@ public class Pie extends Oiseau{
     private Projectile typeProjectile; //TODO nÃ©cessaire ?
     private Color couleur;
 
+    /**
+    * Construit une nouvelle instance de la classe "Pie" avec la position et la
+    * taille spécifiées. Initialise les variables de points de vie de l'oiseau
+    * avec une valeur maximale de 1, une valeur actuelle de 1, un sprite et une
+    * couleur spécifiques.
+    *
+    * @param posX La position X de l'oiseau.
+    * @param posY La position Y de l'oiseau.
+    * @param largeur La largeur de l'oiseau.
+    * @param hauteur La hauteur de l'oiseau.
+    */
     public Pie(int posX, int posY, int largeur, int hauteur) {
         super(posX, posY, largeur, hauteur);
         this.pvMax = 1;
@@ -22,6 +33,15 @@ public class Pie extends Oiseau{
         couleur = Color.red;
     }
 
+    /**
+    * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
+    * spécifié. Si les points de vie actuels de l'oiseau sont inférieurs ou égaux
+    * à zéro, l'oiseau est considéré comme mort.
+    *
+    * @param projectile Le projectile qui blesse l'oiseau.
+    *
+    * @return Vrai si l'oiseau est mort, faux sinon.
+    */
     @Override
     public boolean blesse(Projectile projectile) {
         pvActuels--;
@@ -31,6 +51,17 @@ public class Pie extends Oiseau{
         return pvActuels<=0;
     }
 
+    /**
+    * Vérifie si l'objet actuel entre en collision avec un autre objet
+    * spécifié par les paramètres posX, posY, largeur et hauteur.
+    *
+    * @param posX      La position horizontale de l'autre objet.
+    * @param posY      La position verticale de l'autre objet.
+    * @param largeur   La largeur de l'autre objet.
+    * @param hauteur   La hauteur de l'autre objet.
+    *
+    * @return          "true" si une collision est détectée, "false" sinon.
+    */
     @Override
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (super.getPositionX() < posX + largeur &&
