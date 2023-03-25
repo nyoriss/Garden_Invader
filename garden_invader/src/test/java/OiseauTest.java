@@ -8,7 +8,7 @@ import garden_invader.projectileObserver.ProjectileCarotte;
 import java.awt.Color;
 import junit.framework.TestCase;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,7 +34,7 @@ public class OiseauTest extends TestCase {
     }
     
     @Test
-    public void testCorbeauConstructor() {
+    public void testCorbeau() {
 
         Corbeau corbeau = new Corbeau(10, 20, 30, 40);
 
@@ -46,7 +46,7 @@ public class OiseauTest extends TestCase {
     }
     
     @Test
-public void testPieConstructeur() {
+public void testPie() {
     Pie pie = new Pie(10, 20, 30, 40);
 
     assertEquals(pie.getPositionX(), 10);
