@@ -1,6 +1,5 @@
 package garden_invader.entiteStrategy;
 
-import garden_invader.Entite;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
