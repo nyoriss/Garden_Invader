@@ -67,9 +67,17 @@ public class GamePanel extends JPanel implements Runnable {
     ImageIcon victoire = new ImageIcon("asset/victoire.png");
     ImageIcon defaite = new ImageIcon("asset/defaite.png");
 
+    BufferedImage game;
+    {
+        try {
+            game = ImageIO.read(new File("asset/game.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public GamePanel(Partie partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(new java.awt.Color(34, 177, 76));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
@@ -195,6 +203,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        g2.drawImage(game, 0, 0, this);
         //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
         g2.drawImage(lapin,joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize, null);
         for(int i = 0; i < projectilesAllies.size(); i++) {
