@@ -16,9 +16,11 @@ public class Director {
         this.partie = partie;
     }
     
-    public void ConstructorPartie() {
-        this.partie.buildNombrePie();
-        this.partie.buildNombreVieJoueur();
-        this.partie.buildVitesseDeplacementEnnemi();
+    public Partie ConstructorPartie() {
+        return partie.buildNombrePie()
+                .buildNombreCorbeau()
+                .buildNombreMartinPecheur()
+                .builPlayerHealth(3)
+                .buildVitesseDeplacementEnnemi(50).buildGame();
     }
 }

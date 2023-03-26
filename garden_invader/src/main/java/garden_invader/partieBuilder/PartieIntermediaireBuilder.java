@@ -9,30 +9,20 @@ package garden_invader.partieBuilder;
  *
  * @author louis
  */
-public class PartieIntermediaireBuilder implements PartieBuilder {
+public class PartieIntermediaireBuilder extends PartieBuilder {
 
-    @Override
-    public void reset() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PartieBuilder buildNombrePie() {
+        nbPies = 20;
+        return this;
     }
 
-    @Override
-    public void buildNombreVieJoueur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PartieBuilder buildNombreCorbeau() {
+        nbCorbeaux = 10;
+        return this;
     }
 
-    @Override
-    public void buildVitesseDeplacementEnnemi() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void buildNombrePie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public PartieBuilder getResult() {
+    public PartieBuilder buildNombreMartinPecheur() {
+        nbMartinPecheur = 0;
         return this;
     }
 

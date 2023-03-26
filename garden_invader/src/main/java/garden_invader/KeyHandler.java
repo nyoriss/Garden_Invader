@@ -16,16 +16,13 @@ public class KeyHandler implements KeyListener {
 
         if(code== KeyEvent.VK_Q) {
             leftPressed = true;
-            //System.out.println("KeyH : gauche pressé");
         }
         if(code== KeyEvent.VK_D) {
             rightPressed = true;
-            //System.out.println("KeyH : droite pressé");
 
         }
         if(code== KeyEvent.VK_SPACE) {
             spacePressed = true;
-            //System.out.println("KeyH : espace pressé");
         }
     }
 

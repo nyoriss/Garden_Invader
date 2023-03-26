@@ -1,9 +1,6 @@
 package garden_invader;
 
-import garden_invader.partieBuilder.PartieBuilder;
-import garden_invader.partieBuilder.PartieDifficileBuilder;
-import garden_invader.partieBuilder.PartieFacileBuilder;
-import garden_invader.partieBuilder.PartieIntermediaireBuilder;
+import garden_invader.partieBuilder.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +25,7 @@ public class PartiePanel extends JPanel implements Runnable {
 
     JButton difficileBouton = new JButton("Difficile");
 
-    PartieBuilder partieBuilder;
+    Partie partieBuilder;
     GamePanel gamePanel;
 
     ImageIcon icon = new ImageIcon("asset/background.png");
@@ -76,7 +73,7 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new PartieFacileBuilder();
+                partieBuilder = new Director(new PartieFacileBuilder()).ConstructorPartie();
                 gamePanel = new GamePanel(partieBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
@@ -93,7 +90,7 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new PartieIntermediaireBuilder();
+                partieBuilder = new Director(new PartieIntermediaireBuilder()).ConstructorPartie();
                 gamePanel = new GamePanel(partieBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
@@ -110,7 +107,7 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new PartieDifficileBuilder();
+                partieBuilder = new Director(new PartieDifficileBuilder()).ConstructorPartie();
                 gamePanel = new GamePanel(partieBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
