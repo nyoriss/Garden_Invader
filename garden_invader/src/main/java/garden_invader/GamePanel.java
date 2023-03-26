@@ -8,7 +8,11 @@ import garden_invader.partieBuilder.*;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
@@ -42,9 +46,27 @@ public class GamePanel extends JPanel implements Runnable {
     boolean winGame;
     boolean looseGame;
 
+    BufferedImage lapin;
+    {
+        try {
+            lapin = ImageIO.read(new File("asset/sprite/lapin.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    BufferedImage carotte;
+    {
+        try {
+            carotte = ImageIO.read(new File("asset/sprite/carotte_tir.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public GamePanel(Partie partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(new java.awt.Color(34, 177, 76));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
@@ -154,12 +176,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(Color.white);
-        g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
+        //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
+        g2.drawImage(lapin,joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize, null);
         for(int i = 0; i < projectilesAllies.size(); i++) {
             //Déplacement des projectiles
-            g2.fillRect(projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3);
-
+            //g2.fillRect(projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3);
+            g2.drawImage(carotte,projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3, null);
             //suppression des projectiles hors de l'écran //TODO déplacer ?
             if(projectilesAllies.get(i).getPositionY()+ projectilesAllies.get(i).getHauteur()<=0) {
                 projectilesAllies.remove(i);
@@ -168,11 +190,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        /*for (Entite entite: ennemis) {
-            g2.setColor(entite.getCouleur());
-            g2.fillRect(entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur());
-            g2.setColor(Color.white);
-        }*/
+        for (Entite entite: ennemis) {
+            g2.drawImage(entite.getDessin(), entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur(), null);
+        }
         g2.dispose();
     }
 
