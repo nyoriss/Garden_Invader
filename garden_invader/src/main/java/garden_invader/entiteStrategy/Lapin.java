@@ -5,8 +5,11 @@ import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 import garden_invader.projectileObserver.ProjectileCarotte;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Lapin implements IEntiteStrategy{
@@ -18,6 +21,8 @@ public class Lapin implements IEntiteStrategy{
     private int speed;
     private int lastAttackTick;
 
+    private BufferedImage lapin;
+
 
     public Lapin(int posX, int posY, int largeur, int hauteur) {
         this.positionX = posX;
@@ -26,6 +31,13 @@ public class Lapin implements IEntiteStrategy{
         this.largeur = largeur;
         this.speed = 4;
         this.lastAttackTick = 0;
+
+
+        try {
+            lapin = ImageIO.read(new File("asset/sprite/lapin.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -108,6 +120,11 @@ public class Lapin implements IEntiteStrategy{
     @Override
     public BufferedImage getDessin() {
         return null;
+    }
+
+    @Override
+    public void draw(GamePanel gp, Graphics2D g2) {
+        g2.drawImage(lapin,positionX, positionY, gp.tileSize, gp.tileSize, null);
     }
 
 }

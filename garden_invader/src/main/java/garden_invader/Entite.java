@@ -11,11 +11,6 @@ import java.util.ArrayList;
 public class Entite implements EntiteObserver {
     private IEntiteStrategy entite;
 
-    public int positionX;
-    public int positionY;
-    private int largeur;
-    private int hauteur;
-
     public Entite(IEntiteStrategy entite) {
         this.entite = entite;
     }
@@ -55,6 +50,7 @@ public class Entite implements EntiteObserver {
         return entite.getDessin();
     }
 
+    public void draw(GamePanel gp, Graphics2D g2){entite.draw(gp, g2);}
 
     public boolean blesse(Projectile projectile) {
         return entite.blesse(projectile);

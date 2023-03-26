@@ -46,24 +46,6 @@ public class GamePanel extends JPanel implements Runnable {
     boolean winGame;
     boolean looseGame;
 
-    BufferedImage lapin;
-    {
-        try {
-            lapin = ImageIO.read(new File("asset/sprite/lapin.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    BufferedImage carotte;
-    {
-        try {
-            carotte = ImageIO.read(new File("asset/sprite/carotte_tir.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public GamePanel(Partie partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new java.awt.Color(34, 177, 76));
@@ -140,12 +122,19 @@ public class GamePanel extends JPanel implements Runnable {
             //si le projectile touche
             if (projectile.update(this)) {
                 i--; // Décrémenter l'index pour compenser la suppression
+            } else {
+                //suppression des projectiles hors de l'écran
+                if (projectilesAllies.get(i).getPositionY() + projectilesAllies.get(i).getHauteur() <= 0) {
+                    projectilesAllies.remove(i);
+                    System.out.println("projectile supprimé par sortie d'écran");
+                    i--;
+                }
             }
         }
 
+        //S'il ne reste plus aucun ennemis
         if(ennemis.size()==0) {
             winGame = true;
-            System.out.println("game win inside update");
             return;
         }
 
@@ -164,10 +153,10 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        //si un oiseau est descendu trop bas
         for (Entite ennemi: ennemis) {
             if(ennemi.getPositionY() + tileSize >= joueur.getPositionY()) {
                 looseGame = true;
-                System.out.println("game loosed inside update");
                 return;
             }
         }
@@ -176,22 +165,14 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
-        g2.drawImage(lapin,joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize, null);
+        joueur.draw(this, g2);
         for(int i = 0; i < projectilesAllies.size(); i++) {
             //Déplacement des projectiles
-            //g2.fillRect(projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3);
-            g2.drawImage(carotte,projectilesAllies.get(i).getPositionX(), projectilesAllies.get(i).getPositionY(), projectilesAllies.get(i).getLargeur()*3, projectilesAllies.get(i).getHauteur()*3, null);
-            //suppression des projectiles hors de l'écran //TODO déplacer ?
-            if(projectilesAllies.get(i).getPositionY()+ projectilesAllies.get(i).getHauteur()<=0) {
-                projectilesAllies.remove(i);
-                System.out.println("projectile supprimé par sortie d'écran");
-                i --;
-            }
+            projectilesAllies.get(i).draw(this, g2);
         }
 
         for (Entite entite: ennemis) {
-            g2.drawImage(entite.getDessin(), entite.getPositionX(), entite.getPositionY(), entite.getLargeur(), entite.getHauteur(), null);
+            entite.draw(this, g2);
         }
         g2.dispose();
     }

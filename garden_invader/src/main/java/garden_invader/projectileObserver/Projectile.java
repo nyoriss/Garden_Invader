@@ -3,6 +3,8 @@ package garden_invader.projectileObserver;
 import garden_invader.Entite;
 import garden_invader.GamePanel;
 
+import java.awt.*;
+
 public interface Projectile {
 
     void enregistrerObs(EntiteObserver observer);
@@ -24,5 +26,7 @@ public interface Projectile {
     int getSpeed();
 
     boolean update(GamePanel gp);
+
+    void draw(GamePanel gp, Graphics2D g2);
 
 }

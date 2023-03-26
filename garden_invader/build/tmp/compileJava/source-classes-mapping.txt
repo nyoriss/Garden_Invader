@@ -1,3 +1,7 @@
+garden_invader/KeyHandler.java
+ garden_invader.KeyHandler
+garden_invader/Main.java
+ garden_invader.Main
 garden_invader/projectileObserver/ProjectileCarotte.java
  garden_invader.projectileObserver.ProjectileCarotte
 garden_invader/entiteStrategy/Oiseau.java
@@ -20,8 +24,6 @@ garden_invader/projectileObserver/EntiteObserver.java
  garden_invader.projectileObserver.EntiteObserver
 garden_invader/entiteStrategy/Martin_Pecheur.java
  garden_invader.entiteStrategy.Martin_Pecheur
-garden_invader/Main.java
- garden_invader.Main
 garden_invader/entiteStrategy/IEntiteStrategy.java
  garden_invader.entiteStrategy.IEntiteStrategy
 garden_invader/Entite.java
@@ -32,8 +34,6 @@ garden_invader/partieBuilder/PartieDifficileBuilder.java
  garden_invader.partieBuilder.PartieDifficileBuilder
 garden_invader/projectileObserver/Projectile.java
  garden_invader.projectileObserver.Projectile
-garden_invader/KeyHandler.java
- garden_invader.KeyHandler
 garden_invader/entiteStrategy/Corbeau.java
  garden_invader.entiteStrategy.Corbeau
 garden_invader/PartiePanel.java
