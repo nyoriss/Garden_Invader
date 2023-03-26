@@ -10,16 +10,16 @@ package garden_invader.partieBuilder;
  * @author louis
  */
 public class Director {
-    private PartieBuilder partie;
+    private GameBuilder partie;
     
-    public Director(PartieBuilder partie) {
+    public Director(GameBuilder partie) {
         this.partie = partie;
     }
     
-    public Partie ConstructorPartie() {
-        return partie.buildNombrePie()
-                .buildNombreCorbeau()
-                .buildNombreMartinPecheur()
+    public GameDifficulty ConstructorPartie() {
+        return partie.buildMagpieNb()
+                .buildCrowNb()
+                .buildKingfisherNb()
                 .builPlayerHealth(3)
                 .buildVitesseDeplacementEnnemi(50).buildGame();
     }

@@ -19,10 +19,10 @@ public class Main {
         windowMenu.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         windowMenu.setResizable (false);
         windowMenu.setTitle("Garden Invader");
-        PartiePanel partiePanel = new PartiePanel();
+        MenuPanel menuPanel = new MenuPanel();
 
         //Ajouter le bouton
-        windowMenu.add(partiePanel);
+        windowMenu.add(menuPanel);
 
         windowMenu.pack();
 

@@ -9,20 +9,20 @@ package garden_invader.partieBuilder;
  *
  * @author louis
  */
-public class PartieIntermediaireBuilder extends PartieBuilder {
+public class IntermediateGameBuilder extends GameBuilder {
 
-    public PartieBuilder buildNombrePie() {
-        nbPies = 20;
+    public GameBuilder buildMagpieNb() {
+        magpieNb = 20;
         return this;
     }
 
-    public PartieBuilder buildNombreCorbeau() {
-        nbCorbeaux = 10;
+    public GameBuilder buildCrowNb() {
+        crowNb = 10;
         return this;
     }
 
-    public PartieBuilder buildNombreMartinPecheur() {
-        nbMartinPecheur = 0;
+    public GameBuilder buildKingfisherNb() {
+        kingfisherNb = 0;
         return this;
     }
 

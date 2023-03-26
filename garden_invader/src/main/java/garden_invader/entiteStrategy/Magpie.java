@@ -10,20 +10,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Pie extends Oiseau{
+public class Magpie extends Bird {
 
     private int pvMax;
     private int pvActuels;
     private String sprite;
-    private Projectile typeProjectile; //TODO n√©cessaire ?
-    private Color couleur;
-    private BufferedImage dessin;
+    private Projectile projectileType;
+    private BufferedImage draw;
     {
-        try {
-            dessin = ImageIO.read(new File("asset/sprite/pie_1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     /**
@@ -34,16 +29,19 @@ public class Pie extends Oiseau{
     *
     * @param posX La position X de l'oiseau.
     * @param posY La position Y de l'oiseau.
-    * @param largeur La largeur de l'oiseau.
-    * @param hauteur La hauteur de l'oiseau.
+    * @param width La largeur de l'oiseau.
+    * @param height La hauteur de l'oiseau.
     */
-    public Pie(int posX, int posY, int largeur, int hauteur) {
-        super(posX, posY, largeur, hauteur);
+    public Magpie(int posX, int posY, int width, int height) {
+        super(posX, posY, width, height);
         this.pvMax = 1;
         this.pvActuels = pvMax;
         this.sprite = "../../assets/Pie";
-        this.dessin = dessin;
-    }
+        try {
+            draw = ImageIO.read(new File("asset/sprite/pie_1.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }    }
 
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
@@ -55,7 +53,7 @@ public class Pie extends Oiseau{
     * @return Vrai si l'oiseau est mort, faux sinon.
     */
     @Override
-    public boolean blesse(Projectile projectile) {
+    public boolean hurt(Projectile projectile) {
         pvActuels--;
         if (pvActuels<=0) {
             System.out.println("oiseau mort");
@@ -69,17 +67,17 @@ public class Pie extends Oiseau{
     *
     * @param posX      La position horizontale de l'autre objet.
     * @param posY      La position verticale de l'autre objet.
-    * @param largeur   La largeur de l'autre objet.
-    * @param hauteur   La hauteur de l'autre objet.
+    * @param width   La largeur de l'autre objet.
+    * @param height   La hauteur de l'autre objet.
     *
     * @return          "true" si une collision est dÈtectÈe, "false" sinon.
     */
     @Override
-    public boolean collision(int posX, int posY, int largeur, int hauteur) {
-        if (super.getPositionX() < posX + largeur &&
-            super.getPositionX() + super.getLargeur() > posX &&
-            super.getPositionY() < posY + hauteur &&
-            super.getPositionY() + super.getHauteur() > posY) {
+    public boolean collision(int posX, int posY, int width, int height) {
+        if (super.getPositionX() < posX + width &&
+            super.getPositionX() + super.getHeight() > posX &&
+            super.getPositionY() < posY + height &&
+            super.getPositionY() + super.getWidth() > posY) {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
@@ -90,13 +88,14 @@ public class Pie extends Oiseau{
 
     }
 
-    //TODO supprimer
-    public BufferedImage getDessin() {
-        return dessin;
+    @Override
+    public BufferedImage getSprite() {
+        return draw;
     }
+
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(dessin, super.getPositionX(), super.getPositionY(), super.getLargeur(), super.getHauteur(), null);
+        g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
     }
 }

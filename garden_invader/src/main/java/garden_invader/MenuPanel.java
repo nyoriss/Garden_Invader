@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PartiePanel extends JPanel implements Runnable {
+public class MenuPanel extends JPanel implements Runnable {
 
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
@@ -25,12 +25,12 @@ public class PartiePanel extends JPanel implements Runnable {
 
     JButton difficileBouton = new JButton("Difficile");
 
-    Partie partieBuilder;
+    GameDifficulty gameDifficultyBuilder;
     GamePanel gamePanel;
 
     ImageIcon icon = new ImageIcon("asset/background.png");
 
-    public PartiePanel() {
+    public MenuPanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -73,8 +73,8 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new Director(new PartieFacileBuilder()).ConstructorPartie();
-                gamePanel = new GamePanel(partieBuilder);
+                gameDifficultyBuilder = new Director(new EasyGameBuilder()).ConstructorPartie();
+                gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
@@ -90,8 +90,8 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new Director(new PartieIntermediaireBuilder()).ConstructorPartie();
-                gamePanel = new GamePanel(partieBuilder);
+                gameDifficultyBuilder = new Director(new IntermediateGameBuilder()).ConstructorPartie();
+                gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
@@ -107,8 +107,8 @@ public class PartiePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                partieBuilder = new Director(new PartieDifficileBuilder()).ConstructorPartie();
-                gamePanel = new GamePanel(partieBuilder);
+                gameDifficultyBuilder = new Director(new DifficultGameBuilder()).ConstructorPartie();
+                gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);

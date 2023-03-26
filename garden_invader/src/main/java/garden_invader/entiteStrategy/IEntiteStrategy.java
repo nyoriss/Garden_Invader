@@ -9,28 +9,28 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public interface IEntiteStrategy {
-    boolean hitBoxChevauche(ArrayList<Integer> ProjectileHitBox);
 
     void setPositionX(int posX);
 
     void setPositionY(int posY);
+
     int getPositionX();
 
     int getPositionY();
 
-    int getLargeur();
+    int getHeight();
 
-    int getHauteur();
+    int getWidth();
 
-    boolean collision(int posX, int posY, int largeur, int hauteur);
+    boolean collision(int posX, int posY, int width, int height);
 
     ArrayList<Integer> getHitBox();
 
-    boolean blesse(Projectile projectile);
+    boolean hurt(Projectile projectile);
 
     void upDate(GamePanel gp, KeyHandler keyHandler);
 
-    BufferedImage getDessin();
+    BufferedImage getSprite();
 
     void draw(GamePanel gp, Graphics2D g2);
 }

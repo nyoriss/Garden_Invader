@@ -1,9 +1,6 @@
 package garden_invader;
 
-import garden_invader.entiteStrategy.Corbeau;
-import garden_invader.entiteStrategy.Lapin;
-import garden_invader.entiteStrategy.Martin_Pecheur;
-import garden_invader.entiteStrategy.Pie;
+import garden_invader.entiteStrategy.Rabbit;
 import garden_invader.partieBuilder.*;
 import garden_invader.projectileObserver.Projectile;
 
@@ -30,65 +27,65 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Entite joueur;
-    ArrayList<Projectile> projectilesAllies;
+    Entity player;
+    ArrayList<Projectile> alliedProjectiles;
 
-    ArrayList<Entite> ennemis;
-    ArrayList<Projectile> projectilesEnnemis;
+    ArrayList<Entity> enemies;
+    ArrayList<Projectile> ennemyProjectiles;
 
-    Partie partie;
+    GameDifficulty gameDifficulty;
 
     public int tick;
-    int deplacementOiseauxTick;
-    int vitesseDeplacementOiseaux;
-    int vitesseDescenteOiseaux;
+    int birdMoveTick;
+    int birdMoveSpeed;
+    int birdDescendSpeed;
     int lastAttackTick;
     boolean winGame;
-    boolean looseGame;
+    boolean loseGame;
 
-    ImageIcon victoire = new ImageIcon("asset/victoire.png");
-    ImageIcon defaite = new ImageIcon("asset/defaite.png");
+    ImageIcon victoryImage = new ImageIcon("asset/victoire.png");
+    ImageIcon defeatImage = new ImageIcon("asset/defaite.png");
 
-    BufferedImage game;
+    BufferedImage gameImage;
     {
         try {
-            game = ImageIO.read(new File("asset/game.png"));
+            gameImage = ImageIO.read(new File("asset/game.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public GamePanel(Partie partie) {
+    public GamePanel(GameDifficulty gameDifficulty) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
 
         //Entites
-        this.joueur = new Entite(new Lapin(100, screenHeight-100, tileSize, tileSize));
+        this.player = new Entity(new Rabbit(100, screenHeight-100, tileSize, tileSize));
 
         //Projectiles
-        projectilesAllies = new ArrayList<>();
-        projectilesEnnemis = new ArrayList<>();
+        alliedProjectiles = new ArrayList<>();
+        ennemyProjectiles = new ArrayList<>();
 
         //difficulty setUp
-        this.partie = partie;
+        this.gameDifficulty = gameDifficulty;
 
         //autres mises en place
         tick = 0;
-        deplacementOiseauxTick = 0;
-        vitesseDeplacementOiseaux = partie.getEnnemiSpeed();
-        vitesseDescenteOiseaux = partie.getEnnemiDescendSpeed();
+        birdMoveTick = 0;
+        birdMoveSpeed = gameDifficulty.getEnnemiSpeed();
+        birdDescendSpeed = gameDifficulty.getEnnemiDescendSpeed();
         lastAttackTick = -100;
 
         //end game variables set
         winGame = false;
-        looseGame = false;
+        loseGame = false;
     }
 
     public void startGameThread() {
         gameThread = new Thread(this);
-        ennemis = createBirds();
+        enemies = createBirds();
         gameThread.start();
     }
 
@@ -103,9 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
             // DRAW
             repaint();
 
-            if(looseGame) {
-                System.out.println("win outside");
-
+            if(loseGame) {
                 //on attend quelque temps pour la compréhension
                 try {
                     Thread.sleep(500);
@@ -117,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                windowGame.add(new JLabel(defaite));
+                windowGame.add(new JLabel(defeatImage));
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
                 windowGame.setVisible(true);
@@ -125,8 +120,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if(winGame) {
-                System.out.println("loose outside");
-
                 //on attend quelque temps pour la compréhension
                 try {
                     Thread.sleep(500);
@@ -138,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                windowGame.add(new JLabel(victoire));
+                windowGame.add(new JLabel(victoryImage));
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
                 windowGame.setVisible(true);
@@ -156,19 +149,19 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        joueur.update(this, keyHandler);
+        player.update(this, keyHandler);
 
 
         //gestion des collisions entre oiseaux et projectiles
-        for (int i = 0; i < projectilesAllies.size(); i++) {
-            Projectile projectile = projectilesAllies.get(i);
+        for (int i = 0; i < alliedProjectiles.size(); i++) {
+            Projectile projectile = alliedProjectiles.get(i);
             //si le projectile touche
             if (projectile.update(this)) {
                 i--; // Décrémenter l'index pour compenser la suppression
             } else {
                 //suppression des projectiles hors de l'écran
-                if (projectilesAllies.get(i).getPositionY() + projectilesAllies.get(i).getHauteur() <= 0) {
-                    projectilesAllies.remove(i);
+                if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
+                    alliedProjectiles.remove(i);
                     System.out.println("projectile supprimé par sortie d'écran");
                     i--;
                 }
@@ -176,31 +169,31 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         //S'il ne reste plus aucun ennemis
-        if(ennemis.size()==0) {
+        if(enemies.size()==0) {
             winGame = true;
             System.out.println("game win inside update");
             return;
         }
 
         //déplacement des oiseaux
-        if (tick - deplacementOiseauxTick >= vitesseDeplacementOiseaux || tick/vitesseDeplacementOiseaux >= 10 * vitesseDeplacementOiseaux) {
-            for (int i = 0; i < ennemis.size(); i++) {
-                if (tick/vitesseDeplacementOiseaux% 2 == 0) {
-                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + 5);
+        if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
+            for (int i = 0; i < enemies.size(); i++) {
+                if (tick/ birdMoveSpeed % 2 == 0) {
+                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() + 5);
                 } else {
-                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() - 5);
+                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() - 5);
                 }
-                if(tick/vitesseDeplacementOiseaux % vitesseDescenteOiseaux == 0) {
-                    ennemis.get(i).setPositionY(ennemis.get(i).getPositionY() + tileSize/2);
+                if(tick/ birdMoveSpeed % birdDescendSpeed == 0) {
+                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() + tileSize/2);
                 }
-                deplacementOiseauxTick = tick;
+                birdMoveTick = tick;
             }
         }
 
         //si un oiseau est descendu trop bas
-        for (Entite ennemi: ennemis) {
-            if(ennemi.getPositionY() + tileSize >= joueur.getPositionY()) {
-                looseGame = true;
+        for (Entity ennemi: enemies) {
+            if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
+                loseGame = true;
                 System.out.println("game loosed inside update");
                 return;
             }
@@ -210,31 +203,30 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.drawImage(game, 0, 0, this);
+        g2.drawImage(gameImage, 0, 0, this);
         //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
-        g2.drawImage(lapin,joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize, null);
-        joueur.draw(this, g2);
-        for(int i = 0; i < projectilesAllies.size(); i++) {
+        player.draw(this, g2);
+        for(int i = 0; i < alliedProjectiles.size(); i++) {
             //Déplacement des projectiles
-            projectilesAllies.get(i).draw(this, g2);
+            alliedProjectiles.get(i).draw(this, g2);
         }
 
-        for (Entite entite: ennemis) {
-            entite.draw(this, g2);
+        for (Entity entity : enemies) {
+            entity.draw(this, g2);
         }
         g2.dispose();
     }
 
 
     //TODO à replacer ?
-    public ArrayList<Entite> createBirds() {
-        ArrayList<Entite> birds = partie.getBirds(this);
+    public ArrayList<Entity> createBirds() {
+        ArrayList<Entity> birds = gameDifficulty.getBirds(this);
         int ecart = (screenWidth - (10 * tileSize)) / 11;
         int row = ecart;
         int column = ecart;
         int birdCount = 0;
 
-        for (Entite bird : birds) {
+        for (Entity bird : birds) {
             bird.setPositionX(column);
             bird.setPositionY(row);
 
@@ -253,19 +245,19 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void addProjectile(Projectile projectile) {
-        projectilesAllies.add(projectile);
-        for (Entite entite: ennemis) {
-            projectile.enregistrerObs(entite);
+        alliedProjectiles.add(projectile);
+        for (Entity entity : enemies) {
+            projectile.enregistrerObs(entity);
         }
     }
 
     public void SupprimeDesProjectilesAllies(Projectile projectile) {
-        if(projectilesAllies.contains(projectile))
-            projectilesAllies.remove(projectile);
+        if(alliedProjectiles.contains(projectile))
+            alliedProjectiles.remove(projectile);
     }
 
-    public void SupprimeEntiteDesEnnemis(Entite entite) {
-        if(ennemis.contains(entite))
-            ennemis.remove(entite);
+    public void SupprimeEntiteDesEnnemis(Entity entity) {
+        if(enemies.contains(entity))
+            enemies.remove(entity);
     }
 }

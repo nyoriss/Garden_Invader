@@ -3,7 +3,7 @@ package garden_invader.entiteStrategy;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
-import garden_invader.projectileObserver.ProjectileCarotte;
+import garden_invader.projectileObserver.CarotProjectile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,37 +12,32 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Lapin implements IEntiteStrategy{
+public class Rabbit implements IEntiteStrategy{
 
     private int positionX;
     private int positionY;
-    private int largeur;
-    private int hauteur;
+    private int width;
+    private int height;
     private int speed;
     private int lastAttackTick;
 
-    private BufferedImage lapin;
+    private BufferedImage rabbit;
 
 
-    public Lapin(int posX, int posY, int largeur, int hauteur) {
+    public Rabbit(int posX, int posY, int width, int height) {
         this.positionX = posX;
         this.positionY = posY;
-        this.hauteur = hauteur;
-        this.largeur = largeur;
+        this.height = height;
+        this.width = width;
         this.speed = 4;
         this.lastAttackTick = 0;
 
 
         try {
-            lapin = ImageIO.read(new File("asset/sprite/lapin.png"));
+            rabbit = ImageIO.read(new File("asset/sprite/lapin.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public boolean hitBoxChevauche(ArrayList<Integer> ProjectileHitBox) {
-        return false;
     }
 
     public void setPositionX(int posX) {
@@ -61,27 +56,27 @@ public class Lapin implements IEntiteStrategy{
         return positionY;
     }
 
-    public int getLargeur() {
-        return largeur;
+    public int getHeight() {
+        return width;
     }
 
-    public int getHauteur() {
-        return hauteur;
+    public int getWidth() {
+        return height;
     }
 
     public ArrayList<Integer> getHitBox() {
         ArrayList hitBox = new ArrayList();
         hitBox.add(positionX);
         hitBox.add(positionY);
-        hitBox.add(largeur);
-        hitBox.add(hauteur);
+        hitBox.add(width);
+        hitBox.add(height);
 
         return hitBox;
     }
 
-    public boolean collision(int posX, int posY, int largeur, int hauteur) {
-        if (positionX < posX + largeur &&
-                positionX + largeur > posX &&
+    public boolean collision(int posX, int posY, int width, int hauteur) {
+        if (positionX < posX + width &&
+                positionX + width > posX &&
                 positionY < posY + hauteur &&
                 positionY + hauteur > posY) {
 
@@ -92,7 +87,7 @@ public class Lapin implements IEntiteStrategy{
     }
 
 
-    public boolean blesse(Projectile projectile) {
+    public boolean hurt(Projectile projectile) {
         //TODO
         return false;
     }
@@ -104,13 +99,13 @@ public class Lapin implements IEntiteStrategy{
                 positionX -= speed;
         } else {
             if (keyHandler.rightPressed) {
-                if(positionX+largeur + 8 * speed< gp.screenWidth)
+                if(positionX+ width + 8 * speed< gp.screenWidth)
                     positionX += speed;
             }
         }
 
         if(keyHandler.spacePressed && gp.tick-lastAttackTick >=35) {
-            Projectile projectile = new ProjectileCarotte(this, positionX, positionY - hauteur);
+            Projectile projectile = new CarotProjectile(this, positionX, positionY - height);
 
             gp.addProjectile(projectile);
             lastAttackTick = gp.tick;
@@ -118,13 +113,13 @@ public class Lapin implements IEntiteStrategy{
     }
 
     @Override
-    public BufferedImage getDessin() {
+    public BufferedImage getSprite() {
         return null;
     }
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(lapin,positionX, positionY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(rabbit,positionX, positionY, gp.tileSize, gp.tileSize, null);
     }
 
 }

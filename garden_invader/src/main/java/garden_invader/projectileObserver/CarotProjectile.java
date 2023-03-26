@@ -1,6 +1,6 @@
 package garden_invader.projectileObserver;
 
-import garden_invader.Entite;
+import garden_invader.Entity;
 import garden_invader.GamePanel;
 import garden_invader.entiteStrategy.IEntiteStrategy;
 
@@ -11,30 +11,30 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProjectileCarotte implements Projectile{
+public class CarotProjectile implements Projectile{
 
     private ArrayList<EntiteObserver> entiteObs;
 
     private int positionX;
     private int positionY;
-    private int largeur;
-    private int hauteur;
+    private int width;
+    private int height;
 
     private int speed;
-    BufferedImage carotte;
+    BufferedImage carrot;
 
 
     //TODO hitbox décalée vers la gauche et pas liée à l'image
-    public ProjectileCarotte(IEntiteStrategy proprietaire, int positionX, int positionY) {
-        this.largeur = 5;
-        this.hauteur = 10;
+    public CarotProjectile(IEntiteStrategy proprietaire, int positionX, int positionY) {
+        this.width = 5;
+        this.height = 10;
         this.speed = 4;
-        this.positionX = positionX + proprietaire.getLargeur()/2 - this.largeur/2;
+        this.positionX = positionX + proprietaire.getHeight()/2 - this.width /2;
         this.positionY = positionY;
         this.entiteObs = new ArrayList<>();
 
         try {
-            carotte = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
+            carrot = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,11 +51,11 @@ public class ProjectileCarotte implements Projectile{
     }
 
     @Override
-    public Entite notifierObs() { //Entite
+    public Entity notifierObs() { //Entite
         if (!(entiteObs.size()<=0)) {
             for (int i = 0; i < entiteObs.size(); i++) {
-                if (entiteObs.get(i).actualiser(positionX, positionY, largeur, hauteur)) {
-                    return (Entite) entiteObs.get(i);
+                if (entiteObs.get(i).actualiser(positionX, positionY, width, height)) {
+                    return (Entity) entiteObs.get(i);
                 }
             }
         }
@@ -78,13 +78,13 @@ public class ProjectileCarotte implements Projectile{
     }
 
     @Override
-    public int getLargeur() {
-        return largeur;
+    public int getWidth() {
+        return width;
     }
 
     @Override
-    public int getHauteur() {
-        return hauteur;
+    public int getHeight() {
+        return height;
     }
 
     @Override
@@ -95,11 +95,11 @@ public class ProjectileCarotte implements Projectile{
     @Override
     public boolean update(GamePanel gp) {
         positionY -= speed;
-        Entite entite = notifierObs();
-        if (entite!=null) {
+        Entity entity = notifierObs();
+        if (entity !=null) {
             //Blesse l'entité et vérifie si l'entité est supprimée
-            if(entite.blesse(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
-                gp.SupprimeEntiteDesEnnemis(entite);
+            if(entity.hurt(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
+                gp.SupprimeEntiteDesEnnemis(entity);
             }
             gp.SupprimeDesProjectilesAllies(this);
             System.out.println("projectile supprimé par hitBox");
@@ -110,15 +110,15 @@ public class ProjectileCarotte implements Projectile{
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(carotte,positionX, positionY, largeur*5, hauteur*5, null);
+        g2.drawImage(carrot,positionX, positionY, width * 5, height * 5, null);
     }
 
     public void setHitBox(ArrayList<Integer> hitBox) {
         if(hitBox.size()==4) {
             positionX = hitBox.get(0);
             positionY = hitBox.get(1);
-            largeur = hitBox.get(2);
-            hauteur = hitBox.get(3);
+            width = hitBox.get(2);
+            height = hitBox.get(3);
         } else {
             System.out.println("Taille de hitBox invalide");
         }

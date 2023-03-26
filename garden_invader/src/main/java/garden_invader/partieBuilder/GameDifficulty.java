@@ -1,16 +1,14 @@
 package garden_invader.partieBuilder;
 
-import garden_invader.Entite;
+import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.Main;
-import garden_invader.entiteStrategy.Corbeau;
-import garden_invader.entiteStrategy.IEntiteStrategy;
-import garden_invader.entiteStrategy.Martin_Pecheur;
-import garden_invader.entiteStrategy.Pie;
+import garden_invader.entiteStrategy.Crow;
+import garden_invader.entiteStrategy.kingfisher;
+import garden_invader.entiteStrategy.Magpie;
 
 import java.util.ArrayList;
 
-public class Partie {
+public class GameDifficulty {
 
     private int nbPies;
     private int nbCorbeaux;
@@ -18,9 +16,9 @@ public class Partie {
     private int ennemiSpeed;
     private int ennemiDescendSpeed;
     private int playerHealth;
-    private ArrayList<Entite> birds;
+    private ArrayList<Entity> birds;
 
-    public Partie(int nbPies, int nbCorbeaux, int nbMartinPecheur, int ennemiSpeed, int ennemiDescendSpeed,int playerHealth) {
+    public GameDifficulty(int nbPies, int nbCorbeaux, int nbMartinPecheur, int ennemiSpeed, int ennemiDescendSpeed, int playerHealth) {
         this.nbPies = nbPies;
         this.nbCorbeaux = nbCorbeaux;
         this.nbMartinPecheur = nbMartinPecheur;
@@ -30,20 +28,20 @@ public class Partie {
         birds = new ArrayList<>();
     }
 
-    public ArrayList<Entite> getBirds(GamePanel gp) {
+    public ArrayList<Entity> getBirds(GamePanel gp) {
         System.out.println("pies : "+nbPies+ " corbo : "+nbCorbeaux+ " martin pecheur : "+nbMartinPecheur);
         for(int i = 0; i < nbPies + nbCorbeaux + nbMartinPecheur; i ++) {
             boolean assigned = false;
             if(i < nbMartinPecheur) {
-                birds.add(new Entite(new Martin_Pecheur(0, 0, gp.tileSize, gp.tileSize)));
+                birds.add(new Entity(new kingfisher(0, 0, gp.tileSize, gp.tileSize)));
                 assigned = true;
             }
             if((i < nbMartinPecheur + nbCorbeaux) & !assigned) {
-                birds.add(new Entite(new Corbeau(0, 0, gp.tileSize, gp.tileSize)));
+                birds.add(new Entity(new Crow(0, 0, gp.tileSize, gp.tileSize)));
                 assigned = true;
             }
             if (!assigned) {
-                birds.add(new Entite(new Pie(0, 0, gp.tileSize, gp.tileSize)));
+                birds.add(new Entity(new Magpie(0, 0, gp.tileSize, gp.tileSize)));
             }
         }
         return birds;

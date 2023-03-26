@@ -2,31 +2,26 @@ package garden_invader.entiteStrategy;
 
 import java.util.ArrayList;
 
-public  abstract class Oiseau implements IEntiteStrategy {
+public  abstract class Bird implements IEntiteStrategy {
 
     private int positionX;
     private int positionY;
-    private int largeur;
-    private int hauteur;
+    private int height;
+    private int width;
 
     /**
     * Constructeur de la classe Oiseau.
     *
     * @param posX      La position horizontale de l'objet.
     * @param posY      La position verticale de l'objet.
-    * @param largeur   La largeur de l'objet.
-    * @param hauteur   La hauteur de l'objet.
+    * @param height   La largeur de l'objet.
+    * @param width   La hauteur de l'objet.
     */
-    public Oiseau(int posX, int posY, int largeur, int hauteur) {
+    public Bird(int posX, int posY, int height, int width) {
         this.positionX = posX;
         this.positionY = posY;
-        this.hauteur = hauteur;
-        this.largeur = largeur;
-    }
-
-    @Override
-    public boolean hitBoxChevauche(ArrayList<Integer> ProjectileHitBox) {
-        return false;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -50,13 +45,13 @@ public  abstract class Oiseau implements IEntiteStrategy {
     }
 
     @Override
-    public int getLargeur() {
-        return largeur;
+    public int getHeight() {
+        return height;
     }
 
     @Override
-    public int getHauteur() {
-        return hauteur;
+    public int getWidth() {
+        return width;
     }
 
     @Override
@@ -64,8 +59,8 @@ public  abstract class Oiseau implements IEntiteStrategy {
         ArrayList hitBox = new ArrayList();
         hitBox.add(positionX);
         hitBox.add(positionY);
-        hitBox.add(largeur);
-        hitBox.add(hauteur);
+        hitBox.add(height);
+        hitBox.add(width);
 
         return hitBox;
     }
@@ -83,9 +78,9 @@ public  abstract class Oiseau implements IEntiteStrategy {
     */
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (positionX < posX + largeur &&
-            positionX + this.largeur > posX &&
+            positionX + this.height > posX &&
             positionX < posY + hauteur &&
-            positionX + this.hauteur > posY) {
+            positionX + this.width > posY) {
             System.out.println("collision");
             return true; // il y a une collision
         }

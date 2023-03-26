@@ -1,6 +1,6 @@
 package garden_invader.projectileObserver;
 
-import garden_invader.Entite;
+import garden_invader.Entity;
 import garden_invader.GamePanel;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ public interface Projectile {
 
     void supprimerObs(EntiteObserver observer);
 
-    Entite notifierObs();
+    Entity notifierObs();
 
     void setPositionY(int posY);
 
@@ -19,9 +19,9 @@ public interface Projectile {
 
     int getPositionY();
 
-    int getLargeur();
+    int getWidth();
 
-    int getHauteur();
+    int getHeight();
 
     int getSpeed();
 

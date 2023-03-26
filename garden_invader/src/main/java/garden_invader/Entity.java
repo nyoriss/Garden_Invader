@@ -8,10 +8,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Entite implements EntiteObserver {
+public class Entity implements EntiteObserver {
     private IEntiteStrategy entite;
 
-    public Entite(IEntiteStrategy entite) {
+    public Entity(IEntiteStrategy entite) {
         this.entite = entite;
     }
 
@@ -39,25 +39,21 @@ public class Entite implements EntiteObserver {
     }
 
     public int getLargeur() {
-        return entite.getLargeur();
+        return entite.getHeight();
     }
 
     public int getHauteur() {
-        return entite.getHauteur();
+        return entite.getWidth();
     }
 
-    public BufferedImage getDessin() {
-        return entite.getDessin();
+    public BufferedImage getSprite() {
+        return entite.getSprite();
     }
 
     public void draw(GamePanel gp, Graphics2D g2){entite.draw(gp, g2);}
 
-    public boolean blesse(Projectile projectile) {
-        return entite.blesse(projectile);
-    }
-
-    public ArrayList<Integer> getHitBox() {
-        return entite.getHitBox();
+    public boolean hurt(Projectile projectile) {
+        return entite.hurt(projectile);
     }
 
     public void update(GamePanel gp, KeyHandler keyHandler) {
