@@ -31,4 +31,6 @@ public interface IEntiteStrategy {
     void upDate(GamePanel gp, KeyHandler keyHandler);
 
     BufferedImage getDessin();
+
+    void draw(GamePanel gp, Graphics2D g2);
 }

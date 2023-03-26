@@ -94,4 +94,9 @@ public class Pie extends Oiseau{
     public BufferedImage getDessin() {
         return dessin;
     }
+
+    @Override
+    public void draw(GamePanel gp, Graphics2D g2) {
+        g2.drawImage(dessin, super.getPositionX(), super.getPositionY(), super.getLargeur(), super.getHauteur(), null);
+    }
 }

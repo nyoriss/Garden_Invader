@@ -4,6 +4,11 @@ import garden_invader.Entite;
 import garden_invader.GamePanel;
 import garden_invader.entiteStrategy.IEntiteStrategy;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProjectileCarotte implements Projectile{
@@ -16,14 +21,23 @@ public class ProjectileCarotte implements Projectile{
     private int hauteur;
 
     private int speed;
+    BufferedImage carotte;
 
+
+    //TODO hitbox décalée vers la gauche et pas liée à l'image
     public ProjectileCarotte(IEntiteStrategy proprietaire, int positionX, int positionY) {
-        this.largeur = 4;
+        this.largeur = 5;
         this.hauteur = 10;
         this.speed = 4;
         this.positionX = positionX + proprietaire.getLargeur()/2 - this.largeur/2;
         this.positionY = positionY;
         this.entiteObs = new ArrayList<>();
+
+        try {
+            carotte = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -94,14 +108,9 @@ public class ProjectileCarotte implements Projectile{
         return false;
     }
 
-    public ArrayList<Integer> getHitBox() {
-        ArrayList hitBox = new ArrayList();
-        hitBox.add(positionX);
-        hitBox.add(positionY);
-        hitBox.add(largeur);
-        hitBox.add(hauteur);
-
-        return hitBox;
+    @Override
+    public void draw(GamePanel gp, Graphics2D g2) {
+        g2.drawImage(carotte,positionX, positionY, largeur*5, hauteur*5, null);
     }
 
     public void setHitBox(ArrayList<Integer> hitBox) {
