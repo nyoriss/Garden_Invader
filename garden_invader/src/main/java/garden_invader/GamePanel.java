@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -45,6 +45,9 @@ public class GamePanel extends JPanel implements Runnable {
     int lastAttackTick;
     boolean winGame;
     boolean looseGame;
+
+    ImageIcon victoire = new ImageIcon("asset/victoire.png");
+    ImageIcon defaite = new ImageIcon("asset/defaite.png");
 
     public GamePanel(Partie partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -94,11 +97,27 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(looseGame) {
                 System.out.println("win outside");
+                JFrame windowGame = new JFrame();
+                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable (false);
+                windowGame.setTitle("Garden Invader");
+                windowGame.add(new JLabel(defaite));
+                windowGame.pack();
+                windowGame.setLocationRelativeTo(null);
+                windowGame.setVisible(true);
                 return;
             }
 
             if(winGame) {
                 System.out.println("loose outside");
+                JFrame windowGame = new JFrame();
+                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable (false);
+                windowGame.setTitle("Garden Invader");
+                windowGame.add(new JLabel(victoire));
+                windowGame.pack();
+                windowGame.setLocationRelativeTo(null);
+                windowGame.setVisible(true);
                 return;
             }
 
@@ -135,6 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
         //S'il ne reste plus aucun ennemis
         if(ennemis.size()==0) {
             winGame = true;
+            System.out.println("game win inside update");
             return;
         }
 
@@ -157,6 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (Entite ennemi: ennemis) {
             if(ennemi.getPositionY() + tileSize >= joueur.getPositionY()) {
                 looseGame = true;
+                System.out.println("game loosed inside update");
                 return;
             }
         }
