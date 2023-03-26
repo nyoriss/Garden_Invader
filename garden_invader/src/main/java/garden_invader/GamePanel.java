@@ -63,15 +63,15 @@ public class GamePanel extends JPanel implements Runnable {
         projectilesAllies = new ArrayList<>();
         projectilesEnnemis = new ArrayList<>();
 
+        //difficulty setUp
+        this.partie = partie;
+
         //autres mises en place
         tick = 0;
         deplacementOiseauxTick = 0;
-        vitesseDeplacementOiseaux = 50;
-        vitesseDescenteOiseaux = 10;
+        vitesseDeplacementOiseaux = partie.getEnnemiSpeed();
+        vitesseDescenteOiseaux = partie.getEnnemiDescendSpeed();
         lastAttackTick = -100;
-
-        //difficulty setUp
-        this.partie = partie;
 
         //end game variables set
         winGame = false;
@@ -97,6 +97,14 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(looseGame) {
                 System.out.println("win outside");
+
+                //on attend quelque temps pour la compréhension
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
                 JFrame windowGame = new JFrame();
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
@@ -110,6 +118,14 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(winGame) {
                 System.out.println("loose outside");
+
+                //on attend quelque temps pour la compréhension
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
                 JFrame windowGame = new JFrame();
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);

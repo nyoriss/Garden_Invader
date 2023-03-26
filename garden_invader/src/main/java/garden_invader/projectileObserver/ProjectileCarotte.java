@@ -23,8 +23,10 @@ public class ProjectileCarotte implements Projectile{
     private int speed;
     BufferedImage carotte;
 
+
+    //TODO hitbox décalée vers la gauche et pas liée à l'image
     public ProjectileCarotte(IEntiteStrategy proprietaire, int positionX, int positionY) {
-        this.largeur = 4;
+        this.largeur = 5;
         this.hauteur = 10;
         this.speed = 4;
         this.positionX = positionX + proprietaire.getLargeur()/2 - this.largeur/2;
@@ -32,7 +34,7 @@ public class ProjectileCarotte implements Projectile{
         this.entiteObs = new ArrayList<>();
 
         try {
-            carotte = ImageIO.read(new File("asset/sprite/carotte_tir.png"));
+            carotte = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

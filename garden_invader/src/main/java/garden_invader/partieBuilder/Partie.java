@@ -15,14 +15,18 @@ public class Partie {
     private int nbPies;
     private int nbCorbeaux;
     private int nbMartinPecheur;
-    private int ennemiSpeedBooost;
+    private int ennemiSpeed;
+    private int ennemiDescendSpeed;
+    private int playerHealth;
     private ArrayList<Entite> birds;
 
-    public Partie(int nbPies, int nbCorbeaux, int nbMartinPecheur, int ennemiSpeedBooost) {
+    public Partie(int nbPies, int nbCorbeaux, int nbMartinPecheur, int ennemiSpeed, int ennemiDescendSpeed,int playerHealth) {
         this.nbPies = nbPies;
         this.nbCorbeaux = nbCorbeaux;
         this.nbMartinPecheur = nbMartinPecheur;
-        this.ennemiSpeedBooost = ennemiSpeedBooost;
+        this.ennemiSpeed = ennemiSpeed;
+        this.ennemiDescendSpeed = ennemiDescendSpeed;
+        this.playerHealth = playerHealth;
         birds = new ArrayList<>();
     }
 
@@ -45,4 +49,11 @@ public class Partie {
         return birds;
     }
 
+    public int getEnnemiSpeed() {
+        return ennemiSpeed;
+    }
+
+    public int getEnnemiDescendSpeed() {
+        return ennemiDescendSpeed;
+    }
 }

@@ -16,7 +16,7 @@ public abstract class PartieBuilder {
     int nbMartinPecheur = 0;
     int ennemiSpeed = 50;
     int ennemiDescentSpeed = 10;
-    int health = 3;
+    int playerHealth = 3;
 
     abstract PartieBuilder buildNombrePie();
     abstract PartieBuilder buildNombreCorbeau();
@@ -24,7 +24,7 @@ public abstract class PartieBuilder {
 
 
     PartieBuilder builPlayerHealth(int health) {
-        this.health = health;
+        this.playerHealth = health;
         return this;
     }
 
@@ -40,7 +40,7 @@ public abstract class PartieBuilder {
     }
 
     Partie buildGame() {
-        return new Partie(nbPies, nbCorbeaux, nbMartinPecheur, ennemiSpeed);
+        return new Partie(nbPies, nbCorbeaux, nbMartinPecheur, ennemiSpeed, ennemiDescentSpeed, playerHealth);
     }
 
     void reset() {
