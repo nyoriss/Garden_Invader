@@ -15,7 +15,7 @@ public abstract class GameBuilder {
     int crowNb = 0;
     int kingfisherNb = 0;
     int ennemiSpeed = 50;
-    int ennemiDescentSpeed = 10;
+    int ennemiDescentSpeed = 9;
     int playerHealth = 3;
 
     abstract GameBuilder buildMagpieNb();

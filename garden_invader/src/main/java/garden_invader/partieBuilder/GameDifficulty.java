@@ -10,18 +10,18 @@ import java.util.ArrayList;
 
 public class GameDifficulty {
 
-    private int nbPies;
-    private int nbCorbeaux;
-    private int nbMartinPecheur;
+    private int magpieNb;
+    private int crowNb;
+    private int kingfisherNb;
     private int ennemiSpeed;
     private int ennemiDescendSpeed;
     private int playerHealth;
     private ArrayList<Entity> birds;
 
-    public GameDifficulty(int nbPies, int nbCorbeaux, int nbMartinPecheur, int ennemiSpeed, int ennemiDescendSpeed, int playerHealth) {
-        this.nbPies = nbPies;
-        this.nbCorbeaux = nbCorbeaux;
-        this.nbMartinPecheur = nbMartinPecheur;
+    public GameDifficulty(int magpieNb, int crowNb, int kingfisherNb, int ennemiSpeed, int ennemiDescendSpeed, int playerHealth) {
+        this.magpieNb = magpieNb;
+        this.crowNb = crowNb;
+        this.kingfisherNb = kingfisherNb;
         this.ennemiSpeed = ennemiSpeed;
         this.ennemiDescendSpeed = ennemiDescendSpeed;
         this.playerHealth = playerHealth;
@@ -29,14 +29,13 @@ public class GameDifficulty {
     }
 
     public ArrayList<Entity> getBirds(GamePanel gp) {
-        System.out.println("pies : "+nbPies+ " corbo : "+nbCorbeaux+ " martin pecheur : "+nbMartinPecheur);
-        for(int i = 0; i < nbPies + nbCorbeaux + nbMartinPecheur; i ++) {
+        for(int i = 0; i < magpieNb + crowNb + kingfisherNb; i ++) {
             boolean assigned = false;
-            if(i < nbMartinPecheur) {
+            if(i < kingfisherNb) {
                 birds.add(new Entity(new kingfisher(0, 0, gp.tileSize, gp.tileSize)));
                 assigned = true;
             }
-            if((i < nbMartinPecheur + nbCorbeaux) & !assigned) {
+            if((i < kingfisherNb + crowNb) & !assigned) {
                 birds.add(new Entity(new Crow(0, 0, gp.tileSize, gp.tileSize)));
                 assigned = true;
             }

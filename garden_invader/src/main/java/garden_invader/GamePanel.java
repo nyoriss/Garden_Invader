@@ -23,7 +23,6 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
-    private int EnnemyRows = 3;
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
@@ -100,41 +99,9 @@ public class GamePanel extends JPanel implements Runnable {
             // DRAW
             repaint();
 
-            if(loseGame) {
-                //on attend quelque temps pour la compréhension
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+            checkGameEndCondition();
 
-                JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
-                windowGame.setTitle("Garden Invader");
-                windowGame.add(new JLabel(defeatImage));
-                windowGame.pack();
-                windowGame.setLocationRelativeTo(null);
-                windowGame.setVisible(true);
-                return;
-            }
-
-            if(winGame) {
-                //on attend quelque temps pour la compréhension
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
-                windowGame.setTitle("Garden Invader");
-                windowGame.add(new JLabel(victoryImage));
-                windowGame.pack();
-                windowGame.setLocationRelativeTo(null);
-                windowGame.setVisible(true);
+            if(winGame || loseGame) {
                 return;
             }
 
@@ -168,12 +135,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        //S'il ne reste plus aucun ennemis
-        if(enemies.size()==0) {
-            winGame = true;
-            System.out.println("game win inside update");
-            return;
-        }
+
 
         //déplacement des oiseaux
         if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
@@ -187,15 +149,6 @@ public class GamePanel extends JPanel implements Runnable {
                     enemies.get(i).setPositionY(enemies.get(i).getPositionY() + tileSize/2);
                 }
                 birdMoveTick = tick;
-            }
-        }
-
-        //si un oiseau est descendu trop bas
-        for (Entity ennemi: enemies) {
-            if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
-                loseGame = true;
-                System.out.println("game loosed inside update");
-                return;
             }
         }
     }
@@ -217,8 +170,6 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-
-    //TODO à replacer ?
     public ArrayList<Entity> createBirds() {
         ArrayList<Entity> birds = gameDifficulty.getBirds(this);
         int ecart = (screenWidth - (10 * tileSize)) / 11;
@@ -259,5 +210,42 @@ public class GamePanel extends JPanel implements Runnable {
     public void SupprimeEntiteDesEnnemis(Entity entity) {
         if(enemies.contains(entity))
             enemies.remove(entity);
+    }
+
+
+    public void checkGameEndCondition() {
+        JFrame windowGame = new JFrame();
+
+        //S'il ne reste plus aucun ennemis
+        if(enemies.size()==0) {
+            winGame = true;
+            windowGame.add(new JLabel(victoryImage));
+            System.out.println("game win inside update");
+        }
+
+        //si un oiseau est descendu trop bas
+        for (Entity ennemi: enemies) {
+            if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
+                loseGame = true;
+                windowGame.add(new JLabel(defeatImage));
+
+                System.out.println("game loosed inside update");
+            }
+        }
+
+        if(winGame || loseGame) {
+            //on attend quelque temps pour la compréhension
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            windowGame.setResizable (false);
+            windowGame.setTitle("Garden Invader");
+            windowGame.pack();
+            windowGame.setLocationRelativeTo(null);
+            windowGame.setVisible(true);
+            return;
+        }
     }
 }

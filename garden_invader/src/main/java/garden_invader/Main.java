@@ -21,7 +21,6 @@ public class Main {
         windowMenu.setTitle("Garden Invader");
         MenuPanel menuPanel = new MenuPanel();
 
-        //Ajouter le bouton
         windowMenu.add(menuPanel);
 
         windowMenu.pack();

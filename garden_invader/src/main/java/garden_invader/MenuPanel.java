@@ -79,6 +79,9 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
                 windowGame.setVisible(true);
+                //faire disparaitre le menu
+                setVisible(false);
+                //commencer la partie
                 gamePanel.startGameThread();
             }
         });
@@ -96,6 +99,9 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
                 windowGame.setVisible(true);
+                //faire disparaitre le menu
+                setVisible(false);
+                //commencer la partie
                 gamePanel.startGameThread();
             }
         });
@@ -113,6 +119,9 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.pack();
                 windowGame.setLocationRelativeTo(null);
                 windowGame.setVisible(true);
+                //faire disparaitre le menu
+                setVisible(false);
+                //commencer la partie
                 gamePanel.startGameThread();
             }
         });
