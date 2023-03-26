@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -64,6 +64,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    ImageIcon victoire = new ImageIcon("asset/victoire.png");
+    ImageIcon defaite = new ImageIcon("asset/defaite.png");
+
     public GamePanel(Partie partie) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new java.awt.Color(34, 177, 76));
@@ -112,11 +115,27 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(looseGame) {
                 System.out.println("win outside");
+                JFrame windowGame = new JFrame();
+                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable (false);
+                windowGame.setTitle("Garden Invader");
+                windowGame.add(new JLabel(defaite));
+                windowGame.pack();
+                windowGame.setLocationRelativeTo(null);
+                windowGame.setVisible(true);
                 return;
             }
 
             if(winGame) {
                 System.out.println("loose outside");
+                JFrame windowGame = new JFrame();
+                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable (false);
+                windowGame.setTitle("Garden Invader");
+                windowGame.add(new JLabel(victoire));
+                windowGame.pack();
+                windowGame.setLocationRelativeTo(null);
+                windowGame.setVisible(true);
                 return;
             }
 
