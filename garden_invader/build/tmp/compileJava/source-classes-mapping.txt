@@ -1,41 +1,43 @@
-garden_invader/Main.java
- garden_invader.Main
-garden_invader/KeyHandler.java
- garden_invader.KeyHandler
-garden_invader/partieBuilder/Director.java
- garden_invader.partieBuilder.Director
-garden_invader/partieBuilder/PartieFacileBuilder.java
- garden_invader.partieBuilder.PartieFacileBuilder
-garden_invader/partieBuilder/PartieBuilder.java
- garden_invader.partieBuilder.PartieBuilder
-garden_invader/partieBuilder/PartieIntermediaireBuilder.java
- garden_invader.partieBuilder.PartieIntermediaireBuilder
-garden_invader/partieBuilder/PartieDifficileBuilder.java
- garden_invader.partieBuilder.PartieDifficileBuilder
-garden_invader/entiteStrategy/Martin_Pecheur.java
- garden_invader.entiteStrategy.Martin_Pecheur
 garden_invader/projectileObserver/ProjectileCarotte.java
  garden_invader.projectileObserver.ProjectileCarotte
 garden_invader/entiteStrategy/Oiseau.java
  garden_invader.entiteStrategy.Oiseau
+garden_invader/partieBuilder/Director.java
+ garden_invader.partieBuilder.Director
+garden_invader/partieBuilder/PartieFacileBuilder.java
+ garden_invader.partieBuilder.PartieFacileBuilder
 garden_invader/GamePanel.java
  garden_invader.GamePanel
+garden_invader/partieBuilder/Partie.java
+ garden_invader.partieBuilder.Partie
+garden_invader/partieBuilder/PartieIntermediaireBuilder.java
+ garden_invader.partieBuilder.PartieIntermediaireBuilder
+garden_invader/entiteStrategy/Lapin.java
+ garden_invader.entiteStrategy.Lapin
+garden_invader/entiteStrategy/Pie.java
+ garden_invader.entiteStrategy.Pie
+garden_invader/projectileObserver/EntiteObserver.java
+ garden_invader.projectileObserver.EntiteObserver
+garden_invader/entiteStrategy/Martin_Pecheur.java
+ garden_invader.entiteStrategy.Martin_Pecheur
+garden_invader/Main.java
+ garden_invader.Main
 garden_invader/entiteStrategy/IEntiteStrategy.java
  garden_invader.entiteStrategy.IEntiteStrategy
 garden_invader/Entite.java
  garden_invader.Entite
+garden_invader/partieBuilder/PartieBuilder.java
+ garden_invader.partieBuilder.PartieBuilder
+garden_invader/partieBuilder/PartieDifficileBuilder.java
+ garden_invader.partieBuilder.PartieDifficileBuilder
 garden_invader/projectileObserver/Projectile.java
  garden_invader.projectileObserver.Projectile
-garden_invader/entiteStrategy/Lapin.java
- garden_invader.entiteStrategy.Lapin
+garden_invader/KeyHandler.java
+ garden_invader.KeyHandler
 garden_invader/entiteStrategy/Corbeau.java
  garden_invader.entiteStrategy.Corbeau
-garden_invader/entiteStrategy/Pie.java
- garden_invader.entiteStrategy.Pie
 garden_invader/PartiePanel.java
  garden_invader.PartiePanel
  garden_invader.PartiePanel$1
  garden_invader.PartiePanel$2
  garden_invader.PartiePanel$3
-garden_invader/projectileObserver/EntiteObserver.java
- garden_invader.projectileObserver.EntiteObserver
