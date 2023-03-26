@@ -6,6 +6,7 @@ import garden_invader.projectileObserver.Projectile;
 import garden_invader.projectileObserver.ProjectileCarotte;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Lapin implements IEntiteStrategy{
@@ -105,7 +106,7 @@ public class Lapin implements IEntiteStrategy{
     }
 
     @Override
-    public Color getCouleur() {
+    public BufferedImage getDessin() {
         return null;
     }
 
