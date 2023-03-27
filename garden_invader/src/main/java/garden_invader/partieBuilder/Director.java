@@ -16,7 +16,7 @@ public class Director {
         this.partie = partie;
     }
     
-    public GameDifficulty ConstructorPartie() {
+    public GameDifficulty GameConstructor() {
         return partie.buildMagpieNb()
                 .buildCrowNb()
                 .buildKingfisherNb()

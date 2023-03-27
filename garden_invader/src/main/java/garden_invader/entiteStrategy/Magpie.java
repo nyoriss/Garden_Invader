@@ -17,9 +17,6 @@ public class Magpie extends Bird {
     private String sprite;
     private Projectile projectileType;
     private BufferedImage draw;
-    {
-
-    }
 
     /**
     * Construit une nouvelle instance de la classe "Pie" avec la position et la

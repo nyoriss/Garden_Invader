@@ -3,6 +3,7 @@ package garden_invader.projectileObserver;
 import garden_invader.Entity;
 import garden_invader.GamePanel;
 import garden_invader.entiteStrategy.IEntityStrategy;
+import garden_invader.entiteStrategy.Rabbit;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class CarrotProjectile implements Projectile{
 
     private ArrayList<EntityObserver> entiteObs;
 
+    private Rabbit owner;
     private int positionX;
     private int positionY;
     private int width;
@@ -25,7 +27,7 @@ public class CarrotProjectile implements Projectile{
 
 
     //TODO hitbox décalée vers la gauche et pas liée à l'image
-    public CarrotProjectile(IEntityStrategy owner, int positionX, int positionY) {
+    public CarrotProjectile(Rabbit owner, int positionX, int positionY) {
         this.width = 5;
         this.height = 10;
         this.speed = 4;
@@ -33,6 +35,7 @@ public class CarrotProjectile implements Projectile{
         this.positionY = positionY;
         this.entiteObs = new ArrayList<>();
 
+        this.owner = owner;
         try {
             carrot = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
         } catch (IOException e) {
@@ -101,7 +104,7 @@ public class CarrotProjectile implements Projectile{
             if(entity.hurt(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
                 gp.removeFromEnnemyProjectiles(entity);
             }
-            gp.removeFromAlliedProjectiles(this);
+            owner.removeFromAlliedProjectiles(this); //TODO
             System.out.println("projectile supprimé par hitBox");
             return true;
         }

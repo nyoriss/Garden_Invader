@@ -1,5 +1,6 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.Entity;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
@@ -20,6 +21,8 @@ public class Rabbit implements IEntityStrategy {
     private int height;
     private int speed;
     private int lastAttackTick;
+    private ArrayList<Projectile> alliedProjectiles;
+
 
     private BufferedImage rabbit;
 
@@ -32,6 +35,7 @@ public class Rabbit implements IEntityStrategy {
         this.speed = 4;
         this.lastAttackTick = 0;
 
+        alliedProjectiles = new ArrayList<>();
 
         try {
             rabbit = ImageIO.read(new File("asset/sprite/lapin.png"));
@@ -107,8 +111,25 @@ public class Rabbit implements IEntityStrategy {
         if(keyHandler.spacePressed && gp.tick-lastAttackTick >=35) {
             Projectile projectile = new CarrotProjectile(this, positionX, positionY - height);
 
-            gp.addProjectile(projectile);
+            addProjectile(projectile, gp);
             lastAttackTick = gp.tick;
+        }
+
+        //projectiles
+
+        for (int i = 0; i < alliedProjectiles.size(); i++) {
+            Projectile projectile = alliedProjectiles.get(i);
+            //si le projectile touche
+            if (projectile.update(gp)) {
+                i--; // Décrémenter l'index pour compenser la suppression
+            } else {
+                //suppression des projectiles hors de l'écran
+                if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
+                    alliedProjectiles.remove(i);
+                    System.out.println("projectile supprimé par sortie d'écran");
+                    i--;
+                }
+            }
         }
     }
 
@@ -120,6 +141,22 @@ public class Rabbit implements IEntityStrategy {
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
         g2.drawImage(rabbit,positionX, positionY, gp.tileSize, gp.tileSize, null);
+        for(int i = 0; i < alliedProjectiles.size(); i++) {
+            //Déplacement des projectiles
+            alliedProjectiles.get(i).draw(gp, g2);
+        }
+    }
+
+    public void addProjectile(Projectile projectile, GamePanel gp) {
+        alliedProjectiles.add(projectile);
+        for (Entity entity : gp.getEnemies()) {
+            projectile.enregistrerObs(entity);
+        }
+    }
+
+    public void removeFromAlliedProjectiles(Projectile projectile) {
+        if(alliedProjectiles.contains(projectile))
+            alliedProjectiles.remove(projectile);
     }
 
 }

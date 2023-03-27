@@ -73,7 +73,7 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                gameDifficultyBuilder = new Director(new EasyGameBuilder()).ConstructorPartie();
+                gameDifficultyBuilder = new Director(new EasyGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
@@ -93,7 +93,7 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                gameDifficultyBuilder = new Director(new IntermediateGameBuilder()).ConstructorPartie();
+                gameDifficultyBuilder = new Director(new IntermediateGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();
@@ -113,7 +113,7 @@ public class MenuPanel extends JPanel implements Runnable {
                 windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
                 windowGame.setResizable (false);
                 windowGame.setTitle("Garden Invader");
-                gameDifficultyBuilder = new Director(new DifficultGameBuilder()).ConstructorPartie();
+                gameDifficultyBuilder = new Director(new DifficultGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
                 windowGame.add(gamePanel);
                 windowGame.pack();

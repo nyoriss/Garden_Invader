@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Entity player;
-    ArrayList<Projectile> alliedProjectiles;
 
     ArrayList<Entity> enemies;
     ArrayList<Projectile> ennemyProjectiles;
@@ -64,7 +63,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.player = new Entity(new Rabbit(100, screenHeight-100, tileSize, tileSize));
 
         //Projectiles
-        alliedProjectiles = new ArrayList<>();
         ennemyProjectiles = new ArrayList<>();
 
         //difficulty setUp
@@ -120,7 +118,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
         //gestion des collisions entre oiseaux et projectiles
-        for (int i = 0; i < alliedProjectiles.size(); i++) {
+
+        /*for (int i = 0; i < alliedProjectiles.size(); i++) {
             Projectile projectile = alliedProjectiles.get(i);
             //si le projectile touche
             if (projectile.update(this)) {
@@ -133,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
                     i--;
                 }
             }
-        }
+        }*/
 
 
 
@@ -159,10 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawImage(gameImage, 0, 0, this);
         //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
         player.draw(this, g2);
-        for(int i = 0; i < alliedProjectiles.size(); i++) {
-            //Déplacement des projectiles
-            alliedProjectiles.get(i).draw(this, g2);
-        }
+
 
         for (Entity entity : enemies) {
             entity.draw(this, g2);
@@ -193,18 +189,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         return birds;
-    }
-
-    public void addProjectile(Projectile projectile) {
-        alliedProjectiles.add(projectile);
-        for (Entity entity : enemies) {
-            projectile.enregistrerObs(entity);
-        }
-    }
-
-    public void removeFromAlliedProjectiles(Projectile projectile) {
-        if(alliedProjectiles.contains(projectile))
-            alliedProjectiles.remove(projectile);
     }
 
     public void removeFromEnnemyProjectiles(Entity entity) {
@@ -247,5 +231,9 @@ public class GamePanel extends JPanel implements Runnable {
             windowGame.setVisible(true);
             return;
         }
+    }
+
+    public ArrayList<Entity> getEnemies() {
+        return enemies;
     }
 }
