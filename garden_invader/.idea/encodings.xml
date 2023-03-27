@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/garden_invader/entiteStrategy/Crow.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/garden_invader/entiteStrategy/Magpie.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/garden_invader/entiteStrategy/kingfisher.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/test/java/BirdTest.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/test/java/garden_invader/BirdTest.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/test/java/garden_invader/BirdTest.java" charset="windows-1252" />
   </component>
 </project>

@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe représentant le personnage jouable, un lapin.
+ */
 public class Rabbit implements IEntityStrategy {
 
     private int positionX;
@@ -27,6 +30,14 @@ public class Rabbit implements IEntityStrategy {
     private BufferedImage rabbit;
 
 
+    /**
+     * Constructeur de la classe Rabbit.
+     *
+     * @param posX la position X initiale du lapin
+     * @param posY la position Y initiale du lapin
+     * @param width la largeur du lapin
+     * @param height la hauteur du lapin
+     */
     public Rabbit(int posX, int posY, int width, int height) {
         this.positionX = posX;
         this.positionY = posY;
@@ -147,6 +158,12 @@ public class Rabbit implements IEntityStrategy {
         }
     }
 
+    /**
+     * Ajoute un projectile à la liste des projectiles alliés et enregistre les entités ennemies comme observateurs.
+     *
+     * @param projectile le projectile à ajouter
+     * @param gp le GamePanel contenant les entités ennemies
+     */
     public void addProjectile(Projectile projectile, GamePanel gp) {
         alliedProjectiles.add(projectile);
         for (Entity entity : gp.getEnemies()) {
@@ -154,6 +171,11 @@ public class Rabbit implements IEntityStrategy {
         }
     }
 
+    /**
+     * Supprime un projectile de la liste des projectiles alliés s'il y est présent.
+     *
+     * @param projectile le projectile à supprimer
+     */
     public void removeFromAlliedProjectiles(Projectile projectile) {
         if(alliedProjectiles.contains(projectile))
             alliedProjectiles.remove(projectile);
