@@ -2,7 +2,7 @@ package garden_invader.projectileObserver;
 
 import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.entiteStrategy.IEntiteStrategy;
+import garden_invader.entiteStrategy.IEntityStrategy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CarrotProjectile implements Projectile{
 
-    private ArrayList<EntiteObserver> entiteObs;
+    private ArrayList<EntityObserver> entiteObs;
 
     private int positionX;
     private int positionY;
@@ -25,7 +25,7 @@ public class CarrotProjectile implements Projectile{
 
 
     //TODO hitbox décalée vers la gauche et pas liée à l'image
-    public CarrotProjectile(IEntiteStrategy owner, int positionX, int positionY) {
+    public CarrotProjectile(IEntityStrategy owner, int positionX, int positionY) {
         this.width = 5;
         this.height = 10;
         this.speed = 4;
@@ -41,12 +41,12 @@ public class CarrotProjectile implements Projectile{
     }
 
     @Override
-    public void enregistrerObs(EntiteObserver observer) {
+    public void enregistrerObs(EntityObserver observer) {
         entiteObs.add(observer);
     }
 
     @Override
-    public void supprimerObs(EntiteObserver observer) {
+    public void supprimerObs(EntityObserver observer) {
         entiteObs.remove(observer);
     }
 

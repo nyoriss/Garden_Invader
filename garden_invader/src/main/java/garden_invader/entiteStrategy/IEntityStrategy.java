@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public interface IEntiteStrategy {
+public interface IEntityStrategy {
 
     void setPositionX(int posX);
 

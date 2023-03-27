@@ -1,17 +1,16 @@
 package garden_invader;
 
-import garden_invader.entiteStrategy.IEntiteStrategy;
-import garden_invader.projectileObserver.EntiteObserver;
+import garden_invader.entiteStrategy.IEntityStrategy;
+import garden_invader.projectileObserver.EntityObserver;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-public class Entity implements EntiteObserver {
-    private IEntiteStrategy entite;
+public class Entity implements EntityObserver {
+    private IEntityStrategy entite;
 
-    public Entity(IEntiteStrategy entite) {
+    public Entity(IEntityStrategy entite) {
         this.entite = entite;
     }
 

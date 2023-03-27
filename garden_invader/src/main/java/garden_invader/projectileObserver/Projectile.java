@@ -7,9 +7,9 @@ import java.awt.*;
 
 public interface Projectile {
 
-    void enregistrerObs(EntiteObserver observer);
+    void enregistrerObs(EntityObserver observer);
 
-    void supprimerObs(EntiteObserver observer);
+    void supprimerObs(EntityObserver observer);
 
     Entity notifierObs();
 

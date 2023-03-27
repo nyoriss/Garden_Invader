@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Rabbit implements IEntiteStrategy{
+public class Rabbit implements IEntityStrategy {
 
     private int positionX;
     private int positionY;

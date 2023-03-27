@@ -2,7 +2,7 @@ package garden_invader.entiteStrategy;
 
 import java.util.ArrayList;
 
-public  abstract class Bird implements IEntiteStrategy {
+public  abstract class Bird implements IEntityStrategy {
 
     private int positionX;
     private int positionY;
