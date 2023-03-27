@@ -3,7 +3,7 @@ package garden_invader.entiteStrategy;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
-import garden_invader.projectileObserver.CarotProjectile;
+import garden_invader.projectileObserver.CarrotProjectile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -105,7 +105,7 @@ public class Rabbit implements IEntiteStrategy{
         }
 
         if(keyHandler.spacePressed && gp.tick-lastAttackTick >=35) {
-            Projectile projectile = new CarotProjectile(this, positionX, positionY - height);
+            Projectile projectile = new CarrotProjectile(this, positionX, positionY - height);
 
             gp.addProjectile(projectile);
             lastAttackTick = gp.tick;

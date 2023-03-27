@@ -202,12 +202,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void SupprimeDesProjectilesAllies(Projectile projectile) {
+    public void removeFromAlliedProjectiles(Projectile projectile) {
         if(alliedProjectiles.contains(projectile))
             alliedProjectiles.remove(projectile);
     }
 
-    public void SupprimeEntiteDesEnnemis(Entity entity) {
+    public void removeFromEnnemyProjectiles(Entity entity) {
         if(enemies.contains(entity))
             enemies.remove(entity);
     }

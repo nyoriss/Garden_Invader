@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CarotProjectile implements Projectile{
+public class CarrotProjectile implements Projectile{
 
     private ArrayList<EntiteObserver> entiteObs;
 
@@ -25,11 +25,11 @@ public class CarotProjectile implements Projectile{
 
 
     //TODO hitbox décalée vers la gauche et pas liée à l'image
-    public CarotProjectile(IEntiteStrategy proprietaire, int positionX, int positionY) {
+    public CarrotProjectile(IEntiteStrategy owner, int positionX, int positionY) {
         this.width = 5;
         this.height = 10;
         this.speed = 4;
-        this.positionX = positionX + proprietaire.getHeight()/2 - this.width /2;
+        this.positionX = positionX + owner.getHeight()/2 - this.width /2;
         this.positionY = positionY;
         this.entiteObs = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class CarotProjectile implements Projectile{
 
     @Override
     public void supprimerObs(EntiteObserver observer) {
-
+        entiteObs.remove(observer);
     }
 
     @Override
@@ -99,9 +99,9 @@ public class CarotProjectile implements Projectile{
         if (entity !=null) {
             //Blesse l'entité et vérifie si l'entité est supprimée
             if(entity.hurt(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
-                gp.SupprimeEntiteDesEnnemis(entity);
+                gp.removeFromEnnemyProjectiles(entity);
             }
-            gp.SupprimeDesProjectilesAllies(this);
+            gp.removeFromAlliedProjectiles(this);
             System.out.println("projectile supprimé par hitBox");
             return true;
         }
