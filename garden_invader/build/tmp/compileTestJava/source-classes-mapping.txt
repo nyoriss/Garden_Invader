@@ -1,2 +1,4 @@
-OiseauTest.java
- OiseauTest
+garden_invader/BirdTest.java
+ garden_invader.BirdTest
+garden_invader/EntityObserverTest.java
+ garden_invader.EntityObserverTest

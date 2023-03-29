@@ -8,6 +8,9 @@ import garden_invader.entiteStrategy.Magpie;
 
 import java.util.ArrayList;
 
+/**
+ * Classe représentant la difficulté d'une partie.
+ */
 public class GameDifficulty {
 
     private int magpieNb;
@@ -18,6 +21,15 @@ public class GameDifficulty {
     private int playerHealth;
     private ArrayList<Entity> birds;
 
+    /**
+     * Constructeur de la classe GameDifficulty.
+     * @param magpieNb le nombre de pies
+     * @param crowNb le nombre de corbeaux
+     * @param kingfisherNb le nombre de martin-pêcheurs
+     * @param ennemiSpeed la vitesse des ennemis
+     * @param ennemiDescendSpeed la vitesse de descente des ennemis
+     * @param playerHealth la santé du joueur
+     */
     public GameDifficulty(int magpieNb, int crowNb, int kingfisherNb, int ennemiSpeed, int ennemiDescendSpeed, int playerHealth) {
         this.magpieNb = magpieNb;
         this.crowNb = crowNb;
@@ -28,6 +40,11 @@ public class GameDifficulty {
         birds = new ArrayList<>();
     }
 
+    /**
+     * Renvoie la liste des oiseaux en fonction de la difficulté.
+     * @param gp le GamePanel
+     * @return la liste des oiseaux
+     */
     public ArrayList<Entity> getBirds(GamePanel gp) {
         for(int i = 0; i < magpieNb + crowNb + kingfisherNb; i ++) {
             boolean assigned = false;
@@ -46,10 +63,18 @@ public class GameDifficulty {
         return birds;
     }
 
+    /**
+     * Renvoie la vitesse des ennemis.
+     * @return la vitesse des ennemis
+     */
     public int getEnnemiSpeed() {
         return ennemiSpeed;
     }
 
+    /**
+     * Renvoie la vitesse de descente des ennemis.
+     * @return la vitesse de descente des ennemis
+     */
     public int getEnnemiDescendSpeed() {
         return ennemiDescendSpeed;
     }
