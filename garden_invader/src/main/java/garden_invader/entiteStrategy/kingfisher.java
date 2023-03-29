@@ -57,7 +57,7 @@ public class kingfisher extends Bird {
     }
 
     @Override
-    public void upDate(GamePanel gp, KeyHandler keyHandler) {
+    public void update(GamePanel gp, KeyHandler keyHandler) {
 
     }
 

@@ -79,7 +79,7 @@ public interface IEntityStrategy {
      * @param gp le GamePanel dans lequel l'entité est affichée
      * @param keyHandler le KeyHandler gérant les entrées utilisateur
      */
-    void upDate(GamePanel gp, KeyHandler keyHandler);
+    void update(GamePanel gp, KeyHandler keyHandler);
 
     /**
      * Renvoie l'image de l'entité.

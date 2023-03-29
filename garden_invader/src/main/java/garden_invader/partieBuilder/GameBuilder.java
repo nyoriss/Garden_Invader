@@ -69,7 +69,7 @@ public abstract class GameBuilder {
      * @param speed La vitesse de déplacement des ennemis.
      * @return une instance de GameBuilder pour la configuration de la partie de jeu.
      */
-    GameBuilder buildVitesseDeplacementEnnemi(int speed) {
+    GameBuilder buildEnemyMovementSpeed(int speed) {
         this.ennemiSpeed = speed;
         return this;
     }
@@ -80,7 +80,7 @@ public abstract class GameBuilder {
      * @param speed La vitesse de descente des ennemis.
      * @return une instance de GameBuilder pour la configuration de la partie de jeu.
      */
-    GameBuilder buildVitesseDescenteEnnemi(int speed) {
+    GameBuilder buildEnemyDescendSpeed(int speed) {
         this.ennemiDescentSpeed = speed;
         return this;
     }

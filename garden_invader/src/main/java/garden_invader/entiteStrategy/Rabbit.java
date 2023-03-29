@@ -89,11 +89,11 @@ public class Rabbit implements IEntityStrategy {
         return hitBox;
     }
 
-    public boolean collision(int posX, int posY, int width, int hauteur) {
+    public boolean collision(int posX, int posY, int width, int height) {
         if (positionX < posX + width &&
                 positionX + width > posX &&
-                positionY < posY + hauteur &&
-                positionY + hauteur > posY) {
+                positionY < posY + height &&
+                positionY + height > posY) {
 
             System.out.println("collision");
             return true; // il y a une collision
@@ -108,7 +108,7 @@ public class Rabbit implements IEntityStrategy {
     }
 
     @Override
-    public void upDate(GamePanel gp, KeyHandler keyHandler) {
+    public void update(GamePanel gp, KeyHandler keyHandler) {
         if(keyHandler.leftPressed) {
             if(positionX - 8 * speed >= 0)
                 positionX -= speed;
@@ -127,7 +127,6 @@ public class Rabbit implements IEntityStrategy {
         }
 
         //projectiles
-
         for (int i = 0; i < alliedProjectiles.size(); i++) {
             Projectile projectile = alliedProjectiles.get(i);
             //si le projectile touche
@@ -180,5 +179,4 @@ public class Rabbit implements IEntityStrategy {
         if(alliedProjectiles.contains(projectile))
             alliedProjectiles.remove(projectile);
     }
-
 }

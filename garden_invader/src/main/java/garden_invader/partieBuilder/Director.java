@@ -31,6 +31,6 @@ public class Director {
                 .buildCrowNb()
                 .buildKingfisherNb()
                 .builPlayerHealth(3)
-                .buildVitesseDeplacementEnnemi(50).buildGame();
+                .buildEnemyMovementSpeed(50).buildGame();
     }
 }

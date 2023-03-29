@@ -56,6 +56,6 @@ public class Entity implements EntityObserver {
     }
 
     public void update(GamePanel gp, KeyHandler keyHandler) {
-        entite.upDate(gp, keyHandler);
+        entite.update(gp, keyHandler);
     }
 }
