@@ -28,8 +28,8 @@ public class CarrotProjectile implements Projectile{
 
     //TODO hitbox décalée vers la gauche et pas liée à l'image
     public CarrotProjectile(Rabbit owner, int positionX, int positionY) {
-        this.width = 5;
-        this.height = 10;
+        this.width = 6*5;
+        this.height = 12*5;
         this.speed = 4;
         this.positionX = positionX + owner.getHeight()/2 - this.width /2;
         this.positionY = positionY;
@@ -113,7 +113,7 @@ public class CarrotProjectile implements Projectile{
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(carrot,positionX, positionY, width * 5, height * 5, null);
+        g2.drawImage(carrot,positionX, positionY, width*5, height*5, null);
     }
 
     public void setHitBox(ArrayList<Integer> hitBox) {
