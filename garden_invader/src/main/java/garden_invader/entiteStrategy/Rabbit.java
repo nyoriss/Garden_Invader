@@ -24,6 +24,7 @@ public class Rabbit implements IEntityStrategy {
     private int height;
     private int speed;
     private int lastAttackTick;
+    private int attackDelay;
     private ArrayList<Projectile> alliedProjectiles;
 
 
@@ -45,6 +46,7 @@ public class Rabbit implements IEntityStrategy {
         this.width = width;
         this.speed = 4;
         this.lastAttackTick = 0;
+        this.attackDelay = 35;
 
         alliedProjectiles = new ArrayList<>();
 
@@ -119,7 +121,7 @@ public class Rabbit implements IEntityStrategy {
             }
         }
 
-        if(keyHandler.spacePressed && gp.tick-lastAttackTick >=35) {
+        if(keyHandler.spacePressed && gp.tick-lastAttackTick >=attackDelay) {
             Projectile projectile = new CarrotProjectile(this, positionX, positionY - height);
 
             addProjectile(projectile, gp);
