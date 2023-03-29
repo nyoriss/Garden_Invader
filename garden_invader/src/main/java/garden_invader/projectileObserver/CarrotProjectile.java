@@ -38,8 +38,8 @@ public class CarrotProjectile implements Projectile{
      * @param positionY La position y de la carotte.
      */
     public CarrotProjectile(Rabbit owner, int positionX, int positionY) {
-        this.width = 6*5;
-        this.height = 12*5;
+        this.width = 6*3;
+        this.height = 12*4;
         this.speed = 4;
         this.positionX = positionX + owner.getHeight()/2 - this.width /2;
         this.positionY = positionY;
@@ -47,7 +47,7 @@ public class CarrotProjectile implements Projectile{
 
         this.owner = owner;
         try {
-            carrot = ImageIO.read(new File("asset/sprite/carotte_tir3.png"));
+            carrot = ImageIO.read(new File("asset/sprite/carotte_tir_crop.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -169,7 +169,7 @@ public class CarrotProjectile implements Projectile{
      */
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(carrot,positionX, positionY, width*5, height*5, null);
+        g2.drawImage(carrot,positionX, positionY, width, height, null);
     }
 
     /**
