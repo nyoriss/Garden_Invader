@@ -128,7 +128,7 @@ public class Rabbit implements IEntityStrategy {
             lastAttackTick = gp.tick;
         }
 
-        //projectiles
+        //gestion des collisions entre oiseaux et projectiles
         for (int i = 0; i < alliedProjectiles.size(); i++) {
             Projectile projectile = alliedProjectiles.get(i);
             //si le projectile touche

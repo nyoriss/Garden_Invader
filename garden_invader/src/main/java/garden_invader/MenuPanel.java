@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuPanel extends JPanel implements Runnable {
+public class MenuPanel extends JPanel{
 
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
@@ -126,8 +126,5 @@ public class MenuPanel extends JPanel implements Runnable {
             }
         });
     }
-    @Override
-    public void run() {
 
-    }
 }

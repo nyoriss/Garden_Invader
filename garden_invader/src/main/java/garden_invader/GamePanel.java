@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
+    private int FPS = 60;
+
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Entity player;
@@ -38,8 +40,16 @@ public class GamePanel extends JPanel implements Runnable {
     int birdMoveSpeed;
     int birdDescendSpeed;
     int lastAttackTick;
-    boolean winGame;
-    boolean loseGame;
+
+    //GAME STATE
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int winState = 3;
+    public final int loseState = 4;
+
+
 
     ImageIcon victoryImage = new ImageIcon("asset/victoire.png");
     ImageIcon defeatImage = new ImageIcon("asset/defaite.png");
@@ -76,8 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         lastAttackTick = -100;
 
         //end game variables set
-        winGame = false;
-        loseGame = false;
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -88,6 +97,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
+
+        double drawInterval = 1000000000/FPS; //0,01666 secondes
+        double nextDrawTime = System.nanoTime() + drawInterval;
+
         while(gameThread!= null) {
 
             // UPDATE
@@ -99,42 +112,30 @@ public class GamePanel extends JPanel implements Runnable {
 
             checkGameEndCondition();
 
-            if(winGame || loseGame) {
+            if(gameState == winState || gameState == loseState) {
                 return;
             }
 
+            tick ++;
+
             try {
-                Thread.sleep(10);
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime /= 1000000;
+                if(remainingTime < 0) {
+                    remainingTime = 0;
+                }
+                Thread.sleep((long) remainingTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            tick ++;
+
+            nextDrawTime += drawInterval;
         }
     }
 
     public void update() {
 
         player.update(this, keyHandler);
-
-
-        //gestion des collisions entre oiseaux et projectiles
-
-        /*for (int i = 0; i < alliedProjectiles.size(); i++) {
-            Projectile projectile = alliedProjectiles.get(i);
-            //si le projectile touche
-            if (projectile.update(this)) {
-                i--; // Décrémenter l'index pour compenser la suppression
-            } else {
-                //suppression des projectiles hors de l'écran
-                if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
-                    alliedProjectiles.remove(i);
-                    System.out.println("projectile supprimé par sortie d'écran");
-                    i--;
-                }
-            }
-        }*/
-
-
 
         //déplacement des oiseaux
         if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
@@ -155,14 +156,24 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.drawImage(gameImage, 0, 0, this);
-        //g2.fillRect(joueur.getHitBox().get(0), joueur.getHitBox().get(1), tileSize, tileSize);
-        player.draw(this, g2);
 
+        // Menu
+        if(gameState == titleState) {
+            //TODO tuto 17
+        } else {
+            // Décors
+            g2.drawImage(gameImage, 0, 0, this);
 
-        for (Entity entity : enemies) {
-            entity.draw(this, g2);
+            //Joueur
+            player.draw(this, g2);
+
+            //Ennemis
+            for (Entity entity : enemies) {
+                entity.draw(this, g2);
+            }
         }
+
+
         g2.dispose();
     }
 
@@ -202,7 +213,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //S'il ne reste plus aucun ennemis
         if(enemies.size()==0) {
-            winGame = true;
+            gameState = winState;
             windowGame.add(new JLabel(victoryImage));
             System.out.println("game win inside update");
         }
@@ -210,14 +221,14 @@ public class GamePanel extends JPanel implements Runnable {
         //si un oiseau est descendu trop bas
         for (Entity ennemi: enemies) {
             if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
-                loseGame = true;
+                gameState = loseState;
                 windowGame.add(new JLabel(defeatImage));
 
                 System.out.println("game loosed inside update");
             }
         }
 
-        if(winGame || loseGame) {
+        if(gameState == winState || gameState == loseState) {
             //on attend quelque temps pour la compréhension
             try {
                 Thread.sleep(500);
