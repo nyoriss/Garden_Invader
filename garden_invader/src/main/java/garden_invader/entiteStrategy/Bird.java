@@ -78,15 +78,15 @@ public  abstract class Bird implements IEntityStrategy {
     }
 
     /**
-    * Vérifie si l'objet actuel entre en collision avec un autre objet
-    * spécifié par les paramètres posX, posY, largeur et hauteur.
+    * Verifie si l'objet actuel entre en collision avec un autre objet
+    * specifie par les paramètres posX, posY, largeur et hauteur.
     *
     * @param posX      La position horizontale de l'autre objet.
     * @param posY      La position verticale de l'autre objet.
     * @param largeur   La largeur de l'autre objet.
     * @param hauteur   La hauteur de l'autre objet.
     *
-    * @return          "true" si une collision est détectée, "false" sinon.
+    * @return          "true" si une collision est detectee, "false" sinon.
     */
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (positionX < posX + largeur &&

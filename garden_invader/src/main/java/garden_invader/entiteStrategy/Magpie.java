@@ -20,9 +20,9 @@ public class Magpie extends Bird {
 
     /**
     * Construit une nouvelle instance de la classe "Pie" avec la position et la
-    * taille spécifiées. Initialise les variables de points de vie de l'oiseau
+    * taille specifiees. Initialise les variables de points de vie de l'oiseau
     * avec une valeur maximale de 1, une valeur actuelle de 1, un sprite et une
-    * couleur spécifiques.
+    * couleur specifiques.
     *
     * @param posX La position X de l'oiseau.
     * @param posY La position Y de l'oiseau.
@@ -38,8 +38,8 @@ public class Magpie extends Bird {
 
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
-    * spécifié. Si les points de vie actuels de l'oiseau sont inférieurs ou égaux
-    * à zéro, l'oiseau est considéré comme mort.
+    * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
+    * à zero, l'oiseau est considere comme mort.
     *
     * @param projectile Le projectile qui blesse l'oiseau.
     *
@@ -52,15 +52,15 @@ public class Magpie extends Bird {
     }
 
     /**
-    * Vérifie si l'objet actuel entre en collision avec un autre objet
-    * spécifié par les paramètres posX, posY, largeur et hauteur.
+    * Verifie si l'objet actuel entre en collision avec un autre objet
+    * specifie par les paramètres posX, posY, largeur et hauteur.
     *
     * @param posX      La position horizontale de l'autre objet.
     * @param posY      La position verticale de l'autre objet.
     * @param width   La largeur de l'autre objet.
     * @param height   La hauteur de l'autre objet.
     *
-    * @return          "true" si une collision est détectée, "false" sinon.
+    * @return          "true" si une collision est detectee, "false" sinon.
     */
     @Override
     public boolean collision(int posX, int posY, int width, int height) {

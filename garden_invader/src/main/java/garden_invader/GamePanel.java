@@ -101,7 +101,6 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread!= null) {
-
             // UPDATE
             update();
 
@@ -115,8 +114,6 @@ public class GamePanel extends JPanel implements Runnable {
                 return;
             }
 
-            tick ++;
-
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
@@ -129,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             nextDrawTime += drawInterval;
+            tick ++;
         }
     }
 
@@ -136,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.update(this, keyHandler);
 
-        //déplacement des oiseaux
+        //deplacement des oiseaux
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(this, keyHandler);
         }
@@ -153,7 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == titleState) {
             //TODO tuto 17
         } else {
-            // Décors
+            // Decors
             g2.drawImage(gameImage, 0, 0, this);
 
             //Joueur
@@ -164,7 +162,6 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(this, g2);
             }
         }
-
 
         g2.dispose();
     }
@@ -221,7 +218,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if(gameState == winState || gameState == loseState) {
-            //on attend quelque temps pour la compréhension
+            //on attend quelque temps pour la comprehension
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {

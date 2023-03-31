@@ -9,88 +9,88 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- * L'interface IEntityStrategy définit les méthodes nécessaires pour toutes les entités du jeu.
- * Ces méthodes permettent d'obtenir et de modifier la position, la taille, l'image et les hitboxes de l'entité.
- * Elle permet également de détecter les collisions et de gérer les dégâts infligés à l'entité.
+ * L'interface IEntityStrategy definit les methodes necessaires pour toutes les entites du jeu.
+ * Ces methodes permettent d'obtenir et de modifier la position, la taille, l'image et les hitboxes de l'entite.
+ * Elle permet egalement de detecter les collisions et de gerer les degâts infliges à l'entite.
  */
 public interface IEntityStrategy {
 
     /**
-     * Définit la position horizontale de l'entité.
-     * @param posX la position horizontale de l'entité
+     * Definit la position horizontale de l'entite.
+     * @param posX la position horizontale de l'entite
      */
     void setPositionX(int posX);
 
     /**
-     * Définit la position verticale de l'entité.
-     * @param posY la position verticale de l'entité
+     * Definit la position verticale de l'entite.
+     * @param posY la position verticale de l'entite
      */
     void setPositionY(int posY);
 
     /**
-     * Renvoie la position horizontale actuelle de l'entité.
-     * @return la position horizontale de l'entité
+     * Renvoie la position horizontale actuelle de l'entite.
+     * @return la position horizontale de l'entite
      */
     int getPositionX();
 
     /**
-     * Renvoie la position verticale actuelle de l'entité.
-     * @return la position verticale de l'entité
+     * Renvoie la position verticale actuelle de l'entite.
+     * @return la position verticale de l'entite
      */
     int getPositionY();
 
     /**
-     * Renvoie la hauteur de l'entité.
-     * @return la hauteur de l'entité
+     * Renvoie la hauteur de l'entite.
+     * @return la hauteur de l'entite
      */
     int getHeight();
 
     /**
-     * Renvoie la largeur de l'entité.
-     * @return la largeur de l'entité
+     * Renvoie la largeur de l'entite.
+     * @return la largeur de l'entite
      */
     int getWidth();
 
     /**
-     * Vérifie si l'entité entre en collision avec un autre objet.
+     * Verifie si l'entite entre en collision avec un autre objet.
      * @param posX la position horizontale de l'objet à tester
      * @param posY la position verticale de l'objet à tester
      * @param width la largeur de l'objet à tester
      * @param height la hauteur de l'objet à tester
-     * @return true si l'entité entre en collision avec l'objet testé, sinon false
+     * @return true si l'entite entre en collision avec l'objet teste, sinon false
      */
     boolean collision(int posX, int posY, int width, int height);
 
     /**
-     * Renvoie les hitboxes de l'entité.
-     * @return les hitboxes de l'entité
+     * Renvoie les hitboxes de l'entite.
+     * @return les hitboxes de l'entite
      */
     ArrayList<Integer> getHitBox();
 
     /**
-     * Gère les dégâts infligés à l'entité par un projectile.
-     * @param projectile le projectile infligeant les dégâts
-     * @return true si l'entité est détruite, sinon false
+     * Gère les degâts infliges à l'entite par un projectile.
+     * @param projectile le projectile infligeant les degâts
+     * @return true si l'entite est detruite, sinon false
      */
     boolean hurt(Projectile projectile);
 
     /**
-     * Met à jour l'entité en fonction des entrées utilisateur et du contexte de jeu.
-     * @param gp le GamePanel dans lequel l'entité est affichée
-     * @param keyHandler le KeyHandler gérant les entrées utilisateur
+     * Met à jour l'entite en fonction des entrees utilisateur et du contexte de jeu.
+     * @param gp le GamePanel dans lequel l'entite est affichee
+     * @param keyHandler le KeyHandler gerant les entrees utilisateur
      */
     void update(GamePanel gp, KeyHandler keyHandler);
 
     /**
-     * Renvoie l'image de l'entité.
-     * @return l'image de l'entité
+     * Renvoie l'image de l'entite.
+     * @return l'image de l'entite
      */
     BufferedImage getSprite();
 
     /**
-     * Affiche l'entité sur le GamePanel donné en argument.
-     * @param gp le GamePanel sur lequel afficher l'entité
-     * @param g2 le contexte graphique 2D sur lequel dessiner l'entité
+     * Affiche l'entite sur le GamePanel donne en argument.
+     * @param gp le GamePanel sur lequel afficher l'entite
+     * @param g2 le contexte graphique 2D sur lequel dessiner l'entite
      */
     void draw(GamePanel gp, Graphics2D g2);
 }

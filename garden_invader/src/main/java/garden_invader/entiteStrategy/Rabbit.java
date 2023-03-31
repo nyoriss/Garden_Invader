@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Classe représentant le personnage jouable, un lapin.
+ * Classe representant le personnage jouable, un lapin.
  */
 public class Rabbit implements IEntityStrategy {
 
@@ -148,12 +148,12 @@ public class Rabbit implements IEntityStrategy {
             Projectile projectile = alliedProjectiles.get(i);
             //si le projectile touche
             if (projectile.update(gp)) {
-                i--; // Décrémenter l'index pour compenser la suppression
+                i--; // Decrementer l'index pour compenser la suppression
             } else {
-                //suppression des projectiles hors de l'écran
+                //suppression des projectiles hors de l'ecran
                 if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
                     alliedProjectiles.remove(i);
-                    System.out.println("projectile supprimé par sortie d'écran");
+                    System.out.println("projectile supprime par sortie d'ecran");
                     i--;
                 }
             }
@@ -201,16 +201,16 @@ public class Rabbit implements IEntityStrategy {
 
         g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null); //TODO images
         for(int i = 0; i < alliedProjectiles.size(); i++) {
-            //Déplacement des projectiles
+            //Deplacement des projectiles
             alliedProjectiles.get(i).draw(gp, g2);
         }
     }
 
     /**
-     * Ajoute un projectile à la liste des projectiles alliés et enregistre les entités ennemies comme observateurs.
+     * Ajoute un projectile à la liste des projectiles allies et enregistre les entites ennemies comme observateurs.
      *
      * @param projectile le projectile à ajouter
-     * @param gp le GamePanel contenant les entités ennemies
+     * @param gp le GamePanel contenant les entites ennemies
      */
     public void addProjectile(Projectile projectile, GamePanel gp) {
         alliedProjectiles.add(projectile);
@@ -220,7 +220,7 @@ public class Rabbit implements IEntityStrategy {
     }
 
     /**
-     * Supprime un projectile de la liste des projectiles alliés s'il y est présent.
+     * Supprime un projectile de la liste des projectiles allies s'il y est present.
      *
      * @param projectile le projectile à supprimer
      */

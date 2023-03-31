@@ -20,7 +20,7 @@ public class Crow extends Bird {
 
     /**
      * Initialise une nouvelle instance de la classe Corbeau avec la position,
-     * la largeur et la hauteur spécifiées, ainsi que les propriétés par défaut
+     * la largeur et la hauteur specifiees, ainsi que les proprietes par defaut
      * pour un corbeau.
      *
      * @param posX      La position horizontale du corbeau.
@@ -37,8 +37,8 @@ public class Crow extends Bird {
 
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
-    * spécifié. Si les points de vie actuels de l'oiseau sont inférieurs ou égaux
-    * à zéro, l'oiseau est considéré comme mort.
+    * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
+    * à zero, l'oiseau est considere comme mort.
     *
     * @param projectile Le projectile qui blesse l'oiseau.
     *
