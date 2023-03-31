@@ -36,9 +36,9 @@ public class GamePanel extends JPanel implements Runnable {
     GameDifficulty gameDifficulty;
 
     public int tick;
-    int birdMoveTick;
-    int birdMoveSpeed;
-    int birdDescendSpeed;
+    public int birdMoveTick;
+    public int birdMoveSpeed;
+    public int birdDescendSpeed;
     int lastAttackTick;
 
     //GAME STATE
@@ -48,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int winState = 3;
     public final int loseState = 4;
-
 
 
     ImageIcon victoryImage = new ImageIcon("asset/victoire.png");
@@ -138,18 +137,11 @@ public class GamePanel extends JPanel implements Runnable {
         player.update(this, keyHandler);
 
         //déplacement des oiseaux
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update(this, keyHandler);
+        }
         if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
-            for (int i = 0; i < enemies.size(); i++) {
-                if (tick/ birdMoveSpeed % 2 == 0) {
-                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() + 5);
-                } else {
-                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() - 5);
-                }
-                if(tick/ birdMoveSpeed % birdDescendSpeed == 0) {
-                    enemies.get(i).setPositionY(enemies.get(i).getPositionY() + tileSize/2);
-                }
-                birdMoveTick = tick;
-            }
+            birdMoveTick = tick;
         }
     }
 

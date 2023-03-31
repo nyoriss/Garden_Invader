@@ -14,7 +14,7 @@ public class Crow extends Bird {
 
     private int maxHp;
     private int currentHp;
-    private String sprite;
+    private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
 
@@ -32,12 +32,7 @@ public class Crow extends Bird {
         super(posX, posY, width, height);
         this.maxHp = 2;
         this.currentHp = maxHp;
-        this.sprite = "../../assets/Corbeau";
-        try {
-            draw = ImageIO.read(new File("asset/sprite/corbo_1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        };
+        this.spritePath = "asset/sprite/corbo";
     }
 
     /**
@@ -53,12 +48,6 @@ public class Crow extends Bird {
     public boolean hurt(Projectile projectile) {
         currentHp--;
         return currentHp <=0;
-    }
-
-
-    @Override
-    public void update(GamePanel gp, KeyHandler keyHandler) {
-
     }
 
     @Override
@@ -81,6 +70,12 @@ public class Crow extends Bird {
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
+        String currentSprite = spritePath +"_"+super.getSpriteNum()+".png";
+        try {
+            draw = ImageIO.read(new File(currentSprite));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
     }
 }

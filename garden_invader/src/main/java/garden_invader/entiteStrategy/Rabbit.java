@@ -22,13 +22,19 @@ public class Rabbit implements IEntityStrategy {
     private int positionY;
     private int width;
     private int height;
+    //movement parameters
     private int speed;
+    //attack parameters
     private int lastAttackTick;
     private int attackDelay;
+    // animations parameters
+    private String movement;
+    private boolean shooting;
+    private int spriteNum;
+    private int spriteCounter;
+    private String spritePath;
+    //projectiles
     private ArrayList<Projectile> alliedProjectiles;
-
-
-    private BufferedImage rabbit;
 
 
     /**
@@ -47,14 +53,10 @@ public class Rabbit implements IEntityStrategy {
         this.speed = 4;
         this.lastAttackTick = 0;
         this.attackDelay = 35;
-
+        this.spriteCounter = 0;
+        this.spriteNum = 1;
+        this.spritePath = "asset/sprite/rabbit/lapin";
         alliedProjectiles = new ArrayList<>();
-
-        try {
-            rabbit = ImageIO.read(new File("asset/sprite/lapin.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void setPositionX(int posX) {
@@ -96,8 +98,6 @@ public class Rabbit implements IEntityStrategy {
                 positionX + width > posX &&
                 positionY < posY + height &&
                 positionY + height > posY) {
-
-            System.out.println("collision");
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
@@ -111,21 +111,36 @@ public class Rabbit implements IEntityStrategy {
 
     @Override
     public void update(GamePanel gp, KeyHandler keyHandler) {
+        // mouvement vers la gauche
         if(keyHandler.leftPressed) {
-            if(positionX - 8 * speed >= 0)
+            if(positionX >= 8*speed) {
+                movement = "movement";
                 positionX -= speed;
-        } else {
-            if (keyHandler.rightPressed) {
-                if(positionX+ width + 8 * speed< gp.screenWidth)
-                    positionX += speed;
             }
         }
+        // mouvement vers la droite
+        else if (keyHandler.rightPressed) {
+            if(positionX+ width < gp.screenWidth - 8*speed) {
+                movement = "movement";
+                positionX += speed;
+            }
+        } else {
+            // pas de mouvement
+            movement = "stand";
+        }
 
-        if(keyHandler.spacePressed && gp.tick-lastAttackTick >=attackDelay) {
+        //gestion de tir
+        if(keyHandler.spacePressed && gp.tick-lastAttackTick >= attackDelay) {
+            shooting = true;
             Projectile projectile = new CarrotProjectile(this, positionX, positionY - height);
 
             addProjectile(projectile, gp);
             lastAttackTick = gp.tick;
+        }
+
+        //arrête de l'animation de tir
+        if(gp.tick-lastAttackTick>= attackDelay/2) {
+            shooting = false;
         }
 
         //gestion des collisions entre oiseaux et projectiles
@@ -143,6 +158,17 @@ public class Rabbit implements IEntityStrategy {
                 }
             }
         }
+
+        spriteCounter ++;
+        if (spriteCounter>10) {
+            if(spriteNum == 1) {
+                spriteNum = 2;
+            }
+            else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     @Override
@@ -152,7 +178,28 @@ public class Rabbit implements IEntityStrategy {
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
-        g2.drawImage(rabbit,positionX, positionY, gp.tileSize, gp.tileSize, null);
+        String currentSpritePath = spritePath;
+
+
+        BufferedImage image = null;
+
+        //s'il y a un mouvement
+        if(!movement.equals("stand")) {
+            currentSpritePath += "_"+movement+spriteNum;
+        }
+
+        //si le lapin tire
+        if(shooting) {
+            currentSpritePath += "_shooting";
+        }
+
+        try {
+            image = ImageIO.read(new File(currentSpritePath+".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null); //TODO images
         for(int i = 0; i < alliedProjectiles.size(); i++) {
             //Déplacement des projectiles
             alliedProjectiles.get(i).draw(gp, g2);

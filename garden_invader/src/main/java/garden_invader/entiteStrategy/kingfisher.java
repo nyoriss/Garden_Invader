@@ -1,7 +1,6 @@
 package garden_invader.entiteStrategy;
 
 import garden_invader.GamePanel;
-import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import javax.imageio.ImageIO;
@@ -12,9 +11,9 @@ import java.io.IOException;
 
 public class kingfisher extends Bird {
 
-    private int pvMax;
-    private int pvActuels;
-    private String nom;
+    private int maxHp;
+    private int currentHp;
+    private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
 
@@ -27,14 +26,10 @@ public class kingfisher extends Bird {
     */
     public kingfisher(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.pvMax = 3;
-        this.pvActuels = pvMax;
-        this.nom = "Martin_Pecheur";
-        try {
-            draw = ImageIO.read(new File("asset/sprite/martin_pecheur_1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.maxHp = 3;
+        this.currentHp = maxHp;
+        this.spritePath = "asset/sprite/martin_pecheur";
+
     }
 
     /**
@@ -48,17 +43,8 @@ public class kingfisher extends Bird {
     */
     @Override
     public boolean hurt(Projectile projectile) {
-        pvActuels--;
-        System.out.println(nom+" blessé");
-        if (pvActuels<=0) {
-            System.out.println(nom+" mort");
-        }
-        return pvActuels<=0;
-    }
-
-    @Override
-    public void update(GamePanel gp, KeyHandler keyHandler) {
-
+        currentHp--;
+        return currentHp <=0;
     }
 
     @Override
@@ -79,6 +65,12 @@ public class kingfisher extends Bird {
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
+        String currentSprite = spritePath +"_"+super.getSpriteNum()+".png";
+        try {
+            draw = ImageIO.read(new File(currentSprite));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
     }
 }

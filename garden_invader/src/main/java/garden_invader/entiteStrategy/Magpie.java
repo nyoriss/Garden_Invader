@@ -12,9 +12,9 @@ import java.io.IOException;
 
 public class Magpie extends Bird {
 
-    private int pvMax;
-    private int pvActuels;
-    private String sprite;
+    private int maxHp;
+    private int currentHp;
+    private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
 
@@ -31,14 +31,10 @@ public class Magpie extends Bird {
     */
     public Magpie(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.pvMax = 1;
-        this.pvActuels = pvMax;
-        this.sprite = "../../assets/Pie";
-        try {
-            draw = ImageIO.read(new File("asset/sprite/pie_1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }    }
+        this.maxHp = 1;
+        this.currentHp = maxHp;
+        this.spritePath = "asset/sprite/pie";
+    }
 
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
@@ -51,11 +47,8 @@ public class Magpie extends Bird {
     */
     @Override
     public boolean hurt(Projectile projectile) {
-        pvActuels--;
-        if (pvActuels<=0) {
-            System.out.println("oiseau mort");
-        }
-        return pvActuels<=0;
+        currentHp--;
+        return currentHp <=0;
     }
 
     /**
@@ -81,11 +74,6 @@ public class Magpie extends Bird {
     }
 
     @Override
-    public void update(GamePanel gp, KeyHandler keyHandler) {
-
-    }
-
-    @Override
     public BufferedImage getSprite() {
         return draw;
     }
@@ -93,6 +81,13 @@ public class Magpie extends Bird {
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
+        String currentSprite = spritePath +"_"+super.getSpriteNum()+".png";
+        try {
+            draw = ImageIO.read(new File(currentSprite));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
     }
+
 }

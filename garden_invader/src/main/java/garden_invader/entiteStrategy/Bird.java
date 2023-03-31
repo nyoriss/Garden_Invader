@@ -1,5 +1,8 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.GamePanel;
+import garden_invader.KeyHandler;
+
 import java.util.ArrayList;
 
 public  abstract class Bird implements IEntityStrategy {
@@ -8,6 +11,10 @@ public  abstract class Bird implements IEntityStrategy {
     private int positionY;
     private int height;
     private int width;
+
+    //animations
+    private int spriteNum;
+    private int spriteCounter;
 
     /**
     * Constructeur de la classe Oiseau.
@@ -22,6 +29,7 @@ public  abstract class Bird implements IEntityStrategy {
         this.positionY = posY;
         this.width = width;
         this.height = height;
+        this.spriteNum = 1;
     }
 
     @Override
@@ -52,6 +60,10 @@ public  abstract class Bird implements IEntityStrategy {
     @Override
     public int getWidth() {
         return width;
+    }
+
+    public int getSpriteNum() {
+        return spriteNum;
     }
 
     @Override
@@ -85,6 +97,30 @@ public  abstract class Bird implements IEntityStrategy {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
+    }
+
+    @Override
+    public void update(GamePanel gp, KeyHandler keyHandler) {
+        if (gp.tick - gp.birdMoveTick >= gp.birdMoveSpeed || gp.tick/ gp.birdMoveSpeed >= 10 * gp.birdMoveSpeed) {
+            if (gp.tick / gp.birdMoveSpeed % 2 == 0) {
+                positionY += 5;
+            } else {
+                positionY -= 5;
+            }
+            if (gp.tick / gp.birdMoveSpeed % gp.birdDescendSpeed == 0) {
+                positionY += gp.tileSize/2;
+            }
+        }
+        spriteCounter ++;
+        if (spriteCounter>10) {
+            if(spriteNum == 1) {
+                spriteNum = 2;
+            }
+            else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
 }
