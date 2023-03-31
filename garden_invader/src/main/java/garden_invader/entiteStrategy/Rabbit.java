@@ -199,7 +199,7 @@ public class Rabbit implements IEntityStrategy {
             throw new RuntimeException(e);
         }
 
-        g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null); //TODO images
+        g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null);
         for(int i = 0; i < alliedProjectiles.size(); i++) {
             //Deplacement des projectiles
             alliedProjectiles.get(i).draw(gp, g2);

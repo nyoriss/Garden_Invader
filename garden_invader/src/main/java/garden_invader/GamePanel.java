@@ -137,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
         //deplacement des oiseaux
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(this, keyHandler);
+
         }
         if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
             birdMoveTick = tick;
@@ -191,7 +192,7 @@ public class GamePanel extends JPanel implements Runnable {
         return birds;
     }
 
-    public void removeFromEnnemyProjectiles(Entity entity) {
+    public void removeFromEnemies(Entity entity) {
         if(enemies.contains(entity))
             enemies.remove(entity);
     }

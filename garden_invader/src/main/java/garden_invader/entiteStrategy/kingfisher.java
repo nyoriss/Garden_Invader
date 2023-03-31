@@ -35,7 +35,7 @@ public class kingfisher extends Bird {
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
     * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
-    * à zero, l'oiseau est considere comme mort.
+    * a zero, l'oiseau est considere comme mort.
     *
     * @param projectile Le projectile qui blesse l'oiseau.
     *

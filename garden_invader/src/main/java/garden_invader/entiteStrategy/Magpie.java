@@ -39,7 +39,7 @@ public class Magpie extends Bird {
     /**
     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
     * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
-    * à zero, l'oiseau est considere comme mort.
+    * a zero, l'oiseau est considere comme mort.
     *
     * @param projectile Le projectile qui blesse l'oiseau.
     *
@@ -53,7 +53,7 @@ public class Magpie extends Bird {
 
     /**
     * Verifie si l'objet actuel entre en collision avec un autre objet
-    * specifie par les paramètres posX, posY, largeur et hauteur.
+    * specifie par les parametres posX, posY, largeur et hauteur.
     *
     * @param posX      La position horizontale de l'autre objet.
     * @param posY      La position verticale de l'autre objet.

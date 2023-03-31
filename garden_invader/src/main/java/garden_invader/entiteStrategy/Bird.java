@@ -79,7 +79,7 @@ public  abstract class Bird implements IEntityStrategy {
 
     /**
     * Verifie si l'objet actuel entre en collision avec un autre objet
-    * specifie par les paramètres posX, posY, largeur et hauteur.
+    * specifie par les parametres posX, posY, largeur et hauteur.
     *
     * @param posX      La position horizontale de l'autre objet.
     * @param posY      La position verticale de l'autre objet.
@@ -102,15 +102,15 @@ public  abstract class Bird implements IEntityStrategy {
     @Override
     public void update(GamePanel gp, KeyHandler keyHandler) {
         if (gp.tick - gp.birdMoveTick >= gp.birdMoveSpeed || gp.tick/ gp.birdMoveSpeed >= 10 * gp.birdMoveSpeed) {
-            if (gp.tick / gp.birdMoveSpeed % 2 == 0) {
-                positionY += 5;
-            } else {
-                positionY -= 5;
-            }
+            // TODO remettre dans GamePanel et appeler l'oiseau pour le faire monter/descendre
+
+            positionY += gp.tick / gp.birdMoveSpeed % 2 == 0? 5 : -5;
+
             if (gp.tick / gp.birdMoveSpeed % gp.birdDescendSpeed == 0) {
                 positionY += gp.tileSize/2;
             }
         }
+
         spriteCounter ++;
         if (spriteCounter>10) {
             if(spriteNum == 1) {

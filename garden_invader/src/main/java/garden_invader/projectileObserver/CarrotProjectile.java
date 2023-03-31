@@ -2,7 +2,6 @@ package garden_invader.projectileObserver;
 
 import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.entiteStrategy.IEntityStrategy;
 import garden_invader.entiteStrategy.Rabbit;
 
 import javax.imageio.ImageIO;
@@ -30,7 +29,6 @@ public class CarrotProjectile implements Projectile{
     BufferedImage carrot;
 
 
-    //TODO hitbox décalée vers la gauche et pas liée à l'image
     /**
      * Constructeur de la classe CarrotProjectile.
      * @param owner Le lapin qui tire la carotte.
@@ -153,9 +151,9 @@ public class CarrotProjectile implements Projectile{
         if (entity !=null) {
             //Blesse l'entité et vérifie si l'entité est supprimée
             if(entity.hurt(this)) { //TODO pourquoi le projectile disparait avant de toucher après une destruction d'oiseau
-                gp.removeFromEnnemyProjectiles(entity);
+                gp.removeFromEnemies(entity);
             }
-            owner.removeFromAlliedProjectiles(this); //TODO
+            owner.removeFromAlliedProjectiles(this);
             System.out.println("projectile supprimé par hitBox");
             return true;
         }
