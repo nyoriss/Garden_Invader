@@ -23,8 +23,17 @@ Il s'arme donc de ses carottes pour les envoyer sur ces vils volatiles
 - Éliminer ces parasites volants <br>
 - Ne les laissez pas atteindre vos cultures !
 
+## Lancer le jeu
+- Sous linux : <br>
+Dans le repertoire Garden_invader/garden_invader, réalisez dans un terminal : 
+```bash
+./run.bin
+```
 
-## Design Patterns utilisés
+- Sous windows : <br>
+Bon courage<br>
+
+# Design Patterns
 Nous avons choisi d'utiliser 3 design patterns : 
 - Strategy
 - Observer
