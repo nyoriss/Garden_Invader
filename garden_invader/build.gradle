@@ -22,3 +22,7 @@ test {
     include 'garden_invader/BirdTest'
     include 'garden_invader/EntityObserverTest'
 }
+
+application {
+    mainClass="garden_invader.Main"
+}

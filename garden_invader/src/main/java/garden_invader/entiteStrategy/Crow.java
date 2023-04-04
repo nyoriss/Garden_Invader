@@ -18,6 +18,9 @@ public class Crow extends Bird {
     private Projectile projectileType;
     private BufferedImage draw;
 
+    //statistiques
+    private int attackDelay;
+
     /**
      * Initialise une nouvelle instance de la classe Corbeau avec la position,
      * la largeur et la hauteur specifiees, ainsi que les proprietes par defaut
@@ -25,14 +28,15 @@ public class Crow extends Bird {
      *
      * @param posX      La position horizontale du corbeau.
      * @param posY      La position verticale du corbeau.
-     * @param width   La largeur du corbeau.
-     * @param height   La hauteur du corbeau.
+     * @param width     La largeur du corbeau.
+     * @param height    La hauteur du corbeau.
      */
     public Crow(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
         this.maxHp = 2;
         this.currentHp = maxHp;
         this.spritePath = "asset/sprite/corbo";
+        this.attackDelay = 150;
     }
 
     /**
@@ -58,11 +62,10 @@ public class Crow extends Bird {
     @Override
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (super.getPositionX() < posX + largeur &&
-                super.getPositionX() + super.getHeight() > posX &&
-                super.getPositionY() < posY + hauteur &&
-                super.getPositionY() + super.getWidth() > posY) {
-
-            System.out.println("collision");
+            super.getPositionX() + super.getHeight() > posX &&
+            super.getPositionY() < posY + hauteur &&
+            super.getPositionY() + super.getWidth() > posY)
+        {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision

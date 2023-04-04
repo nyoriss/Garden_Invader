@@ -7,6 +7,8 @@ import garden_invader.projectileObserver.Projectile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * L'interface IEntityStrategy definit les methodes necessaires pour toutes les entites du jeu.
@@ -14,6 +16,7 @@ import java.util.ArrayList;
  * Elle permet egalement de detecter les collisions et de gerer les degâts infliges à l'entite.
  */
 public interface IEntityStrategy {
+
 
     /**
      * Definit la position horizontale de l'entite.

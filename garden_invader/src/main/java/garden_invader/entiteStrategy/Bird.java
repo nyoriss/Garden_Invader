@@ -16,6 +16,12 @@ public  abstract class Bird implements IEntityStrategy {
     private int spriteNum;
     private int spriteCounter;
 
+    //positionnement
+    private int position;
+
+    //statistiques
+    private int attackDelay; //TODO nécessaire ?
+
     /**
     * Constructeur de la classe Oiseau.
     *
@@ -66,6 +72,15 @@ public  abstract class Bird implements IEntityStrategy {
         return spriteNum;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+
     @Override
     public ArrayList<Integer> getHitBox() {
         ArrayList hitBox = new ArrayList();
@@ -93,7 +108,6 @@ public  abstract class Bird implements IEntityStrategy {
             positionX + this.height > posX &&
             positionX < posY + hauteur &&
             positionX + this.width > posY) {
-            System.out.println("collision");
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision

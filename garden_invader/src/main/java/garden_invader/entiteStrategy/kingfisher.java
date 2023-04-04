@@ -17,6 +17,9 @@ public class kingfisher extends Bird {
     private Projectile projectileType;
     private BufferedImage draw;
 
+    //statistiques
+    private int attackDelay;
+
     /**
     * Constructeur de la classe Martin_Pecheur.
     * @param posX      La position horizontale de l'objet.
@@ -29,7 +32,7 @@ public class kingfisher extends Bird {
         this.maxHp = 3;
         this.currentHp = maxHp;
         this.spritePath = "asset/sprite/martin_pecheur";
-
+        this.attackDelay = 100;
     }
 
     /**
@@ -50,10 +53,10 @@ public class kingfisher extends Bird {
     @Override
     public boolean collision(int posX, int posY, int width, int height) {
         if (super.getPositionX() < posX + width &&
-                super.getPositionX() + super.getHeight() > posX &&
-                super.getPositionY() < posY + height &&
-                super.getPositionY() + super.getWidth() > posY) {
-
+            super.getPositionX() + super.getHeight() > posX &&
+            super.getPositionY() < posY + height &&
+            super.getPositionY() + super.getWidth() > posY)
+        {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision

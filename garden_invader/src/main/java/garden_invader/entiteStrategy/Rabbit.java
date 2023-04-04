@@ -22,17 +22,21 @@ public class Rabbit implements IEntityStrategy {
     private int positionY;
     private int width;
     private int height;
+
     //movement parameters
     private int speed;
+
     //attack parameters
     private int lastAttackTick;
     private int attackDelay;
+
     // animations parameters
     private String movement;
     private boolean shooting;
     private int spriteNum;
     private int spriteCounter;
     private String spritePath;
+
     //projectiles
     private ArrayList<Projectile> alliedProjectiles;
 
@@ -153,7 +157,6 @@ public class Rabbit implements IEntityStrategy {
                 //suppression des projectiles hors de l'ecran
                 if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
                     alliedProjectiles.remove(i);
-                    System.out.println("projectile supprime par sortie d'ecran");
                     i--;
                 }
             }

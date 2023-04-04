@@ -205,7 +205,6 @@ public class GamePanel extends JPanel implements Runnable {
         if(enemies.size()==0) {
             gameState = winState;
             windowGame.add(new JLabel(victoryImage));
-            System.out.println("game win inside update");
         }
 
         //si un oiseau est descendu trop bas
@@ -213,8 +212,6 @@ public class GamePanel extends JPanel implements Runnable {
             if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
                 gameState = loseState;
                 windowGame.add(new JLabel(defeatImage));
-
-                System.out.println("game loosed inside update");
             }
         }
 

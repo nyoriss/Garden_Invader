@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Cette classe représente un projectile de carotte tiré par un lapin.
@@ -154,7 +156,6 @@ public class CarrotProjectile implements Projectile{
                 gp.removeFromEnemies(entity);
             }
             owner.removeFromAlliedProjectiles(this);
-            System.out.println("projectile supprimé par hitBox");
             return true;
         }
         return false;

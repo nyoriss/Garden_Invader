@@ -18,6 +18,9 @@ public class Magpie extends Bird {
     private Projectile projectileType;
     private BufferedImage draw;
 
+    //statistiques
+    private int attackDelay;
+
     /**
     * Construit une nouvelle instance de la classe "Pie" avec la position et la
     * taille specifiees. Initialise les variables de points de vie de l'oiseau
@@ -34,6 +37,7 @@ public class Magpie extends Bird {
         this.maxHp = 1;
         this.currentHp = maxHp;
         this.spritePath = "asset/sprite/pie";
+        this.attackDelay = 200;
     }
 
     /**
@@ -67,7 +71,8 @@ public class Magpie extends Bird {
         if (super.getPositionX() < posX + width &&
             super.getPositionX() + super.getHeight() > posX &&
             super.getPositionY() < posY + height &&
-            super.getPositionY() + super.getWidth() > posY) {
+            super.getPositionY() + super.getWidth() > posY)
+        {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
