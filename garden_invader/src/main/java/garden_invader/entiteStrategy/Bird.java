@@ -99,7 +99,6 @@ public  abstract class Bird implements IEntityStrategy {
 
     public void setNextAttackTick(int nextAttackTick) {
         this.nextAttackTick = nextAttackTick;
-        System.out.println("next attack tick dans bird"+nextAttackTick);
     }
 
     @Override
@@ -152,8 +151,6 @@ public  abstract class Bird implements IEntityStrategy {
             addProjectile(projectile, gp);
 
             nextAttackTick = gp.tick + attackDelay + rand.nextInt(attackDelay/20)-attackDelay/10;
-            System.out.println("tir à : "+gp.tick);
-            System.out.println("next attack tick "+nextAttackTick);
         }
 
         for (int i = 0; i < projectiles.size(); i++) {

@@ -151,7 +151,6 @@ public class RockProjectile implements Projectile{
         if (entity !=null) {
             //Blesse l'entité et vérifie si l'entité est ko
             if(entity.hurt(this)) {
-                System.out.println("touché :(");
                 //TODO
             }
             owner.removeFromProjectiles(this); //TODO gérer

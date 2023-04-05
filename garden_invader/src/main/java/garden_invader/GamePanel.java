@@ -179,7 +179,6 @@ public class GamePanel extends JPanel implements Runnable {
             bird.setPositionX(column);
             bird.setPositionY(row);
             bird.setNextAttackTick(400/birds.size()*birdCount*attackDelay+50);
-            System.out.println("delay : "+(400/birds.size())*birdCount);
             if (birdCount % 10 == 0) {
                 // Reached the end of a row, move to the next row
                 row += tileSize + ecart;
