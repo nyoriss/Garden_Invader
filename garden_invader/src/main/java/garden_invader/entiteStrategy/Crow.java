@@ -80,5 +80,6 @@ public class Crow extends Bird {
             throw new RuntimeException(e);
         }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
+        super.drawProjectiles(gp, g2);
     }
 }

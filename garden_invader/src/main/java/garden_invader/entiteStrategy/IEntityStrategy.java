@@ -30,6 +30,8 @@ public interface IEntityStrategy {
      */
     void setPositionY(int posY);
 
+    void setNextAttackTick(int nextAttackTick);
+
     /**
      * Renvoie la position horizontale actuelle de l'entite.
      * @return la position horizontale de l'entite

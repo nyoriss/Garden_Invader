@@ -1,9 +1,15 @@
 package garden_invader.entiteStrategy;
 
+import garden_invader.Entity;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
+import garden_invader.projectileObserver.CarrotProjectile;
+import garden_invader.projectileObserver.Projectile;
+import garden_invader.projectileObserver.RockProjectile;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public  abstract class Bird implements IEntityStrategy {
 
@@ -20,7 +26,14 @@ public  abstract class Bird implements IEntityStrategy {
     private int position;
 
     //statistiques
-    private int attackDelay; //TODO nécessaire ?
+    private int attackDelay;
+
+    private int nextAttackTick;
+
+    private Random rand;
+
+    //projectiles
+    private ArrayList<Projectile> projectiles;
 
     /**
     * Constructeur de la classe Oiseau.
@@ -36,6 +49,10 @@ public  abstract class Bird implements IEntityStrategy {
         this.width = width;
         this.height = height;
         this.spriteNum = 1;
+        this.attackDelay = 200;
+        this.rand = new Random();
+        this.nextAttackTick = 500;
+        projectiles = new ArrayList<>();
     }
 
     @Override
@@ -80,6 +97,10 @@ public  abstract class Bird implements IEntityStrategy {
         this.position = position;
     }
 
+    public void setNextAttackTick(int nextAttackTick) {
+        this.nextAttackTick = nextAttackTick;
+        System.out.println("next attack tick dans bird"+nextAttackTick);
+    }
 
     @Override
     public ArrayList<Integer> getHitBox() {
@@ -125,6 +146,20 @@ public  abstract class Bird implements IEntityStrategy {
             }
         }
 
+        if(gp.tick%nextAttackTick==0 && gp.tick!=0) {
+            Projectile projectile = new RockProjectile(this, positionX, positionY);
+
+            addProjectile(projectile, gp);
+
+            nextAttackTick = gp.tick + attackDelay + rand.nextInt(attackDelay/20)-attackDelay/10;
+            System.out.println("tir à : "+gp.tick);
+            System.out.println("next attack tick "+nextAttackTick);
+        }
+
+        for (int i = 0; i < projectiles.size(); i++) {
+            projectiles.get(i).update(gp);
+        }
+
         spriteCounter ++;
         if (spriteCounter>10) {
             if(spriteNum == 1) {
@@ -137,4 +172,22 @@ public  abstract class Bird implements IEntityStrategy {
         }
     }
 
+    public void addProjectile(Projectile projectile, GamePanel gp) {
+        projectiles.add(projectile);
+        for (Entity entity : gp.getPlayers()) {
+            projectile.enregistrerObs(entity);
+        }
+    }
+
+    public void removeFromProjectiles(Projectile projectile) {
+        if(projectiles.contains(projectile))
+            projectiles.remove(projectile);
+    }
+
+    public void drawProjectiles(GamePanel gp, Graphics2D g2) {
+        for(int i = 0; i < projectiles.size(); i++) {
+            //Deplacement des projectiles
+            projectiles.get(i).draw(gp, g2);
+        }
+    }
 }

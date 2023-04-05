@@ -29,6 +29,10 @@ public class Entity implements EntityObserver {
         entite.setPositionY(posY);
     }
 
+    public void setNextAttackTick(int nextAttackTick) {
+        entite.setNextAttackTick(nextAttackTick);
+    }
+
     public int getPositionX() {
         return entite.getPositionX();
     }

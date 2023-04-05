@@ -172,13 +172,14 @@ public class GamePanel extends JPanel implements Runnable {
         int ecart = (screenWidth - (10 * tileSize)) / 11;
         int row = ecart;
         int column = ecart;
-        int birdCount = 0;
+        int birdCount = 1;
+        int attackDelay = 20;
 
         for (Entity bird : birds) {
             bird.setPositionX(column);
             bird.setPositionY(row);
-
-            birdCount++;
+            bird.setNextAttackTick(400/birds.size()*birdCount*attackDelay+50);
+            System.out.println("delay : "+(400/birds.size())*birdCount);
             if (birdCount % 10 == 0) {
                 // Reached the end of a row, move to the next row
                 row += tileSize + ecart;
@@ -187,6 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
                 // Move to the next column
                 column += tileSize + ecart;
             }
+            birdCount++;
         }
 
         return birds;
@@ -233,5 +235,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public ArrayList<Entity> getEnemies() {
         return enemies;
+    }
+
+    public ArrayList<Entity> getPlayers() {
+        ArrayList<Entity> players = new ArrayList<>();
+        players.add(player);
+        return players;
     }
 }

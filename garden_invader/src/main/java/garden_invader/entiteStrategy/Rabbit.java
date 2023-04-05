@@ -71,6 +71,11 @@ public class Rabbit implements IEntityStrategy {
         this.positionY = posY;
     }
 
+    @Override
+    public void setNextAttackTick(int nextAttackTick) {
+        //not used now
+    }
+
     public int getPositionX() {
         return positionX;
     }
