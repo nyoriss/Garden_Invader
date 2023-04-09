@@ -40,6 +40,9 @@ public class Rabbit implements IEntityStrategy {
     //projectiles
     private ArrayList<Projectile> alliedProjectiles;
 
+    //Health
+    private int maxHP;
+    private int currentHP;
 
     /**
      * Constructeur de la classe Rabbit.
@@ -60,7 +63,9 @@ public class Rabbit implements IEntityStrategy {
         this.spriteCounter = 0;
         this.spriteNum = 1;
         this.spritePath = "asset/sprite/rabbit/lapin";
-        alliedProjectiles = new ArrayList<>();
+        this.alliedProjectiles = new ArrayList<>();
+        this.maxHP = 3;
+        this.currentHP = maxHP;
     }
 
     public void setPositionX(int posX) {
@@ -104,18 +109,17 @@ public class Rabbit implements IEntityStrategy {
 
     public boolean collision(int posX, int posY, int width, int height) {
         if (positionX < posX + width &&
-                positionX + width > posX &&
+                positionX + this.width > posX &&
                 positionY < posY + height &&
-                positionY + height > posY) {
+                positionY + this.height > posY) {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
     }
 
-
     public boolean hurt(Projectile projectile) {
-        //TODO
-        return false;
+        this.currentHP --;
+        return currentHP<=0;
     }
 
     @Override
@@ -189,7 +193,7 @@ public class Rabbit implements IEntityStrategy {
         String currentSpritePath = spritePath;
 
 
-        BufferedImage image = null;
+        BufferedImage image = null; //TODO superposition d'images ?
 
         //s'il y a un mouvement
         if(!movement.equals("stand")) {
@@ -202,12 +206,14 @@ public class Rabbit implements IEntityStrategy {
         }
 
         try {
-            image = ImageIO.read(new File(currentSpritePath+".png"));
+            image = ImageIO.read(new File(currentSpritePath+".png")); //TODO éviter les new
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null);
+        g2.setColor(Color.RED);
+        g2.drawRect(positionX, positionY, gp.tileSize, gp.tileSize);
         for(int i = 0; i < alliedProjectiles.size(); i++) {
             //Deplacement des projectiles
             alliedProjectiles.get(i).draw(gp, g2);
@@ -235,5 +241,14 @@ public class Rabbit implements IEntityStrategy {
     public void removeFromAlliedProjectiles(Projectile projectile) {
         if(alliedProjectiles.contains(projectile))
             alliedProjectiles.remove(projectile);
+    }
+
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
     }
 }

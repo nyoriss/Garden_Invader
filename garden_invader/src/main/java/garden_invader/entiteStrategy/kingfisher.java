@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class kingfisher extends Bird {
 
-    private int maxHp;
-    private int currentHp;
     private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
@@ -22,17 +20,18 @@ public class kingfisher extends Bird {
 
     /**
     * Constructeur de la classe Martin_Pecheur.
-    * @param posX      La position horizontale de l'objet.
-    * @param posY      La position verticale de l'objet.
-    * @param width   La largeur de l'objet.
+    * @param posX     La position horizontale de l'objet.
+    * @param posY     La position verticale de l'objet.
+    * @param width    La largeur de l'objet.
     * @param height   La hauteur de l'objet.
     */
     public kingfisher(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.maxHp = 3;
-        this.currentHp = maxHp;
+        this.maxHP = 3;
+        this.currentHP = maxHP;
         this.spritePath = "asset/sprite/martin_pecheur";
-        this.attackDelay = 100;
+        this.attackDelay = 200;
+        super.setAttackDelay(this.attackDelay);
     }
 
     /**
@@ -46,8 +45,8 @@ public class kingfisher extends Bird {
     */
     @Override
     public boolean hurt(Projectile projectile) {
-        currentHp--;
-        return currentHp <=0;
+        currentHP--;
+        return currentHP <=0; //TODO récupérer le nombre de PV après
     }
 
     @Override

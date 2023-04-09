@@ -8,58 +8,63 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity implements EntityObserver {
-    private IEntityStrategy entite;
+    private IEntityStrategy entity;
 
-    public Entity(IEntityStrategy entite) {
-        this.entite = entite;
+    public Entity(IEntityStrategy entity) {
+        this.entity = entity;
     }
 
 
     @Override
     public boolean actualiser(int posX, int posY, int largeur, int hauteur) {
-        return entite.collision(posX, posY, largeur, hauteur);
+        return entity.collision(posX, posY, largeur, hauteur);
     }
 
 
     public void setPositionX(int posX) {
-        entite.setPositionX(posX);
+        entity.setPositionX(posX);
     }
 
     public void setPositionY(int posY) {
-        entite.setPositionY(posY);
+        entity.setPositionY(posY);
     }
 
     public void setNextAttackTick(int nextAttackTick) {
-        entite.setNextAttackTick(nextAttackTick);
+        entity.setNextAttackTick(nextAttackTick);
     }
 
     public int getPositionX() {
-        return entite.getPositionX();
+        return entity.getPositionX();
     }
 
     public int getPositionY() {
-        return entite.getPositionY();
+        return entity.getPositionY();
     }
 
     public int getLargeur() {
-        return entite.getHeight();
+        return entity.getHeight();
     }
 
     public int getHauteur() {
-        return entite.getWidth();
+        return entity.getWidth();
     }
 
     public BufferedImage getSprite() {
-        return entite.getSprite();
+        return entity.getSprite();
     }
 
-    public void draw(GamePanel gp, Graphics2D g2){entite.draw(gp, g2);}
+    public void draw(GamePanel gp, Graphics2D g2){
+        entity.draw(gp, g2);}
 
     public boolean hurt(Projectile projectile) {
-        return entite.hurt(projectile);
+        return entity.hurt(projectile);
     }
 
     public void update(GamePanel gp, KeyHandler keyHandler) {
-        entite.update(gp, keyHandler);
+        entity.update(gp, keyHandler);
+    }
+
+    public int getCurrentHP() {
+        return entity.getCurrentHP();
     }
 }

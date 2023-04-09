@@ -98,4 +98,6 @@ public interface IEntityStrategy {
      * @param g2 le contexte graphique 2D sur lequel dessiner l'entite
      */
     void draw(GamePanel gp, Graphics2D g2);
+
+    int getCurrentHP();
 }

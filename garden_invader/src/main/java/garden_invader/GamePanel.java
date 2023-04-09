@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -49,9 +50,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int winState = 3;
     public final int loseState = 4;
 
+    private UI ui;
 
-    ImageIcon victoryImage = new ImageIcon("asset/victoire.png");
+
+    ImageIcon victoryImage = new ImageIcon("asset/victoire.png"); //TODO methode setImages
     ImageIcon defeatImage = new ImageIcon("asset/defaite.png");
+
+    private Random rand = new Random();
 
     BufferedImage gameImage;
     {
@@ -67,6 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+        ui = new UI(this);
 
         //Entites
         this.player = new Entity(new Rabbit(100, screenHeight-100, tileSize, tileSize));
@@ -110,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             checkGameEndCondition();
 
+            //TODO décaler
             if(gameState == winState || gameState == loseState) {
                 return;
             }
@@ -163,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(this, g2);
             }
         }
-
+        ui.draw(g2);
         g2.dispose();
     }
 
@@ -173,12 +181,18 @@ public class GamePanel extends JPanel implements Runnable {
         int row = ecart;
         int column = ecart;
         int birdCount = 1;
-        int attackDelay = 20;
+        int attackDelay = 1; //TODO attribut de GameBuilder
+        ArrayList<Integer> delays = new ArrayList<>();
+
+        for(int i = 1; i <= birds.size(); i++) {
+            delays.add(birds.size()*i*attackDelay);
+        }
 
         for (Entity bird : birds) {
             bird.setPositionX(column);
             bird.setPositionY(row);
-            bird.setNextAttackTick(400/birds.size()*birdCount*attackDelay+50);
+            bird.setNextAttackTick(delays.remove(rand.nextInt(delays.size())));
+
             if (birdCount % 10 == 0) {
                 // Reached the end of a row, move to the next row
                 row += tileSize + ecart;
@@ -205,24 +219,46 @@ public class GamePanel extends JPanel implements Runnable {
         //S'il ne reste plus aucun ennemis
         if(enemies.size()==0) {
             gameState = winState;
-            windowGame.add(new JLabel(victoryImage));
         }
 
         //si un oiseau est descendu trop bas
         for (Entity ennemi: enemies) {
             if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
                 gameState = loseState;
-                windowGame.add(new JLabel(defeatImage));
             }
         }
 
-        if(gameState == winState || gameState == loseState) {
+        //Points de Vie à 0
+        if(player.getCurrentHP()<=0) {
+            gameState = loseState;
+        }
+
+        //Si le joueur a gagné
+        if(gameState == winState) {
             //on attend quelque temps pour la comprehension
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            windowGame.add(new JLabel(victoryImage));
+            windowGame.setResizable (false);
+            windowGame.setTitle("Garden Invader");
+            windowGame.pack();
+            windowGame.setLocationRelativeTo(null);
+            windowGame.setVisible(true);
+            return;
+        }
+
+        //Si le joueur a perdu
+        if(gameState == loseState) {
+            //on attend quelque temps pour la comprehension
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            windowGame.add(new JLabel(defeatImage));
             windowGame.setResizable (false);
             windowGame.setTitle("Garden Invader");
             windowGame.pack();

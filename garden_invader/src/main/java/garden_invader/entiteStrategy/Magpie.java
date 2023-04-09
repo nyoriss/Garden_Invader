@@ -1,7 +1,6 @@
 package garden_invader.entiteStrategy;
 
 import garden_invader.GamePanel;
-import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import javax.imageio.ImageIO;
@@ -12,8 +11,6 @@ import java.io.IOException;
 
 public class Magpie extends Bird {
 
-    private int maxHp;
-    private int currentHp;
     private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
@@ -34,10 +31,11 @@ public class Magpie extends Bird {
     */
     public Magpie(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.maxHp = 1;
-        this.currentHp = maxHp;
+        this.maxHP = 1;
+        this.currentHP = maxHP;
         this.spritePath = "asset/sprite/pie";
-        this.attackDelay = 200;
+        this.attackDelay = 350;
+        super.setAttackDelay(this.attackDelay);
     }
 
     /**
@@ -51,8 +49,8 @@ public class Magpie extends Bird {
     */
     @Override
     public boolean hurt(Projectile projectile) {
-        currentHp--;
-        return currentHp <=0;
+        currentHP--;
+        return currentHP <=0;
     }
 
     /**

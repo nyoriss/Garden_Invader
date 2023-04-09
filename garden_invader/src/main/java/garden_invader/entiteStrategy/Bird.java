@@ -35,6 +35,10 @@ public  abstract class Bird implements IEntityStrategy {
     //projectiles
     private ArrayList<Projectile> projectiles;
 
+    //HP
+    public int currentHP;
+    public int maxHP;
+
     /**
     * Constructeur de la classe Oiseau.
     *
@@ -91,6 +95,14 @@ public  abstract class Bird implements IEntityStrategy {
 
     public int getPosition() {
         return position;
+    }
+
+    public int getAttackDelay() {
+        return attackDelay;
+    }
+
+    public void setAttackDelay(int attackDelay) {
+        this.attackDelay = attackDelay;
     }
 
     public void setPosition(int position) {
@@ -186,5 +198,9 @@ public  abstract class Bird implements IEntityStrategy {
             //Deplacement des projectiles
             projectiles.get(i).draw(gp, g2);
         }
+    }
+    @Override
+    public int getCurrentHP() {
+        return currentHP;
     }
 }

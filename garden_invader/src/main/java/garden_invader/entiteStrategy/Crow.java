@@ -1,7 +1,6 @@
 package garden_invader.entiteStrategy;
 
 import garden_invader.GamePanel;
-import garden_invader.KeyHandler;
 import garden_invader.projectileObserver.Projectile;
 
 import javax.imageio.ImageIO;
@@ -12,8 +11,6 @@ import java.io.IOException;
 
 public class Crow extends Bird {
 
-    private int maxHp;
-    private int currentHp;
     private String spritePath;
     private Projectile projectileType;
     private BufferedImage draw;
@@ -33,10 +30,11 @@ public class Crow extends Bird {
      */
     public Crow(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.maxHp = 2;
-        this.currentHp = maxHp;
+        this.maxHP = 2;
+        this.currentHP = maxHP;
         this.spritePath = "asset/sprite/corbo";
-        this.attackDelay = 150;
+        this.attackDelay = 275;
+        super.setAttackDelay(this.attackDelay);
     }
 
     /**
@@ -50,8 +48,8 @@ public class Crow extends Bird {
     */
     @Override
     public boolean hurt(Projectile projectile) {
-        currentHp--;
-        return currentHp <=0;
+        currentHP--;
+        return currentHP <=0;
     }
 
     @Override
