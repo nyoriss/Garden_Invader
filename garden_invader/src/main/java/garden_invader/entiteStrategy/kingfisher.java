@@ -49,17 +49,6 @@ public class kingfisher extends Bird {
         return currentHP <=0; //TODO récupérer le nombre de PV après
     }
 
-    @Override
-    public boolean collision(int posX, int posY, int width, int height) {
-        if (super.getPositionX() < posX + width &&
-            super.getPositionX() + super.getHeight() > posX &&
-            super.getPositionY() < posY + height &&
-            super.getPositionY() + super.getWidth() > posY)
-        {
-            return true; // il y a une collision
-        }
-        return false; // il n'y a pas de collision
-    }
 
     public BufferedImage getSprite() {
         return draw;

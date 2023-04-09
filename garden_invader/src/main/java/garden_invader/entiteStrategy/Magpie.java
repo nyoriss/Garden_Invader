@@ -53,29 +53,6 @@ public class Magpie extends Bird {
         return currentHP <=0;
     }
 
-    /**
-    * Verifie si l'objet actuel entre en collision avec un autre objet
-    * specifie par les parametres posX, posY, largeur et hauteur.
-    *
-    * @param posX      La position horizontale de l'autre objet.
-    * @param posY      La position verticale de l'autre objet.
-    * @param width   La largeur de l'autre objet.
-    * @param height   La hauteur de l'autre objet.
-    *
-    * @return          "true" si une collision est detectee, "false" sinon.
-    */
-    @Override
-    public boolean collision(int posX, int posY, int width, int height) {
-        if (super.getPositionX() < posX + width &&
-            super.getPositionX() + super.getHeight() > posX &&
-            super.getPositionY() < posY + height &&
-            super.getPositionY() + super.getWidth() > posY)
-        {
-            return true; // il y a une collision
-        }
-        return false; // il n'y a pas de collision
-    }
-
     @Override
     public BufferedImage getSprite() {
         return draw;

@@ -58,18 +58,6 @@ public class Crow extends Bird {
     }
 
     @Override
-    public boolean collision(int posX, int posY, int largeur, int hauteur) {
-        if (super.getPositionX() < posX + largeur &&
-            super.getPositionX() + super.getHeight() > posX &&
-            super.getPositionY() < posY + hauteur &&
-            super.getPositionY() + super.getWidth() > posY)
-        {
-            return true; // il y a une collision
-        }
-        return false; // il n'y a pas de collision
-    }
-
-    @Override
     public void draw(GamePanel gp, Graphics2D g2) {
         String currentSprite = spritePath +"_"+super.getSpriteNum()+".png";
         try {

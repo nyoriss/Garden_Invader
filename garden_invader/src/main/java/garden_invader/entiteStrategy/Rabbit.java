@@ -212,8 +212,6 @@ public class Rabbit implements IEntityStrategy {
         }
 
         g2.drawImage(image,positionX, positionY, gp.tileSize, gp.tileSize, null);
-        g2.setColor(Color.RED);
-        g2.drawRect(positionX, positionY, gp.tileSize, gp.tileSize);
         for(int i = 0; i < alliedProjectiles.size(); i++) {
             //Deplacement des projectiles
             alliedProjectiles.get(i).draw(gp, g2);

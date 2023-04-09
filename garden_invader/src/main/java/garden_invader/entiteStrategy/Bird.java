@@ -138,8 +138,8 @@ public  abstract class Bird implements IEntityStrategy {
     public boolean collision(int posX, int posY, int largeur, int hauteur) {
         if (positionX < posX + largeur &&
             positionX + this.height > posX &&
-            positionX < posY + hauteur &&
-            positionX + this.width > posY) {
+            positionY < posY + hauteur &&
+            positionY + this.width > posY) {
             return true; // il y a une collision
         }
         return false; // il n'y a pas de collision
