@@ -14,13 +14,15 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        //Si Q est pressé
         if(code== KeyEvent.VK_Q) {
             leftPressed = true;
         }
+        //Si D est pressé
         if(code== KeyEvent.VK_D) {
             rightPressed = true;
-
         }
+        //Si la barre espace est pressée
         if(code== KeyEvent.VK_SPACE) {
             spacePressed = true;
         }
@@ -30,12 +32,15 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
+        //Si Q est relaché
         if(code== KeyEvent.VK_Q) {
             leftPressed = false;
         }
+        //Si D est relaché
         if(code== KeyEvent.VK_D) {
             rightPressed = false;
         }
+        //Si la barre espace est relachée
         if(code== KeyEvent.VK_SPACE) {
             spacePressed = false;
         }

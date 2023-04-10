@@ -37,21 +37,6 @@ public class Crow extends Bird {
         super.setAttackDelay(this.attackDelay);
     }
 
-    /**
-    * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
-    * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
-    * à zero, l'oiseau est considere comme mort.
-    *
-    * @param projectile Le projectile qui blesse l'oiseau.
-    *
-    * @return Vrai si l'oiseau est mort, faux sinon.
-    */
-    @Override
-    public boolean hurt(Projectile projectile) {
-        currentHP--;
-        return currentHP <=0;
-    }
-
     @Override
     public BufferedImage getSprite() {
         return draw;
@@ -59,6 +44,7 @@ public class Crow extends Bird {
 
     @Override
     public void draw(GamePanel gp, Graphics2D g2) {
+        //On récupère l'image à afficher
         String currentSprite = spritePath +"_"+super.getSpriteNum()+".png";
         try {
             draw = ImageIO.read(new File(currentSprite));
@@ -66,6 +52,5 @@ public class Crow extends Bird {
             throw new RuntimeException(e);
         }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
-        super.drawProjectiles(gp, g2);
     }
 }

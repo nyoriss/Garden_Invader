@@ -124,25 +124,25 @@ public class Rabbit implements IEntityStrategy {
 
     @Override
     public void update(GamePanel gp, KeyHandler keyHandler) {
-        // mouvement vers la gauche
+        //Mouvement vers la gauche
         if(keyHandler.leftPressed) {
             if(positionX >= 8*speed) {
                 movement = "movement";
                 positionX -= speed;
             }
         }
-        // mouvement vers la droite
+        //Mouvement vers la droite
         else if (keyHandler.rightPressed) {
             if(positionX+ width < gp.screenWidth - 8*speed) {
                 movement = "movement";
                 positionX += speed;
             }
         } else {
-            // pas de mouvement
+            //Pas de mouvement
             movement = "stand";
         }
 
-        //gestion de tir
+        //Gestion de tir
         if(keyHandler.spacePressed && gp.tick-lastAttackTick >= attackDelay) {
             shooting = true;
             Projectile projectile = new CarrotProjectile(this, positionX, positionY - height);
@@ -151,26 +151,21 @@ public class Rabbit implements IEntityStrategy {
             lastAttackTick = gp.tick;
         }
 
-        //arrête de l'animation de tir
+        //Arrête de l'animation de tir
         if(gp.tick-lastAttackTick>= attackDelay/2) {
             shooting = false;
         }
 
-        //gestion des collisions entre oiseaux et projectiles
+        //Gestion des collisions entre oiseaux et projectiles
         for (int i = 0; i < alliedProjectiles.size(); i++) {
             Projectile projectile = alliedProjectiles.get(i);
-            //si le projectile touche
+            //Si le projectile touche
             if (projectile.update(gp)) {
-                i--; // Decrementer l'index pour compenser la suppression
-            } else {
-                //suppression des projectiles hors de l'ecran
-                if (alliedProjectiles.get(i).getPositionY() + alliedProjectiles.get(i).getHeight() <= 0) {
-                    alliedProjectiles.remove(i);
-                    i--;
-                }
+                i--; //Decrementer l'index pour compenser la suppression
             }
         }
 
+        //Afin d'actualiser les sprites
         spriteCounter ++;
         if (spriteCounter>10) {
             if(spriteNum == 1) {
@@ -192,8 +187,7 @@ public class Rabbit implements IEntityStrategy {
     public void draw(GamePanel gp, Graphics2D g2) {
         String currentSpritePath = spritePath;
 
-
-        BufferedImage image = null; //TODO superposition d'images ?
+        BufferedImage image;
 
         //s'il y a un mouvement
         if(!movement.equals("stand")) {
@@ -206,7 +200,7 @@ public class Rabbit implements IEntityStrategy {
         }
 
         try {
-            image = ImageIO.read(new File(currentSpritePath+".png")); //TODO éviter les new
+            image = ImageIO.read(new File(currentSpritePath+".png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -240,7 +234,6 @@ public class Rabbit implements IEntityStrategy {
         if(alliedProjectiles.contains(projectile))
             alliedProjectiles.remove(projectile);
     }
-
 
     public int getMaxHP() {
         return maxHP;

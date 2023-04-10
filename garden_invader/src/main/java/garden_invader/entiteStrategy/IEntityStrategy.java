@@ -17,7 +17,6 @@ import java.util.logging.Logger;
  */
 public interface IEntityStrategy {
 
-
     /**
      * Definit la position horizontale de l'entite.
      * @param posX la position horizontale de l'entite

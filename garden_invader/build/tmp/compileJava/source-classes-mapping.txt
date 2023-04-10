@@ -1,9 +1,35 @@
-garden_invader/KeyHandler.java
- garden_invader.KeyHandler
-garden_invader/Main.java
- garden_invader.Main
 garden_invader/EventManager.java
  garden_invader.EventManager
+garden_invader/Main.java
+ garden_invader.Main
+garden_invader/KeyHandler.java
+ garden_invader.KeyHandler
+garden_invader/entiteStrategy/Crow.java
+ garden_invader.entiteStrategy.Crow
+garden_invader/entiteStrategy/kingfisher.java
+ garden_invader.entiteStrategy.kingfisher
+garden_invader/partieBuilder/Director.java
+ garden_invader.partieBuilder.Director
+garden_invader/projectileObserver/RockProjectile.java
+ garden_invader.projectileObserver.RockProjectile
+garden_invader/GamePanel.java
+ garden_invader.GamePanel
+garden_invader/entiteStrategy/Magpie.java
+ garden_invader.entiteStrategy.Magpie
+garden_invader/entiteStrategy/IEntityStrategy.java
+ garden_invader.entiteStrategy.IEntityStrategy
+garden_invader/partieBuilder/GameDifficulty.java
+ garden_invader.partieBuilder.GameDifficulty
+garden_invader/partieBuilder/EasyGameBuilder.java
+ garden_invader.partieBuilder.EasyGameBuilder
+garden_invader/UI.java
+ garden_invader.UI
+garden_invader/entiteStrategy/Rabbit.java
+ garden_invader.entiteStrategy.Rabbit
+garden_invader/partieBuilder/GameBuilder.java
+ garden_invader.partieBuilder.GameBuilder
+garden_invader/projectileObserver/CarrotProjectile.java
+ garden_invader.projectileObserver.CarrotProjectile
 garden_invader/projectileObserver/EntityObserver.java
  garden_invader.projectileObserver.EntityObserver
 garden_invader/MenuPanel.java
@@ -11,39 +37,13 @@ garden_invader/MenuPanel.java
  garden_invader.MenuPanel$1
  garden_invader.MenuPanel$2
  garden_invader.MenuPanel$3
-garden_invader/partieBuilder/Director.java
- garden_invader.partieBuilder.Director
-garden_invader/GamePanel.java
- garden_invader.GamePanel
-garden_invader/entiteStrategy/Rabbit.java
- garden_invader.entiteStrategy.Rabbit
-garden_invader/projectileObserver/Projectile.java
- garden_invader.projectileObserver.Projectile
-garden_invader/entiteStrategy/IEntityStrategy.java
- garden_invader.entiteStrategy.IEntityStrategy
 garden_invader/Entity.java
  garden_invader.Entity
-garden_invader/partieBuilder/EasyGameBuilder.java
- garden_invader.partieBuilder.EasyGameBuilder
-garden_invader/UI.java
- garden_invader.UI
-garden_invader/partieBuilder/IntermediateGameBuilder.java
- garden_invader.partieBuilder.IntermediateGameBuilder
-garden_invader/partieBuilder/GameBuilder.java
- garden_invader.partieBuilder.GameBuilder
+garden_invader/projectileObserver/Projectile.java
+ garden_invader.projectileObserver.Projectile
 garden_invader/partieBuilder/DifficultGameBuilder.java
  garden_invader.partieBuilder.DifficultGameBuilder
-garden_invader/projectileObserver/CarrotProjectile.java
- garden_invader.projectileObserver.CarrotProjectile
-garden_invader/entiteStrategy/Crow.java
- garden_invader.entiteStrategy.Crow
-garden_invader/entiteStrategy/kingfisher.java
- garden_invader.entiteStrategy.kingfisher
-garden_invader/projectileObserver/RockProjectile.java
- garden_invader.projectileObserver.RockProjectile
-garden_invader/entiteStrategy/Magpie.java
- garden_invader.entiteStrategy.Magpie
-garden_invader/partieBuilder/GameDifficulty.java
- garden_invader.partieBuilder.GameDifficulty
+garden_invader/partieBuilder/IntermediateGameBuilder.java
+ garden_invader.partieBuilder.IntermediateGameBuilder
 garden_invader/entiteStrategy/Bird.java
  garden_invader.entiteStrategy.Bird

@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Entity player;
+    ArrayList<Entity> players;
 
     ArrayList<Entity> enemies;
     ArrayList<Projectile> ennemyProjectiles;
@@ -50,22 +50,15 @@ public class GamePanel extends JPanel implements Runnable {
     public final int winState = 3;
     public final int loseState = 4;
 
-    private UI ui;
-
-
-    ImageIcon victoryImage = new ImageIcon("asset/victoire.png"); //TODO methode setImages
-    ImageIcon defeatImage = new ImageIcon("asset/defaite.png");
-
     private Random rand = new Random();
 
+    //UI
+    private UI ui;
+
+    //Images
+    ImageIcon victoryImage;
+    ImageIcon defeatImage;
     BufferedImage gameImage;
-    {
-        try {
-            gameImage = ImageIO.read(new File("asset/game.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public GamePanel(GameDifficulty gameDifficulty) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -74,9 +67,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         ui = new UI(this);
+        ui.setGameImages();
 
         //Entites
-        this.player = new Entity(new Rabbit(100, screenHeight-100, tileSize, tileSize));
+        players = new ArrayList<>();
+        players.add(new Entity(new Rabbit(100, screenHeight-100, tileSize, tileSize)));
 
         //Projectiles
         ennemyProjectiles = new ArrayList<>();
@@ -89,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
         birdMoveTick = 0;
         birdMoveSpeed = gameDifficulty.getEnnemiSpeed();
         birdDescendSpeed = gameDifficulty.getEnnemiDescendSpeed();
-        lastAttackTick = -100;
+        lastAttackTick = Integer.MIN_VALUE;
 
         //end game variables set
         gameState = playState;
@@ -104,24 +99,25 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS; //0,01666 secondes
+        double drawInterval = 1000000000/FPS; //0,01666 secondes soit 60 FPS
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread!= null) {
             // UPDATE
             update();
 
-
             // DRAW
             repaint();
 
+            //On vérifie les conditions de fin de jeu
             checkGameEndCondition();
 
-            //TODO décaler
+            //On quite le jeu s'il est terminé
             if(gameState == winState || gameState == loseState) {
                 return;
             }
 
+            //On attend le temps nécessaire pour garder les 60 FPS
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
@@ -140,13 +136,20 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        player.update(this, keyHandler);
+        //Update du joueur
+        players.get(0).update(this, keyHandler);
 
-        //deplacement des oiseaux
+        //Deplacement des oiseaux
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update(this, keyHandler);
-
         }
+
+        //Update des prjectiles ennemis
+        for (int i = 0; i < ennemyProjectiles.size(); i++) {
+            ennemyProjectiles.get(i).update(this);
+        }
+
+        //Si les oiseaux oont bougé
         if (tick - birdMoveTick >= birdMoveSpeed || tick/ birdMoveSpeed >= 10 * birdMoveSpeed) {
             birdMoveTick = tick;
         }
@@ -158,17 +161,22 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Menu
         if(gameState == titleState) {
-            //TODO tuto 17
+            //TODO ui.drawMenu
         } else {
-            // Decors
+            //Decors
             g2.drawImage(gameImage, 0, 0, this);
 
             //Joueur
-            player.draw(this, g2);
+            players.get(0).draw(this, g2);
 
             //Ennemis
             for (Entity entity : enemies) {
                 entity.draw(this, g2);
+            }
+
+            //projectiles
+            for (Projectile projectile: ennemyProjectiles ) {
+                projectile.draw(this, g2);
             }
         }
         ui.draw(g2);
@@ -177,28 +185,31 @@ public class GamePanel extends JPanel implements Runnable {
 
     public ArrayList<Entity> createBirds() {
         ArrayList<Entity> birds = gameDifficulty.getBirds(this);
-        int ecart = (screenWidth - (10 * tileSize)) / 11;
+        int birdsPerRow = 10;
+        int ecart = (screenWidth - (birdsPerRow * tileSize)) / (birdsPerRow+1);
         int row = ecart;
         int column = ecart;
         int birdCount = 1;
-        int attackDelay = 1; //TODO attribut de GameBuilder
-        ArrayList<Integer> delays = new ArrayList<>();
 
+        //liste pour la réparrtition des attaques entre les oiseaux
+        ArrayList<Integer> delays = new ArrayList<>();
         for(int i = 1; i <= birds.size(); i++) {
-            delays.add(birds.size()*i*attackDelay);
+            delays.add(birds.size()*i);
         }
 
+        //Placement des oiseaux
         for (Entity bird : birds) {
             bird.setPositionX(column);
             bird.setPositionY(row);
+            //Répartition des attaques entre les oiseaux
             bird.setNextAttackTick(delays.remove(rand.nextInt(delays.size())));
 
-            if (birdCount % 10 == 0) {
-                // Reached the end of a row, move to the next row
+            if (birdCount % birdsPerRow == 0) {
+                //Fin de ligne donc on change de ligne
                 row += tileSize + ecart;
                 column = ecart;
             } else {
-                // Move to the next column
+                //Changement de colonne
                 column += tileSize + ecart;
             }
             birdCount++;
@@ -208,10 +219,26 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void removeFromEnemies(Entity entity) {
-        if(enemies.contains(entity))
+        if(enemies.contains(entity)) {
+            //Déplacement de l'oiseau pour ne pas géner
+            entity.setPositionX(-100);
+            entity.setPositionY(-100);
             enemies.remove(entity);
+        }
     }
 
+    public void addToEnnemyProjectiles(Projectile projectile) {
+        this.ennemyProjectiles.add(projectile);
+        for (Entity entity : getPlayers()) {
+            projectile.enregistrerObs(entity);
+        }
+    }
+
+    public void removeFromEnnemyProjectiles(Projectile projectile) {
+        if(ennemyProjectiles.contains(projectile)) {
+            this.ennemyProjectiles.remove(projectile);
+        }
+    }
 
     public void checkGameEndCondition() {
         JFrame windowGame = new JFrame();
@@ -223,13 +250,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         //si un oiseau est descendu trop bas
         for (Entity ennemi: enemies) {
-            if(ennemi.getPositionY() + tileSize >= player.getPositionY()) {
+            if(ennemi.getPositionY() + tileSize >= players.get(0).getPositionY()) {
                 gameState = loseState;
             }
         }
 
-        //Points de Vie à 0
-        if(player.getCurrentHP()<=0) {
+        //Points de Vie du joueur à 0
+        if(players.get(0).getCurrentHP()<=0) {
             gameState = loseState;
         }
 
@@ -241,6 +268,7 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            //création de la page de victoire
             windowGame.add(new JLabel(victoryImage));
             windowGame.setResizable (false);
             windowGame.setTitle("Garden Invader");
@@ -258,6 +286,7 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            //création de la page de défaite
             windowGame.add(new JLabel(defeatImage));
             windowGame.setResizable (false);
             windowGame.setTitle("Garden Invader");
@@ -273,8 +302,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public ArrayList<Entity> getPlayers() {
-        ArrayList<Entity> players = new ArrayList<>();
-        players.add(player);
         return players;
     }
+
+    public void setGameImages(ImageIcon victory, ImageIcon defeat, BufferedImage backgroud) {
+        this.victoryImage = victory;
+        this.defeatImage = defeat;
+        this.gameImage = backgroud;
+    }
+
 }
