@@ -32,9 +32,6 @@ public  abstract class Bird implements IEntityStrategy {
 
     private Random rand;
 
-    //projectiles
-    private ArrayList<Projectile> projectiles;
-
     //HP
     public int currentHP;
     public int maxHP;
@@ -56,7 +53,6 @@ public  abstract class Bird implements IEntityStrategy {
         this.attackDelay = 200;
         this.rand = new Random();
         this.nextAttackTick = 500;
-        projectiles = new ArrayList<>();
     }
 
     @Override
@@ -93,20 +89,12 @@ public  abstract class Bird implements IEntityStrategy {
         return spriteNum;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
     public int getAttackDelay() {
         return attackDelay;
     }
 
     public void setAttackDelay(int attackDelay) {
         this.attackDelay = attackDelay;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     public void setNextAttackTick(int nextAttackTick) {
@@ -145,30 +133,45 @@ public  abstract class Bird implements IEntityStrategy {
         return false; // il n'y a pas de collision
     }
 
+    /**
+     * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
+     * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
+     * a zero, l'oiseau est considere comme mort.
+     *
+     * @param projectile Le projectile qui blesse l'oiseau.
+     *
+     * @return Vrai si l'oiseau est mort, faux sinon.
+     */
+    @Override
+    public boolean hurt(Projectile projectile) {
+        currentHP--;
+        return currentHP <=0;
+    }
+
+
     @Override
     public void update(GamePanel gp, KeyHandler keyHandler) {
         if (gp.tick - gp.birdMoveTick >= gp.birdMoveSpeed || gp.tick/ gp.birdMoveSpeed >= 10 * gp.birdMoveSpeed) {
-            // TODO remettre dans GamePanel et appeler l'oiseau pour le faire monter/descendre
 
+            //L'oiseau monte ou descent
             positionY += gp.tick / gp.birdMoveSpeed % 2 == 0? 5 : -5;
 
+            //On vérifie si l'oiseau doit descendre
             if (gp.tick / gp.birdMoveSpeed % gp.birdDescendSpeed == 0) {
                 positionY += gp.tileSize/2;
             }
         }
 
-        if(gp.tick%nextAttackTick==0 && gp.tick!=0) {
+        if(gp.tick % nextAttackTick==0 && gp.tick!=0) {
             Projectile projectile = new RockProjectile(this, positionX, positionY);
 
-            addProjectile(projectile, gp);
+            gp.addToEnnemyProjectiles(projectile);
 
+            //On set la prochaine attaque avec un délai légèrement aléatoire
             nextAttackTick = gp.tick + attackDelay + rand.nextInt(attackDelay/20)-attackDelay/10;
         }
 
-        for (int i = 0; i < projectiles.size(); i++) {
-            projectiles.get(i).update(gp);
-        }
-
+        //Afin d'actualiser les sprites
         spriteCounter ++;
         if (spriteCounter>10) {
             if(spriteNum == 1) {
@@ -181,24 +184,6 @@ public  abstract class Bird implements IEntityStrategy {
         }
     }
 
-    public void addProjectile(Projectile projectile, GamePanel gp) {
-        projectiles.add(projectile);
-        for (Entity entity : gp.getPlayers()) {
-            projectile.enregistrerObs(entity);
-        }
-    }
-
-    public void removeFromProjectiles(Projectile projectile) {
-        if(projectiles.contains(projectile))
-            projectiles.remove(projectile);
-    }
-
-    public void drawProjectiles(GamePanel gp, Graphics2D g2) {
-        for(int i = 0; i < projectiles.size(); i++) {
-            //Deplacement des projectiles
-            projectiles.get(i).draw(gp, g2);
-        }
-    }
     @Override
     public int getCurrentHP() {
         return currentHP;

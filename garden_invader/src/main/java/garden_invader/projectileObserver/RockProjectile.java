@@ -74,9 +74,11 @@ public class RockProjectile implements Projectile{
      * @return l'entité touchée par le projectile, null si aucune entité n'a été touchée.
      */
     @Override
-    public Entity notifierObs() { //Entite
-        if (!(entiteObs.size()<=0)) {
+    public Entity notifierObs() {
+        if (entiteObs.size()>0) {
+            //Pour chaque entité abonnée
             for (int i = 0; i < entiteObs.size(); i++) {
+                //On actualise l'entité
                 if (entiteObs.get(i).actualiser(positionX, positionY, width, height)) {
                     return (Entity) entiteObs.get(i);
                 }
@@ -149,13 +151,17 @@ public class RockProjectile implements Projectile{
         positionY += speed;
         Entity entity = notifierObs();
         if (entity !=null) {
-            //Blesse l'entité et vérifie si l'entité est ko
-            if(entity.hurt(this)) {
-                //TODO
-            }
-            owner.removeFromProjectiles(this); //TODO gérer
+            //Blesse l'entité et supprime le projectile
+            entity.hurt(this);
+            gp.removeFromEnnemyProjectiles(this);
             return true;
         }
+
+        //Si le projectile est hors de l'écran
+        if(positionY>=gp.screenHeight) {
+            gp.removeFromEnnemyProjectiles(this);
+        }
+
         return false;
     }
 

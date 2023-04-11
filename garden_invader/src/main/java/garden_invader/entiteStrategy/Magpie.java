@@ -38,21 +38,6 @@ public class Magpie extends Bird {
         super.setAttackDelay(this.attackDelay);
     }
 
-    /**
-    * Diminue les points de vie actuels de l'oiseau en utilisant le projectile
-    * specifie. Si les points de vie actuels de l'oiseau sont inferieurs ou egaux
-    * a zero, l'oiseau est considere comme mort.
-    *
-    * @param projectile Le projectile qui blesse l'oiseau.
-    *
-    * @return Vrai si l'oiseau est mort, faux sinon.
-    */
-    @Override
-    public boolean hurt(Projectile projectile) {
-        currentHP--;
-        return currentHP <=0;
-    }
-
     @Override
     public BufferedImage getSprite() {
         return draw;
@@ -68,8 +53,6 @@ public class Magpie extends Bird {
             throw new RuntimeException(e);
         }
         g2.drawImage(draw, super.getPositionX(), super.getPositionY(), super.getHeight(), super.getWidth(), null);
-
-        super.drawProjectiles(gp, g2);
     }
 
 }
