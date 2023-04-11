@@ -2,10 +2,14 @@ package garden_invader;
 
 import garden_invader.partieBuilder.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuPanel extends JPanel{
 
@@ -19,50 +23,45 @@ public class MenuPanel extends JPanel{
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     KeyHandler keyHandler = new KeyHandler();
-    JButton facileBouton = new JButton("Facile");
+    JButton facileBouton = new JButton(new ImageIcon("asset/Facile.png"));
 
-    JButton moyenBouton = new JButton("Moyen");
+    JButton moyenBouton = new JButton(new ImageIcon("asset/moyen.png"));
 
-    JButton difficileBouton = new JButton("Difficile");
+    JButton difficileBouton = new JButton(new ImageIcon("asset/difficile.png"));
 
     GameDifficulty gameDifficultyBuilder;
     GamePanel gamePanel;
 
-    ImageIcon icon = new ImageIcon("asset/background.png");
+    BufferedImage gameImage;
+    {
+        try {
+            gameImage = ImageIO.read(new File("asset/background.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public MenuPanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
 
-        JPanel b1 = new JPanel();
-        b1.setPreferredSize(new Dimension(screenWidth, 250));
-        b1.add(new JLabel(icon));
-        b1.setBackground(Color.black);
         JPanel b2 = new JPanel();
-        b2.setBackground(new java.awt.Color(34, 177, 76));
         b2.setPreferredSize(new Dimension(screenWidth, 75));
-        JPanel b3 = new JPanel();
-        b3.setBackground(new java.awt.Color(34, 177, 76));
-        b3.setPreferredSize(new Dimension(screenWidth, 250));
         JPanel b4 = new JPanel();
 
-        GridLayout gl =new GridLayout(1, 3);
+        GridLayout gl = new GridLayout(1, 3);
         gl.setHgap(100);
         b2.setLayout(gl);
 
         b2.add(facileBouton, BorderLayout.CENTER);
-
         b2.add(moyenBouton);
-
         b2.add(difficileBouton);
 
         b4.setLayout(new BoxLayout(b4, BoxLayout.PAGE_AXIS));
-        b4.add(b1);
         b4.add(b2);
-        b4.add(b3);
+        b4.setOpaque(true);
         this.add(b4);
         this.setVisible(true);
 
@@ -70,8 +69,8 @@ public class MenuPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
+                windowGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable(false);
                 windowGame.setTitle("Garden Invader");
                 gameDifficultyBuilder = new Director(new EasyGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
@@ -90,8 +89,8 @@ public class MenuPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
+                windowGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable(false);
                 windowGame.setTitle("Garden Invader");
                 gameDifficultyBuilder = new Director(new IntermediateGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
@@ -110,8 +109,8 @@ public class MenuPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame windowGame = new JFrame();
-                windowGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-                windowGame.setResizable (false);
+                windowGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                windowGame.setResizable(false);
                 windowGame.setTitle("Garden Invader");
                 gameDifficultyBuilder = new Director(new DifficultGameBuilder()).GameConstructor();
                 gamePanel = new GamePanel(gameDifficultyBuilder);
@@ -126,5 +125,9 @@ public class MenuPanel extends JPanel{
             }
         });
     }
-
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.drawImage(gameImage, 0, 0, this);
+    }
 }

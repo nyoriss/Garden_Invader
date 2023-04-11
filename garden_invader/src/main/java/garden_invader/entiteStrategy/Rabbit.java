@@ -192,7 +192,6 @@ public class Rabbit implements IEntityStrategy {
     public void draw(GamePanel gp, Graphics2D g2) {
         String currentSpritePath = spritePath;
 
-
         BufferedImage image = null; //TODO superposition d'images ?
 
         //s'il y a un mouvement

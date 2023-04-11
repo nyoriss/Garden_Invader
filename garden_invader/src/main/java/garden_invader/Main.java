@@ -5,6 +5,8 @@
  */
 package garden_invader;
 import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author louis
