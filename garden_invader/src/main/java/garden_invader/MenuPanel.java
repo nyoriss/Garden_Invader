@@ -4,6 +4,7 @@ import garden_invader.partieBuilder.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,21 +48,32 @@ public class MenuPanel extends JPanel{
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
 
+        JPanel b1 = new JPanel();
+        b1.setPreferredSize(new Dimension(190, 75));
         JPanel b2 = new JPanel();
-        b2.setPreferredSize(new Dimension(screenWidth, 75));
+        b2.setPreferredSize(new Dimension(190, 75));
+        JPanel b3 = new JPanel();
+        b3.setPreferredSize(new Dimension(190, 75));
         JPanel b4 = new JPanel();
 
         GridLayout gl = new GridLayout(1, 3);
         gl.setHgap(100);
+        b1.setLayout(gl);
         b2.setLayout(gl);
+        b3.setLayout(gl);
 
-        b2.add(facileBouton, BorderLayout.CENTER);
+        Border borderButton = BorderFactory.createEmptyBorder(25, 0, 0, 0);
+        b1.add(facileBouton);
         b2.add(moyenBouton);
-        b2.add(difficileBouton);
+        b3.add(difficileBouton);
 
         b4.setLayout(new BoxLayout(b4, BoxLayout.PAGE_AXIS));
+        b4.add(b1);
         b4.add(b2);
-        b4.setOpaque(true);
+        b4.add(b3);
+        Border emptyBorder = BorderFactory.createEmptyBorder(125, 0, 0, 0);
+        b4.setBorder(emptyBorder);
+        b4.setOpaque(false);
         this.add(b4);
         this.setVisible(true);
 
