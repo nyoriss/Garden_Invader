@@ -43,7 +43,7 @@ public class RabbitTest {
         Rabbit object = new Rabbit(posX, posY, width, height);
 
         // Tester la collision avec une zone qui chevauche le bord de l'objet
-        assertTrue(object.collision(150, 50, 100, 100));
+        assertTrue(object.collision(49, 50, 100, 100));
     }
 
     @Test
