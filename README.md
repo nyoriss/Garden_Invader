@@ -12,7 +12,7 @@ JDK : corretto-15<br>
 JUnit : junit 5
 
 # Présentation du jeu
-Garden Invader reprend le principe de l'inévitable shoot 'em up "Space Invader" et vous laisse incarner Camille, un lapin prêt à tout pour défendre son jardin des oiseaux sauvages ! <br>
+Garden Invader reprend le principe de l'inévitable shoot 'em up "Space Invader" et vous laisse incarner un gentil lapin prêt à tout pour défendre son jardin des oiseaux sauvages ! <br>
 Il s'arme donc de ses carottes pour les envoyer sur ces vils volatiles
 
 ### Contrôles :
