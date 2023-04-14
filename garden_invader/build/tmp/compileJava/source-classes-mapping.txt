@@ -1,5 +1,17 @@
 garden_invader/KeyHandler.java
  garden_invader.KeyHandler
+garden_invader/gameBuilder/DifficultGameBuilder.java
+ garden_invader.gameBuilder.DifficultGameBuilder
+garden_invader/Main.java
+ garden_invader.Main
+garden_invader/gameBuilder/Director.java
+ garden_invader.gameBuilder.Director
+garden_invader/gameBuilder/GameBuilder.java
+ garden_invader.gameBuilder.GameBuilder
+garden_invader/gameBuilder/IntermediateGameBuilder.java
+ garden_invader.gameBuilder.IntermediateGameBuilder
+garden_invader/gameBuilder/EasyGameBuilder.java
+ garden_invader.gameBuilder.EasyGameBuilder
 garden_invader/projectileObserver/RockProjectile.java
  garden_invader.projectileObserver.RockProjectile
 garden_invader/GamePanel.java
@@ -8,8 +20,6 @@ garden_invader/entityStrategy/Magpie.java
  garden_invader.entityStrategy.Magpie
 garden_invader/UI.java
  garden_invader.UI
-garden_invader/gameBuilder/IntermediateGameBuilder.java
- garden_invader.gameBuilder.IntermediateGameBuilder
 garden_invader/entityStrategy/Rabbit.java
  garden_invader.entityStrategy.Rabbit
 garden_invader/entityStrategy/Crow.java
@@ -20,14 +30,8 @@ garden_invader/projectileObserver/EntityObserver.java
  garden_invader.projectileObserver.EntityObserver
 garden_invader/gameBuilder/GameDifficulty.java
  garden_invader.gameBuilder.GameDifficulty
-garden_invader/gameBuilder/GameBuilder.java
- garden_invader.gameBuilder.GameBuilder
-garden_invader/Main.java
- garden_invader.Main
 garden_invader/entityStrategy/IEntityStrategy.java
  garden_invader.entityStrategy.IEntityStrategy
-garden_invader/gameBuilder/EasyGameBuilder.java
- garden_invader.gameBuilder.EasyGameBuilder
 garden_invader/MenuPanel.java
  garden_invader.MenuPanel
  garden_invader.MenuPanel$1
@@ -39,9 +43,5 @@ garden_invader/entityStrategy/kingfisher.java
  garden_invader.entityStrategy.kingfisher
 garden_invader/entityStrategy/Bird.java
  garden_invader.entityStrategy.Bird
-garden_invader/gameBuilder/Director.java
- garden_invader.gameBuilder.Director
 garden_invader/projectileObserver/Projectile.java
  garden_invader.projectileObserver.Projectile
-garden_invader/gameBuilder/DifficultGameBuilder.java
- garden_invader.gameBuilder.DifficultGameBuilder

@@ -1,19 +1,31 @@
 package garden_invader;
 
 import garden_invader.entityStrategy.Rabbit;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RabbitTest {
+
+    int posX;
+    int posY;
+    int width;
+    int height;
+
+    @BeforeEach
+    void testSetUp() {
+        posX = 50;
+        posY = 50;
+        width = 100;
+        height = 100;
+    }
+
+
     @Test
-    public void testCollisionWithOverlap() {
+    void testCollisionWithOverlap() {
         // Créer un objet avec des dimensions qui chevauchent une autre zone
-        int posX = 50;
-        int posY = 50;
-        int width = 100;
-        int height = 100;
         Rabbit object = new Rabbit(posX, posY, width, height);
 
         // Tester la collision avec une zone qui chevauche l'objet
@@ -21,12 +33,8 @@ public class RabbitTest {
     }
 
     @Test
-    public void testCollisionWithNoOverlap() {
+    void testCollisionWithNoOverlap() {
         // Créer un objet avec des dimensions qui ne chevauchent pas une autre zone
-        int posX = 50;
-        int posY = 50;
-        int width = 100;
-        int height = 100;
         Rabbit object = new Rabbit(posX, posY, width, height);
 
         // Tester la collision avec une zone qui ne chevauche pas l'objet
@@ -34,12 +42,8 @@ public class RabbitTest {
     }
 
     @Test
-    public void testCollisionWithEdgeOverlap() {
+    void testCollisionWithEdgeOverlap() {
         // Créer un objet avec des dimensions qui chevauchent le bord d'une autre zone
-        int posX = 50;
-        int posY = 50;
-        int width = 100;
-        int height = 100;
         Rabbit object = new Rabbit(posX, posY, width, height);
 
         // Tester la collision avec une zone qui chevauche le bord de l'objet
@@ -47,12 +51,8 @@ public class RabbitTest {
     }
 
     @Test
-    public void testCollisionWithSameCoordinates() {
+    void testCollisionWithSameCoordinates() {
         // Créer un objet avec des dimensions qui chevauchent exactement une autre zone
-        int posX = 50;
-        int posY = 50;
-        int width = 100;
-        int height = 100;
         Rabbit object = new Rabbit(posX, posY, width, height);
 
         // Tester la collision avec une zone qui chevauche exactement l'objet

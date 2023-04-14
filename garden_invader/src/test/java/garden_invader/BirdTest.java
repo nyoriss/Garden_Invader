@@ -1,7 +1,6 @@
 package garden_invader;
 
 import garden_invader.entityStrategy.*;
-
 import garden_invader.projectileObserver.CarrotProjectile;
 import garden_invader.projectileObserver.Projectile;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,10 +60,11 @@ class BirdTest {
     
     @Test
     void testCollision() {
-        Bird bird1 = new kingfisher(10, 20, 30, 40);
-        Bird bird2 = new kingfisher(20, 30, 30, 40);
+        Bird bird1 = new kingfisher(10, 10, 48, 48);
+        Projectile projectile = new CarrotProjectile(playerTest, 10, 15);
 
-        boolean collision = bird1.collision(bird2.getPositionX(), bird2.getPositionY(), bird2.getHeight(), bird2.getWidth());
+        //Il y a une collision entre l'oiseau et le projectile
+        boolean collision = bird1.collision(projectile.getPositionX(), projectile.getPositionY(), projectile.getHeight(), projectile.getWidth());
 
         assertTrue(collision);
     }
@@ -72,20 +72,24 @@ class BirdTest {
     @Test
     void testCollision2() {
         Bird bird1 = new kingfisher(10, 10, 30, 30);
-        Bird bird2 = new kingfisher(60, 60, 30, 30);
+        Projectile projectile = new CarrotProjectile(playerTest, 50, 50);
 
-        boolean collision = bird1.collision(bird2.getPositionX(), bird2.getPositionY(), bird2.getHeight(), bird2.getWidth());
+        //Il n'y a pas de collisions entre l'oiseau et le projectile
+        boolean collision = bird1.collision(projectile.getPositionX(), projectile.getPositionY(), projectile.getHeight(), projectile.getWidth());
 
         assertFalse(collision);
     }
 
+
     @Test
-    void testBirdProjectileCollision() {
+    void testBirdProjectileCollisionHurt() {
         Bird bird1 = new kingfisher(50, 40, 48, 48);
         Projectile projectile = new CarrotProjectile(playerTest, 50, 50);
 
-        boolean collision = bird1.collision(projectile.getPositionX(), projectile.getPositionY(), projectile.getHeight(), projectile.getWidth());
+        //L'oiseau n'est pas mort
+        assertFalse(bird1.hurt(projectile));
 
-        assertFalse(collision);
+        //Mais ses PV ont diminué
+        assertTrue(bird1.currentHP == bird1.maxHP-1);
     }
 }

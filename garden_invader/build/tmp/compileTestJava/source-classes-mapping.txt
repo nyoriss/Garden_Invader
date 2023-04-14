@@ -1,6 +1,6 @@
-garden_invader/RabbitTest.java
- garden_invader.RabbitTest
-garden_invader/EntityObserverTest.java
- garden_invader.EntityObserverTest
 garden_invader/BirdTest.java
  garden_invader.BirdTest
+garden_invader/EntityObserverTest.java
+ garden_invader.EntityObserverTest
+garden_invader/RabbitTest.java
+ garden_invader.RabbitTest

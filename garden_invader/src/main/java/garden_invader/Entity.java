@@ -67,4 +67,8 @@ public class Entity implements EntityObserver {
     public int getCurrentHP() {
         return entity.getCurrentHP();
     }
+
+    public IEntityStrategy getEntity() {
+        return entity;
+    }
 }
