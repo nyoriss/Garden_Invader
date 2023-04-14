@@ -1,13 +1,10 @@
-package garden_invader.entiteStrategy;
+package garden_invader.entityStrategy;
 
-import garden_invader.Entity;
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
-import garden_invader.projectileObserver.CarrotProjectile;
 import garden_invader.projectileObserver.Projectile;
 import garden_invader.projectileObserver.RockProjectile;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package garden_invader.entiteStrategy;
+package garden_invader.entityStrategy;
 
 import garden_invader.GamePanel;
 import garden_invader.projectileObserver.Projectile;

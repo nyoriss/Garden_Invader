@@ -1,6 +1,6 @@
 package garden_invader;
 
-import garden_invader.entiteStrategy.IEntityStrategy;
+import garden_invader.entityStrategy.IEntityStrategy;
 import garden_invader.projectileObserver.EntityObserver;
 import garden_invader.projectileObserver.Projectile;
 

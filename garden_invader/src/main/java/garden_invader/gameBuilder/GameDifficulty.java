@@ -1,10 +1,10 @@
-package garden_invader.partieBuilder;
+package garden_invader.gameBuilder;
 
 import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.entiteStrategy.Crow;
-import garden_invader.entiteStrategy.kingfisher;
-import garden_invader.entiteStrategy.Magpie;
+import garden_invader.entityStrategy.Crow;
+import garden_invader.entityStrategy.kingfisher;
+import garden_invader.entityStrategy.Magpie;
 
 import java.util.ArrayList;
 

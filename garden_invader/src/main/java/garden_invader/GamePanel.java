@@ -1,16 +1,13 @@
 package garden_invader;
 
-import garden_invader.entiteStrategy.Rabbit;
-import garden_invader.partieBuilder.*;
+import garden_invader.entityStrategy.Rabbit;
+import garden_invader.gameBuilder.*;
 import garden_invader.projectileObserver.Projectile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 

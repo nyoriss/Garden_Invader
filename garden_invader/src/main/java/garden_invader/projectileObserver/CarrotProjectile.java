@@ -2,7 +2,7 @@ package garden_invader.projectileObserver;
 
 import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.entiteStrategy.Rabbit;
+import garden_invader.entityStrategy.Rabbit;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 /**
  * Cette classe représente un projectile de carotte tiré par un lapin.

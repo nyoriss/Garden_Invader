@@ -3,27 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package garden_invader.partieBuilder;
+package garden_invader.gameBuilder;
 
 /**
  *
  * @author louis
  */
-public class IntermediateGameBuilder extends GameBuilder {
+public class EasyGameBuilder extends GameBuilder {
 
+    @Override
     public GameBuilder buildMagpieNb() {
-        magpieNb = 20;
+        magpieNb = 30;
         return this;
     }
 
+    @Override
     public GameBuilder buildCrowNb() {
-        crowNb = 10;
+        crowNb = 0;
         return this;
     }
 
+    @Override
     public GameBuilder buildKingfisherNb() {
         kingfisherNb = 0;
         return this;
     }
-
 }

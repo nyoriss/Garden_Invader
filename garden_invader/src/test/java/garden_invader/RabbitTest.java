@@ -1,7 +1,6 @@
 package garden_invader;
 
-import garden_invader.entiteStrategy.Rabbit;
-import garden_invader.projectileObserver.Projectile;
+import garden_invader.entityStrategy.Rabbit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
