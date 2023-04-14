@@ -1,4 +1,4 @@
-package garden_invader.entiteStrategy;
+package garden_invader.entityStrategy;
 
 import garden_invader.GamePanel;
 import garden_invader.projectileObserver.Projectile;
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class kingfisher extends Bird {
+public class Crow extends Bird {
 
     private String spritePath;
     private Projectile projectileType;
@@ -19,21 +19,25 @@ public class kingfisher extends Bird {
     private int attackDelay;
 
     /**
-    * Constructeur de la classe Martin_Pecheur.
-    * @param posX     La position horizontale de l'objet.
-    * @param posY     La position verticale de l'objet.
-    * @param width    La largeur de l'objet.
-    * @param height   La hauteur de l'objet.
-    */
-    public kingfisher(int posX, int posY, int width, int height) {
+     * Initialise une nouvelle instance de la classe Corbeau avec la position,
+     * la largeur et la hauteur specifiees, ainsi que les proprietes par defaut
+     * pour un corbeau.
+     *
+     * @param posX      La position horizontale du corbeau.
+     * @param posY      La position verticale du corbeau.
+     * @param width     La largeur du corbeau.
+     * @param height    La hauteur du corbeau.
+     */
+    public Crow(int posX, int posY, int width, int height) {
         super(posX, posY, width, height);
-        this.maxHP = 3;
+        this.maxHP = 2;
         this.currentHP = maxHP;
-        this.spritePath = "asset/sprite/martin_pecheur";
-        this.attackDelay = 200;
+        this.spritePath = "asset/sprite/corbo";
+        this.attackDelay = 275;
         super.setAttackDelay(this.attackDelay);
     }
 
+    @Override
     public BufferedImage getSprite() {
         return draw;
     }

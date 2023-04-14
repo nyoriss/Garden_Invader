@@ -2,7 +2,7 @@ package garden_invader.projectileObserver;
 
 import garden_invader.Entity;
 import garden_invader.GamePanel;
-import garden_invader.entiteStrategy.Bird;
+import garden_invader.entityStrategy.Bird;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

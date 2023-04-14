@@ -1,6 +1,6 @@
 package garden_invader;
 
-import garden_invader.partieBuilder.*;
+import garden_invader.gameBuilder.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

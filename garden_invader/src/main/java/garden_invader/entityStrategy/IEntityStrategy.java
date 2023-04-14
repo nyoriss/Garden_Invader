@@ -1,4 +1,4 @@
-package garden_invader.entiteStrategy;
+package garden_invader.entityStrategy;
 
 import garden_invader.GamePanel;
 import garden_invader.KeyHandler;
@@ -7,8 +7,6 @@ import garden_invader.projectileObserver.Projectile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 /**
  * L'interface IEntityStrategy definit les methodes necessaires pour toutes les entites du jeu.
